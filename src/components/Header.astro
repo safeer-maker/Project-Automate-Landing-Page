@@ -1,5 +1,5 @@
 ---
-// Header component with interactive animated logo and off-canvas menu with preview images
+// Header component with interactive animated logo and direct concierge contact
 ---
 
 <header class="site-header" id="site-header">
@@ -26,110 +26,19 @@
       </div>
     </a>
 
-    <!-- Actions -->
+    <!-- Direct Concierge Contact & Consultation Action -->
     <div class="header-actions">
+      <a href="tel:3107405375" class="header-phone-link" aria-label="Direct Phone Concierge">
+        <span class="phone-icon-pill">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+        </span>
+      </a>
+
       <a href="/schedule" class="btn-primary header-cta-btn">
         <span>Schedule Consultation</span>
       </a>
-
-      <!-- Menu Toggle -->
-      <button
-        class="menu-toggle-btn"
-        id="menu-toggle"
-        aria-label="Toggle Navigation Menu"
-        aria-expanded="false"
-      >
-        <span class="menu-toggle-text">Menu</span>
-        <div class="hamburger-icon">
-          <span class="bar bar-1"></span>
-          <span class="bar bar-2"></span>
-        </div>
-      </button>
-    </div>
-  </div>
-
-  <!-- Off-Canvas / Fullscreen Menu Overlay -->
-  <div class="nav-drawer" id="nav-drawer" aria-hidden="true">
-    <div class="nav-drawer-backdrop" id="nav-backdrop"></div>
-    <div class="nav-drawer-content">
-      <div class="nav-drawer-header">
-        <span class="nav-drawer-title">Navigation</span>
-        <button class="nav-close-btn" id="nav-close-btn" aria-label="Close Menu">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-      </div>
-
-      <div class="nav-drawer-grid">
-        <!-- Menu List -->
-        <nav class="nav-menu-list">
-          <div class="nav-item has-submenu" data-preview="/assets/images/menu-core-services.webp">
-            <button class="nav-link-btn submenu-trigger" id="core-services-trigger">
-              <span>Core Services</span>
-              <span class="submenu-arrow">+</span>
-            </button>
-            <ul class="submenu" id="core-services-submenu">
-              <li><a href="/outdoor-lighting-audio" class="sub-link">Outdoor Lighting & Audio</a></li>
-              <li><a href="/#quote-form" class="sub-link">Control Systems</a></li>
-              <li><a href="/#quote-form" class="sub-link">Security Systems</a></li>
-              <li><a href="/#quote-form" class="sub-link">Home Cinema</a></li>
-              <li><a href="/#quote-form" class="sub-link">Audio & Video Solutions</a></li>
-              <li><a href="/#quote-form" class="sub-link">Motorized Shades & Draperies</a></li>
-              <li><a href="/#quote-form" class="sub-link">Energy Management</a></li>
-            </ul>
-          </div>
-
-          <div class="nav-item" data-preview="/assets/images/menu-about-us.webp">
-            <a href="/#sunset-showcase" class="nav-link">About Us</a>
-          </div>
-
-          <div class="nav-item" data-preview="/assets/images/menu-design-partner.webp">
-            <a href="/#quote-form" class="nav-link">Design Partner</a>
-          </div>
-
-          <div class="nav-item" data-preview="/assets/images/menu-blogs.webp">
-            <a href="/#sunset-showcase" class="nav-link">Inspiration & Showcase</a>
-          </div>
-
-          <div class="nav-item" data-preview="/assets/images/menu-contact-us.webp">
-            <a href="/#contact-section" class="nav-link">Contact Us</a>
-          </div>
-
-          <div class="nav-item" data-preview="/assets/images/hero-og-image.webp">
-            <a href="/schedule" class="nav-link nav-highlight">Book Private Consultation</a>
-          </div>
-        </nav>
-
-        <!-- Dynamic Image Preview (Desktop/Tablet) -->
-        <div class="nav-preview-box">
-          <div class="preview-frame">
-            <img
-              id="menu-preview-img"
-              src="/assets/images/menu-core-services.webp"
-              alt="Section Preview"
-              class="preview-img"
-              loading="lazy"
-            />
-            <div class="preview-overlay">
-              <span class="preview-tag">PROJECT:automate</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Drawer Footer Info -->
-      <div class="nav-drawer-footer">
-        <div class="footer-contact-item">
-          <span class="label">Concierge</span>
-          <a href="tel:3107405375" class="val">(310) 740-5375</a>
-        </div>
-        <div class="footer-contact-item">
-          <span class="label">Location</span>
-          <span class="val">Manhattan Beach, CA</span>
-        </div>
-      </div>
     </div>
   </div>
 </header>
@@ -141,30 +50,36 @@
     left: 0;
     width: 100%;
     z-index: 100;
-    background: rgba(4, 4, 4, 0.85);
+    background: rgba(4, 4, 4, 0.88);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    transition: background 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    transition: background 0.3s ease, border-color 0.3s ease;
   }
 
   .header-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 90px;
+    height: 84px;
   }
 
   /* Logo */
   .pa-logo-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     line-height: 0;
+    transition: transform var(--transition-fast);
+  }
+
+  .pa-logo-link:hover {
+    transform: scale(1.02);
   }
 
   .pa-logo-container {
     position: relative;
-    width: 160px;
-    height: 70px;
+    width: 155px;
+    height: 60px;
     cursor: pointer;
   }
 
@@ -177,7 +92,7 @@
     width: 100%;
     height: auto;
     object-fit: contain;
-    transition: opacity 0.4s ease-in-out;
+    transition: opacity 0.35s ease-in-out;
   }
 
   .pa-logo-static {
@@ -190,13 +105,11 @@
     z-index: 1;
   }
 
-  .pa-logo-container:hover .pa-logo-static,
-  .pa-logo-container.is-active .pa-logo-static {
+  .pa-logo-container:hover .pa-logo-static {
     opacity: 0;
   }
 
-  .pa-logo-container:hover .pa-logo-gif,
-  .pa-logo-container.is-active .pa-logo-gif {
+  .pa-logo-container:hover .pa-logo-gif {
     opacity: 1;
   }
 
@@ -204,353 +117,106 @@
   .header-actions {
     display: flex;
     align-items: center;
-    gap: 1.25rem;
+    gap: 1.5rem;
   }
 
-  .header-cta-btn {
-    padding: 0.7rem 1.4rem;
-    font-size: 0.88rem;
-  }
-
-  @media (max-width: 640px) {
-    .header-cta-btn {
-      display: none;
-    }
-  }
-
-  /* Menu Toggle Button */
-  .menu-toggle-btn {
-    display: flex;
+  /* Phone Concierge Pill */
+  .header-phone-link {
+    display: inline-flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.65rem 1.25rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-subtle);
+    padding: 0.5rem 1.1rem 0.5rem 0.6rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-full);
     color: var(--text-primary);
     transition: all var(--transition-fast);
   }
 
-  .menu-toggle-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
+  .header-phone-link:hover {
+    background: rgba(230, 165, 92, 0.08);
+    border-color: rgba(230, 165, 92, 0.35);
+    transform: translateY(-1px);
   }
 
-  .menu-toggle-text {
-    font-family: var(--font-heading);
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-
-  .hamburger-icon {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    width: 20px;
-  }
-
-  .bar {
-    display: block;
-    height: 2px;
-    width: 100%;
-    background: var(--text-primary);
-    border-radius: 2px;
-    transition: all var(--transition-fast);
-  }
-
-  /* Off-Canvas Navigation Drawer */
-  .nav-drawer {
-    position: fixed;
-    inset: 0;
-    z-index: 999;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0.4s ease, opacity 0.4s ease;
-  }
-
-  .nav-drawer.is-open {
-    visibility: visible;
-    opacity: 1;
-  }
-
-  .nav-drawer-backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(12px);
-  }
-
-  .nav-drawer-content {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    max-width: 950px;
-    height: 100vh;
-    background: #09090b;
-    border-left: 1px solid var(--border-subtle);
-    padding: 2.5rem 3rem;
-    display: flex;
-    flex-direction: column;
-    transform: translateX(100%);
-    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-    overflow-y: auto;
-  }
-
-  .nav-drawer.is-open .nav-drawer-content {
-    transform: translateX(0);
-  }
-
-  .nav-drawer-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .nav-drawer-title {
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .nav-close-btn {
+  .phone-icon-pill {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(230, 165, 92, 0.15);
+    color: var(--accent-gold);
+    transition: background var(--transition-fast), color var(--transition-fast);
+  }
+
+  .header-phone-link:hover .phone-icon-pill {
+    background: var(--accent-gold);
+    color: #000000;
+  }
+
+  .phone-meta {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1.2;
+  }
+
+  .phone-label {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-gold-light);
+  }
+
+  .phone-number {
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
     color: var(--text-primary);
-    transition: all var(--transition-fast);
+    font-family: var(--font-heading);
   }
 
-  .nav-close-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: rotate(90deg);
-  }
-
-  /* Grid Layout inside Drawer */
-  .nav-drawer-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 3rem;
-    align-items: center;
-    flex: 1;
-    padding: 2.5rem 0;
+  .header-cta-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
   }
 
   @media (max-width: 768px) {
-    .nav-drawer-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
+    .header-inner {
+      height: 74px;
     }
-    .nav-drawer-content {
-      padding: 1.5rem 1.5rem;
+
+    .pa-logo-container {
+      width: 135px;
+      height: 52px;
     }
-    .nav-preview-box {
+
+    .phone-meta {
       display: none;
     }
+
+    .header-phone-link {
+      padding: 0.4rem;
+      border-radius: 50%;
+    }
+
+    .header-actions {
+      gap: 0.75rem;
+    }
+
+    .header-cta-btn {
+      padding: 0.65rem 1.15rem;
+      font-size: 0.82rem;
+    }
   }
 
-  .nav-menu-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .nav-link,
-  .nav-link-btn {
-    font-family: var(--font-heading);
-    font-size: clamp(1.4rem, 2.5vw, 2rem);
-    font-weight: 500;
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    transition: transform var(--transition-fast), color var(--transition-fast);
-    padding: 0.25rem 0;
-  }
-
-  .nav-link:hover,
-  .nav-link-btn:hover {
-    color: var(--accent-gold);
-    transform: translateX(8px);
-  }
-
-  .nav-highlight {
-    color: var(--accent-gold);
-  }
-
-  .submenu-arrow {
-    font-size: 1.5rem;
-    font-weight: 300;
-    transition: transform 0.3s ease;
-  }
-
-  .has-submenu.is-open .submenu-arrow {
-    transform: rotate(45deg);
-  }
-
-  /* Submenu */
-  .submenu {
-    list-style: none;
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
-    padding-left: 1.25rem;
-    border-left: 2px solid rgba(230, 165, 92, 0.3);
-    margin: 0;
-  }
-
-  .has-submenu.is-open .submenu {
-    max-height: 400px;
-    opacity: 1;
-    margin-top: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .sub-link {
-    display: block;
-    font-size: 1rem;
-    color: var(--text-secondary);
-    padding: 0.4rem 0;
-    transition: color var(--transition-fast), transform var(--transition-fast);
-  }
-
-  .sub-link:hover {
-    color: #ffffff;
-    transform: translateX(4px);
-  }
-
-  /* Preview Image Frame */
-  .preview-frame {
-    position: relative;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    aspect-ratio: 4 / 3;
-    background: #141416;
-    border: 1px solid var(--border-subtle);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-  }
-
-  .preview-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: opacity 0.35s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .preview-img.is-transitioning {
-    opacity: 0;
-    transform: scale(0.96);
-  }
-
-  .preview-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 1.25rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-  }
-
-  .preview-tag {
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent-gold);
-  }
-
-  .nav-drawer-footer {
-    display: flex;
-    gap: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .footer-contact-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .footer-contact-item .label {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .footer-contact-item .val {
-    font-size: 0.95rem;
-    color: var(--text-primary);
+  @media (max-width: 480px) {
+    .header-cta-btn span {
+      display: inline;
+    }
   }
 </style>
-
-<script>
-  // Client-side Header Drawer & Preview Logic
-  document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.getElementById('menu-toggle');
-    const navDrawer = document.getElementById('nav-drawer');
-    const navBackdrop = document.getElementById('nav-backdrop');
-    const navCloseBtn = document.getElementById('nav-close-btn');
-    const coreServicesTrigger = document.getElementById('core-services-trigger');
-    const hasSubmenu = document.querySelector('.has-submenu');
-    const previewImg = document.getElementById('menu-preview-img') as HTMLImageElement;
-    const navItems = document.querySelectorAll('.nav-item');
-
-    function openDrawer() {
-      navDrawer?.classList.add('is-open');
-      menuToggle?.setAttribute('aria-expanded', 'true');
-      navDrawer?.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeDrawer() {
-      navDrawer?.classList.remove('is-open');
-      menuToggle?.setAttribute('aria-expanded', 'false');
-      navDrawer?.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-
-    menuToggle?.addEventListener('click', openDrawer);
-    navCloseBtn?.addEventListener('click', closeDrawer);
-    navBackdrop?.addEventListener('click', closeDrawer);
-
-    // Submenu accordion
-    coreServicesTrigger?.addEventListener('click', () => {
-      hasSubmenu?.classList.toggle('is-open');
-    });
-
-    // Hover dynamic preview image switch
-    navItems.forEach((item) => {
-      const previewSrc = item.getAttribute('data-preview');
-      if (!previewSrc || !previewImg) return;
-
-      item.addEventListener('mouseenter', () => {
-        previewImg.classList.add('is-transitioning');
-        setTimeout(() => {
-          previewImg.src = previewSrc;
-          previewImg.onload = () => {
-            previewImg.classList.remove('is-transitioning');
-          };
-        }, 150);
-      });
-    });
-
-    // Close on navigation link click
-    document.querySelectorAll('.nav-link, .sub-link').forEach((link) => {
-      link.addEventListener('click', () => {
-        closeDrawer();
-      });
-    });
-  });
-</script>
