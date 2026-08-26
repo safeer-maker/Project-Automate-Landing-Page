@@ -9,5 +9,10 @@ export default defineConfig({
   }),
   build: {
     inlineStylesheets: 'auto'
+  },
+  vite: {
+    optimizeDeps: {
+      include: ['astro/assets/services/noop']
+    }
   }
 });

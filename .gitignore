@@ -95,9 +95,10 @@ dist
 # vuepress v2.x temp directory
 .temp
 
-# Astro
+# Astro & Cloudflare
 dist/
 .astro/
+.wrangler/
 .vercel/
 .netlify/
 
