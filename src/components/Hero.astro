@@ -9,12 +9,12 @@
     muted
     loop
     playsinline
-    preload="metadata"
+    preload="auto"
     poster="/assets/images/outdoor-lighting-audio-hero.webp"
     aria-label="Outdoor lighting and audio installation at a luxury home"
   >
-    <source src="/assets/video/outdoor-lighting-audio-hero.webm" type="video/webm" />
     <source src="/assets/video/outdoor-lighting-audio-hero.mp4" type="video/mp4" />
+    <source src="/assets/video/outdoor-lighting-audio-hero.webm" type="video/webm" />
   </video>
   <div class="hero-bg-overlay"></div>
 
@@ -24,14 +24,10 @@
 
   <div class="container hero-container">
     <div class="hero-content">
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        <span>Outdoor Architectural Systems</span>
-      </div>
-
-      <h1 class="hero-title">
+      
+      <h3 class="hero-title">
         Your Home Shouldn't End at the <span class="text-gradient-gold">Back Door.</span>
-      </h1>
+      </h3>
 
       <p class="hero-subtitle">
         Architectural landscape lighting and high-performance outdoor audio designed as one seamless outdoor experience.
@@ -84,7 +80,7 @@
     padding: clamp(4rem, 10vw, 8.5rem) 0 clamp(3.5rem, 8vw, 6rem);
     min-height: min(780px, calc(100vh - 90px));
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     background: #040404;
     overflow: hidden;
     border-bottom: 1px solid var(--border-subtle);
@@ -98,6 +94,8 @@
     object-fit: cover;
     object-position: center;
     z-index: 0;
+    transform: translateZ(0) scale(1.002);
+    backface-visibility: hidden;
   }
 
   .hero-bg-overlay {
@@ -105,8 +103,8 @@
     inset: 0;
     z-index: 1;
     background:
-      linear-gradient(180deg, rgba(4, 4, 4, 0.66) 0%, rgba(4, 4, 4, 0.52) 48%, rgba(4, 4, 4, 0.92) 100%),
-      radial-gradient(circle at 50% 30%, rgba(230, 165, 92, 0.16), transparent 48%);
+      linear-gradient(90deg, rgba(4, 4, 4, 0.58) 0%, rgba(4, 4, 4, 0.42) 18%, rgba(4, 4, 4, 0.16) 34%, rgba(4, 4, 4, 0) 52%),
+      linear-gradient(180deg, rgba(4, 4, 4, 0.04) 0%, rgba(4, 4, 4, 0) 50%, rgba(4, 4, 4, 0.18) 100%);
     pointer-events: none;
   }
 
@@ -143,12 +141,12 @@
   }
 
   .hero-content {
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
+    max-width: min(560px, 35vw);
+    margin: 0 auto 0 0;
+    text-align: left;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
   }
 
   /* Badge */
@@ -178,9 +176,9 @@
 
   /* Heading */
   .hero-title {
-    font-size: clamp(2.4rem, 5.5vw, 4.4rem);
+    font-size: clamp(1.9rem, 3.2vw, 3rem);
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1.14;
     margin-bottom: 1.5rem;
     max-width: 850px;
   }
@@ -190,6 +188,7 @@
     color: var(--text-secondary);
     max-width: 720px;
     margin-bottom: 2.5rem;
+    color: #a5743bff;
     line-height: 1.6;
     font-weight: 300;
   }
@@ -199,7 +198,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 1rem;
     margin-bottom: 3.5rem;
   }
@@ -219,8 +218,8 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
-    gap: 2rem;
+    justify-content: flex-start;
+    gap: 1rem 1.5rem;
     padding-top: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     width: 100%;
@@ -236,8 +235,17 @@
   }
 
   @media (max-width: 640px) {
+    .hero-bg-overlay {
+      background:
+        linear-gradient(90deg, rgba(4, 4, 4, 0.58) 0%, rgba(4, 4, 4, 0.42) 52%, rgba(4, 4, 4, 0.08) 100%),
+        linear-gradient(180deg, rgba(4, 4, 4, 0.08) 0%, rgba(4, 4, 4, 0) 42%, rgba(4, 4, 4, 0.28) 100%);
+    }
+    .hero-content {
+      max-width: 100%;
+    }
     .hero-actions {
       flex-direction: column;
+      align-items: stretch;
       width: 100%;
     }
     .hero-btn,
