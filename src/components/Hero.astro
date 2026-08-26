@@ -3,6 +3,21 @@
 ---
 
 <section class="hero-section">
+  <video
+    class="hero-bg-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    poster="/assets/images/outdoor-lighting-audio-hero.webp"
+    aria-label="Outdoor lighting and audio installation at a luxury home"
+  >
+    <source src="/assets/video/outdoor-lighting-audio-hero.webm" type="video/webm" />
+    <source src="/assets/video/outdoor-lighting-audio-hero.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-bg-overlay"></div>
+
   <!-- Atmospheric Lighting Glow Elements -->
   <div class="hero-glow hero-glow-top"></div>
   <div class="hero-glow hero-glow-bottom"></div>
@@ -15,7 +30,7 @@
       </div>
 
       <h1 class="hero-title">
-        Your Home Shouldn’t End at the <span class="text-gradient-gold">Back Door.</span>
+        Your Home Shouldn't End at the <span class="text-gradient-gold">Back Door.</span>
       </h1>
 
       <p class="hero-subtitle">
@@ -67,9 +82,32 @@
   .hero-section {
     position: relative;
     padding: clamp(4rem, 10vw, 8.5rem) 0 clamp(3.5rem, 8vw, 6rem);
-    background: radial-gradient(circle at 50% 20%, #151310 0%, #040404 80%);
+    min-height: min(780px, calc(100vh - 90px));
+    display: flex;
+    align-items: center;
+    background: #040404;
     overflow: hidden;
     border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .hero-bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+
+  .hero-bg-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(180deg, rgba(4, 4, 4, 0.66) 0%, rgba(4, 4, 4, 0.52) 48%, rgba(4, 4, 4, 0.92) 100%),
+      radial-gradient(circle at 50% 30%, rgba(230, 165, 92, 0.16), transparent 48%);
+    pointer-events: none;
   }
 
   /* Glow accents */
@@ -79,6 +117,7 @@
     filter: blur(100px);
     pointer-events: none;
     opacity: 0.25;
+    z-index: 1;
   }
 
   .hero-glow-top {
