@@ -95,6 +95,12 @@ dist
 # vuepress v2.x temp directory
 .temp
 
+# Astro
+dist/
+.astro/
+.vercel/
+.netlify/
+
 # Sveltekit cache directory
 .svelte-kit/
 
