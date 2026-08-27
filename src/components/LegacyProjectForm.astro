@@ -1,0 +1,522 @@
+---
+// ARCHIVE: Original Custom Project Request Form component (Preserved as requested)
+---
+
+<section class="form-section" id="legacy-quote-form">
+  <div class="container">
+    <div class="form-grid-wrapper">
+      <!-- Left Column: Media / Value Proposition -->
+      <div class="form-banner-col">
+        <div class="banner-card">
+          <div class="banner-image-wrap">
+            <img
+              src="/assets/images/hero-og-image.webp"
+              alt="Outdoor Living Architecture"
+              class="banner-main-img"
+              loading="lazy"
+              width="735"
+              height="919"
+            />
+            <div class="banner-overlay-gradient"></div>
+            
+            <div class="banner-caption-box">
+              <span class="caption-tag">Custom Outdoor Automation</span>
+              <h3 class="caption-title">Elevate Your Living Spaces</h3>
+              <p class="caption-desc">
+                From understated architectural uplighting to concert-grade outdoor soundscapes, we engineer each environment with master precision.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Form -->
+      <div class="form-content-col">
+        <div class="form-card">
+          <div class="form-header">
+            <h2 class="form-title">Tell Us About Your Outdoor Project</h2>
+            <p class="form-subtitle">
+              Every property is different. Share a few details about what you are planning and our team will review your project before reaching out.
+            </p>
+          </div>
+
+          <form id="legacy-project-request-form" class="custom-metform" novalidate>
+            <!-- Step / Field 1: Interest -->
+            <div class="form-group">
+              <label class="form-label">
+                What are you interested in? <span class="req">*</span>
+              </label>
+              <div class="pill-options" role="radiogroup" aria-label="What are you interested in?">
+                <button type="button" class="pill-btn" data-field="interest" data-value="Landscape Lighting">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+                  </svg>
+                  <span>Landscape Lighting</span>
+                </button>
+                <button type="button" class="pill-btn" data-field="interest" data-value="Outdoor Audio">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                  </svg>
+                  <span>Outdoor Audio</span>
+                </button>
+                <button type="button" class="pill-btn" data-field="interest" data-value="Both">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                  </svg>
+                  <span>Both</span>
+                </button>
+              </div>
+              <input type="hidden" name="interest" id="legacy-input-interest" required />
+              <span class="field-error" id="legacy-error-interest">Please select an option.</span>
+            </div>
+
+            <!-- Step / Field 2: Timeline -->
+            <div class="form-group">
+              <label class="form-label">
+                When are you planning to start? <span class="req">*</span>
+              </label>
+              <div class="pill-options" role="radiogroup" aria-label="When are you planning to start?">
+                <button type="button" class="pill-btn" data-field="timeline" data-value="Immediately">Immediately</button>
+                <button type="button" class="pill-btn" data-field="timeline" data-value="Within 1 month">Within 1 month</button>
+                <button type="button" class="pill-btn" data-field="timeline" data-value="1–6 months">1–6 months</button>
+                <button type="button" class="pill-btn" data-field="timeline" data-value="Just exploring">Just exploring</button>
+              </div>
+              <input type="hidden" name="timeline" id="legacy-input-timeline" required />
+              <span class="field-error" id="legacy-error-timeline">Please select your timeline.</span>
+            </div>
+
+            <!-- Step / Field 3: Budget Range -->
+            <div class="form-group">
+              <label class="form-label">
+                What budget range are you considering? <span class="req">*</span>
+              </label>
+              <div class="pill-options" role="radiogroup" aria-label="What budget range are you considering?">
+                <button type="button" class="pill-btn" data-field="budget" data-value="$10K–$25K">$10K–$25K</button>
+                <button type="button" class="pill-btn" data-field="budget" data-value="$25K–$50K">$25K–$50K</button>
+                <button type="button" class="pill-btn" data-field="budget" data-value="$50K–$100K">$50K–$100K</button>
+                <button type="button" class="pill-btn" data-field="budget" data-value="$100K+">$100K+</button>
+              </div>
+              <input type="hidden" name="budget" id="legacy-input-budget" required />
+              <span class="field-error" id="legacy-error-budget">Please select an investment range.</span>
+            </div>
+
+            <!-- ZIP Code -->
+            <div class="form-group">
+              <label for="legacy-input-zip" class="form-label">
+                Property ZIP Code <span class="req">*</span>
+              </label>
+              <input
+                type="text"
+                id="legacy-input-zip"
+                name="zip"
+                placeholder="e.g. 90266"
+                class="form-input"
+                required
+                maxlength="10"
+              />
+              <span class="field-error" id="legacy-error-zip">Please enter your property ZIP code.</span>
+            </div>
+
+            <!-- Name Fields (2 Columns) -->
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="legacy-input-fname" class="form-label">
+                  First Name <span class="req">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="legacy-input-fname"
+                  name="firstName"
+                  placeholder="Jane"
+                  class="form-input"
+                  required
+                />
+                <span class="field-error" id="legacy-error-fname">First name is required.</span>
+              </div>
+
+              <div class="form-group">
+                <label for="legacy-input-lname" class="form-label">
+                  Last Name <span class="req">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="legacy-input-lname"
+                  name="lastName"
+                  placeholder="Smith"
+                  class="form-input"
+                  required
+                />
+                <span class="field-error" id="legacy-error-lname">Last name is required.</span>
+              </div>
+            </div>
+
+            <!-- Phone & Email Fields (2 Columns) -->
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="legacy-input-phone" class="form-label">
+                  Phone Number <span class="req">*</span>
+                </label>
+                <div class="phone-input-wrap">
+                  <span class="phone-country-code">🇺🇸 +1</span>
+                  <input
+                    type="tel"
+                    id="legacy-input-phone"
+                    name="phone"
+                    placeholder="(310) 000-0000"
+                    class="form-input phone-field"
+                    required
+                  />
+                </div>
+                <span class="field-error" id="legacy-error-phone">Valid phone number is required.</span>
+              </div>
+
+              <div class="form-group">
+                <label for="legacy-input-email" class="form-label">
+                  Email Address <span class="req">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="legacy-input-email"
+                  name="email"
+                  placeholder="name@example.com"
+                  class="form-input"
+                  required
+                />
+                <span class="field-error" id="legacy-error-email">Please enter a valid email address.</span>
+              </div>
+            </div>
+
+            <!-- SMS Consent -->
+            <div class="form-checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" name="smsConsent" id="legacy-input-sms-consent" value="Yes" />
+                <span class="custom-checkbox"></span>
+                <span class="checkbox-text">
+                  I agree to receive SMS messages from PROJECT:automate regarding my inquiry, appointments, and project updates. Message frequency may vary. Message and data rates may apply. Reply STOP to opt out.
+                </span>
+              </label>
+            </div>
+
+            <!-- Terms & Privacy -->
+            <div class="form-checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" name="termsAgreement" id="legacy-input-terms" required />
+                <span class="custom-checkbox"></span>
+                <span class="checkbox-text">
+                  By submitting, you agree to our
+                  <a href="/#quote-form" class="terms-link">Terms and Conditions</a> |
+                  <a href="/#quote-form" class="terms-link">Privacy Policy</a>.
+                </span>
+              </label>
+              <span class="field-error" id="legacy-error-terms">You must agree to the terms to proceed.</span>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-submit-row">
+              <button type="submit" class="btn-primary form-submit-btn" id="legacy-submit-btn">
+                <span class="btn-text">Submit Request</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="btn-icon">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .form-section {
+    padding: clamp(4rem, 8vw, 7rem) 0;
+    background: #08080a;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .form-grid-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.35fr;
+    gap: 3.5rem;
+    align-items: stretch;
+  }
+
+  @media (max-width: 1024px) {
+    .form-grid-wrapper {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  .banner-card {
+    height: 100%;
+    min-height: 480px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .banner-image-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .banner-main-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .banner-overlay-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%);
+  }
+
+  .banner-caption-box {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2.5rem 2rem;
+    z-index: 2;
+  }
+
+  .caption-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .caption-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+  }
+
+  .caption-desc {
+    font-size: 0.95rem;
+    color: #d1d5db;
+    line-height: 1.5;
+  }
+
+  .form-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: clamp(2rem, 4vw, 3rem);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .form-header {
+    margin-bottom: 2rem;
+  }
+
+  .form-title {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+
+  .form-subtitle {
+    font-size: 0.98rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  .custom-metform {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 640px) {
+    .form-row-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form-label {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .req {
+    color: var(--accent-gold);
+  }
+
+  .pill-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.15rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-full);
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+  }
+
+  .pill-btn:hover {
+    background: rgba(255, 255, 255, 0.09);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .pill-btn.is-selected {
+    background: var(--accent-gold);
+    color: #000000;
+    border-color: var(--accent-gold);
+    font-weight: 600;
+    box-shadow: 0 0 16px var(--accent-gold-glow);
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 0.8rem 1.1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .form-input:focus {
+    border-color: var(--accent-gold);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 0 3px rgba(230, 165, 92, 0.15);
+  }
+
+  .phone-input-wrap {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.03);
+    overflow: hidden;
+  }
+
+  .phone-country-code {
+    padding: 0.8rem 0.9rem;
+    background: rgba(255, 255, 255, 0.06);
+    border-right: 1px solid var(--border-subtle);
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+  }
+
+  .phone-field {
+    border: none;
+    background: transparent;
+  }
+
+  .form-checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .checkbox-label input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .custom-checkbox {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.04);
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+  }
+
+  .checkbox-label input:checked + .custom-checkbox {
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+  }
+
+  .checkbox-label input:checked + .custom-checkbox::after {
+    content: "✓";
+    color: #000000;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .terms-link {
+    color: var(--accent-gold-light);
+    text-decoration: underline;
+  }
+
+  .field-error {
+    font-size: 0.78rem;
+    color: #f87171;
+    display: none;
+    margin-top: 0.2rem;
+  }
+
+  .has-error .field-error {
+    display: block;
+  }
+
+  .has-error .form-input,
+  .has-error .phone-input-wrap {
+    border-color: #f87171 !important;
+  }
+
+  .form-submit-row {
+    margin-top: 1rem;
+  }
+
+  .form-submit-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.05rem;
+  }
+</style>
