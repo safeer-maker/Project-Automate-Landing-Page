@@ -1,64 +1,64 @@
 {
   "assets": {
     "brandMark": {
-      "source": "https://framerusercontent.com/images/k84EaIFtm9ftwVBcAYsOxkoxvk.png",
-      "path": "brand/project-automate-mark.png"
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/brand/project-automate-mark.webp",
+      "path": "brand/project-automate-mark.webp"
     },
     "heroEstateAtSunset": {
-      "source": "https://framerusercontent.com/images/jmHA5OzF9u2QJZ8w2XVCBVVsknw.jpeg",
-      "path": "hero/estate-at-sunset.jpeg"
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/hero/estate-at-sunset.webp",
+      "path": "hero/estate-at-sunset.webp"
     },
     "htaCertification": {
-      "source": "https://framerusercontent.com/images/WTCJCHwPyvqAsuoIuNMGTOdxYyo.png",
-      "path": "certifications/hta-certified.png"
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/certifications/hta-certified.webp",
+      "path": "certifications/hta-certified.webp"
     },
     "cediaMembership": {
-      "source": "https://framerusercontent.com/images/b6niPWNZJzNJnhixUffvGaVzlo0.png",
-      "path": "certifications/cedia-membership.png"
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/certifications/cedia-membership.webp",
+      "path": "certifications/cedia-membership.webp"
     },
     "industryMembership": {
-      "source": "https://framerusercontent.com/images/DDo5qkPTjHKsTJJsCunNOCqEjs.png",
-      "path": "certifications/smart-home-industry-member.png"
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/certifications/smart-home-industry-member.webp",
+      "path": "certifications/smart-home-industry-member.webp"
     },
     "revealArchitecture": {
-      "source": "https://framerusercontent.com/images/vhHWy8kT2ayRzra33hUx5d0N77M.png",
-      "path": "features/reveal-architecture.png"
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/features/reveal-architecture.webp",
+      "path": "features/reveal-architecture.webp"
     },
     "highlightLandscaping": {
-      "source": "https://framerusercontent.com/images/2sqG9U2DSTUrvRmR5LzST4bqq8.png",
-      "path": "features/highlight-landscaping.png"
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/features/highlight-landscaping.webp",
+      "path": "features/highlight-landscaping.webp"
     },
     "improveSafety": {
-      "source": "https://framerusercontent.com/images/PTpf545Wrj3hsbyb0KZ69CeN4.jpeg",
-      "path": "features/improve-safety.jpeg"
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/features/improve-safety.webp",
+      "path": "features/improve-safety.webp"
     },
     "designBuildProcess": {
-      "source": "https://framerusercontent.com/images/B09sqH3TIMTukSH6CHAwQlVGPu4.png",
-      "path": "process/design-build-process.png"
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/process/design-build-process.webp",
+      "path": "process/design-build-process.webp"
     },
     "projectCaseStudy": {
-      "source": "https://framerusercontent.com/images/2MR4btwe7qMs428r3039qUiNkw.png",
-      "path": "case-studies/lighting-redesign.png"
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/case-studies/lighting-redesign.webp",
+      "path": "case-studies/lighting-redesign.webp"
     },
     "projectCaseStudyDetail": {
-      "source": "https://framerusercontent.com/images/xwHRUD4mSN9fDEhG6peZXqPk9s.png",
-      "path": "case-studies/lighting-redesign-detail.png"
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/case-studies/lighting-redesign-detail.webp",
+      "path": "case-studies/lighting-redesign-detail.webp"
     },
     "landscapeLightingService": {
-      "source": "https://framerusercontent.com/images/EVXwSGYAXnXbq2mGYgylzsw6c4.png",
-      "path": "services/landscape-lighting.png"
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/services/landscape-lighting.webp",
+      "path": "services/landscape-lighting.webp"
     },
     "outdoorAudioService": {
-      "source": "https://framerusercontent.com/images/oEgojNveE2uwZqhgMtVW81XZweU.png",
-      "path": "services/outdoor-audio.png"
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/services/outdoor-audio.webp",
+      "path": "services/outdoor-audio.webp"
     },
     "smartControlService": {
-      "source": "https://framerusercontent.com/images/xZqGNjmYZMpRaQ0SJYqMIh2XYps.png",
-      "path": "services/smart-control.png"
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/services/smart-control.webp",
+      "path": "services/smart-control.webp"
     },
     "consultationContact": {
-      "source": "https://framerusercontent.com/images/PIoaoHZx8tl0BNGDc0ABr4H54.png",
-      "path": "contact/private-consultation.png"
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/contact/private-consultation.webp",
+      "path": "contact/private-consultation.webp"
     }
   }
 }
