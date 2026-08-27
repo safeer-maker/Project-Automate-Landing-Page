@@ -162,11 +162,24 @@ button {
   transform: translateY(-2px);
 }
 
-/* Gold Gradient Text */
-.text-gradient-gold {
-  background: linear-gradient(135deg, #ffffff 30%, #e6a55c 100%);
+/* Gold & White Gradient Text Utilities */
+.text-gradient-gold-white {
+  display: inline-block;
+  background: linear-gradient(90deg, #e6a55c 0%, #fbe2b5 45%, #ffffff 90%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-white-gold,
+.text-gradient-gold {
+  display: inline-block;
+  background: linear-gradient(90deg, #ffffff 10%, #fbe2b5 55%, #e6a55c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Custom Scrollbar */
