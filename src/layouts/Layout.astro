@@ -1,22 +1,18 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import GhlFormModal from '../components/GhlFormModal.astro';
-import { framerAssets } from '../config/assets';
+import { assetUrl, framerAssets } from '../config/assets';
 import '../styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
-  showChrome?: boolean;
 }
 
 const {
   title = "Outdoor Lighting & Audio - PROJECT:automate",
   description = "Your Home Shouldn’t End at the Back Door. Architectural landscape lighting and high-performance outdoor audio designed as one seamless outdoor experience.",
-  ogImage = "/assets/images/hero-og-image.webp",
-  showChrome = true
+  ogImage = "/framer-extracted-assets/hero/estate-at-sunset.jpeg"
 } = Astro.props;
 ---
 
@@ -28,8 +24,8 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <link rel="icon" type="image/webp" href="/assets/logos/favicon.webp" />
-    <link rel="apple-touch-icon" href="/assets/logos/favicon.webp" />
+    <link rel="icon" type="image/png" href={assetUrl('brandMark')} />
+    <link rel="apple-touch-icon" href={assetUrl('brandMark')} />
     
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website" />
@@ -44,11 +40,9 @@ const {
     <meta name="twitter:image" content={ogImage} />
   </head>
   <body>
-    {showChrome && <Header />}
     <main id="main-content">
       <slot />
     </main>
-    {showChrome && <Footer />}
-    {showChrome && <GhlFormModal />}
+    <GhlFormModal />
   </body>
 </html>
