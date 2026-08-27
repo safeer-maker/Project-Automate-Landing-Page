@@ -8,6 +8,8 @@
     "assets:check": "node scripts/download-framer-assets.mjs --dry-run",
     "assets:validate": "node scripts/download-framer-assets.mjs --validate",
     "dev": "astro dev",
+    "format": "prettier --write src",
+    "format:check": "prettier --check src",
     "start": "astro dev",
     "build": "npm run assets:download && astro build",
     "preview": "astro preview",
@@ -16,5 +18,9 @@
   "dependencies": {
     "@astrojs/cloudflare": "^14.2.5",
     "astro": "^7.2.7"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1"
   }
 }

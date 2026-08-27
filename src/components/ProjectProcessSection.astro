@@ -1,6 +1,278 @@
 ---
 import { assetUrl } from '../config/assets';
-const steps = [['01','Discovery','We learn about your property, priorities, timeline, and investment range.'],['02','Site Evaluation','We study the architecture, landscaping, sightlines, and technical requirements.'],['03','Design & Installation','You receive a tailored lighting design and detailed proposal before installation.'],['04','Fine-Tuning & Support','We adjust every scene after dark and remain available for ongoing support.']] as const;
+
+const steps = [
+  ['01', 'Discovery', 'We learn about your property, priorities, timeline, and investment range.'],
+  [
+    '02',
+    'Site Evaluation',
+    'We study the architecture, landscaping, sightlines, and technical requirements.',
+  ],
+  [
+    '03',
+    'Design & Installation',
+    'You receive a tailored lighting design and detailed proposal before installation.',
+  ],
+  [
+    '04',
+    'Fine-Tuning & Support',
+    'We adjust every scene after dark and remain available for ongoing support.',
+  ],
+] as const;
 ---
-<section class="section" aria-labelledby="project-title"><div class="container case"><div class="images"><img src={assetUrl('projectCaseStudy')} width="1280" height="1280" alt="Completed landscape lighting redesign" loading="lazy"/><img src={assetUrl('projectCaseStudyDetail')} width="620" height="333" alt="Subtle lighting detail along the property" loading="lazy"/></div><div class="copy"><p class="eyebrow">A real project</p><h2 id="project-title">Lighting that reveals the property after dark.</h2><p>A dated system was redesigned with layered architectural, landscape, and pathway lighting—bringing depth to the property without overpowering it.</p><a href="#consultation-form" data-ghl-form>Discuss your property <span>→</span></a></div></div><div class="container process"><div class="process-head"><div><p class="eyebrow">Our design + build process</p><h2>A considered process from first conversation to final adjustment.</h2></div><img src={assetUrl('designBuildProcess')} width="1200" height="1000" alt="Landscape lighting design and installation process" loading="lazy"/></div><ol>{steps.map(([number,title,copy])=><li><span>{number}</span><div><h3>{title}</h3><p>{copy}</p></div></li>)}</ol></div></section>
-<style>.section{background:#121820;color:#fff;padding:clamp(5.5rem,9vw,8.5rem) 0}.container{margin-inline:auto;width:min(1200px,calc(100% - 80px))}h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;letter-spacing:-.045em;line-height:.98;margin:0}h2{font-size:clamp(3rem,4.7vw,4.4rem)}h3{font-size:1.75rem}.case{align-items:center;display:grid;gap:clamp(3rem,8vw,8rem);grid-template-columns:1.12fr .88fr}.images{display:grid;grid-template-columns:minmax(0,1fr) minmax(150px,.58fr);position:relative}.images img{border-radius:20px;object-fit:cover;width:100%}.images img:first-child{aspect-ratio:1}.images img:last-child{align-self:end;aspect-ratio:1.2;border:8px solid #121820;margin:-0 0 8% -18%;position:relative}.eyebrow{color:#b68a5e;font:700 .69rem/1.3 Inter,Arial,sans-serif;letter-spacing:.16em;margin:0 0 1.15rem;text-transform:uppercase}.copy>p:last-of-type{color:#dcd4c8;font:1rem/1.65 Inter,Arial,sans-serif;margin:1.5rem 0 1.75rem;max-width:500px}.copy a{color:#fff;font:700 .72rem/1 Inter,Arial,sans-serif;letter-spacing:.1em;text-decoration:none;text-transform:uppercase}.copy a span{color:#b68a5e;margin-left:.55rem}.process{border-top:1px solid #ffffff2e;margin-top:clamp(5rem,10vw,9rem);padding-top:clamp(5rem,8vw,7.5rem)}.process-head{align-items:center;display:grid;gap:clamp(2rem,7vw,7rem);grid-template-columns:1.15fr .85fr;margin-bottom:clamp(3rem,6vw,5.5rem)}.process-head img{border-radius:20px;height:clamp(260px,28vw,390px);object-fit:cover;width:100%}ol{display:grid;grid-template-columns:repeat(2,1fr);margin:0;padding:0}li{border-top:1px solid #ffffff3d;display:grid;gap:1.25rem;grid-template-columns:48px 1fr;list-style:none;padding:2rem 2rem 2rem 0}li:nth-child(odd){margin-right:2rem}li>span{color:#b68a5e;font:500 2rem/1 'Cormorant Garamond',Georgia,serif}li p{color:#dcd4c8;font:.9rem/1.65 Inter,Arial,sans-serif;margin:.65rem 0 0}@media(max-width:900px){.container{width:min(1200px,calc(100% - 40px))}.case,.process-head{grid-template-columns:1fr}.case{gap:3rem}.images{max-width:680px}.process-head{gap:1.75rem}}@media(max-width:680px){.section{padding:5.25rem 0}ol{grid-template-columns:1fr}li:nth-child(odd){margin-right:0}}</style>
+
+<section class="section" aria-labelledby="project-title">
+  <div class="container case">
+    <div class="images">
+      <img
+        src={assetUrl('projectCaseStudy')}
+        width="1280"
+        height="1280"
+        alt="Completed landscape lighting redesign"
+        loading="lazy"
+      />
+      <img
+        src={assetUrl('projectCaseStudyDetail')}
+        width="620"
+        height="333"
+        alt="Subtle lighting detail along the property"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="copy">
+      <p class="eyebrow">A real project</p>
+      <h2 id="project-title">Lighting that reveals the property after dark.</h2>
+      <p>
+        A dated system was redesigned with layered architectural, landscape, and pathway
+        lighting—bringing depth to the property without overpowering it.
+      </p>
+      <a href="#consultation-form" data-ghl-form>
+        Discuss your property <span>→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="container process">
+    <div class="process-head">
+      <div>
+        <p class="eyebrow">Our design + build process</p>
+        <h2>A considered process from first conversation to final adjustment.</h2>
+      </div>
+      <img
+        src={assetUrl('designBuildProcess')}
+        width="1200"
+        height="1000"
+        alt="Landscape lighting design and installation process"
+        loading="lazy"
+      />
+    </div>
+
+    <ol>
+      {
+        steps.map(([number, title, copy]) => (
+          <li>
+            <span>{number}</span>
+            <div>
+              <h3>{title}</h3>
+              <p>{copy}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .section {
+    background: #121820;
+    color: #fff;
+    padding: clamp(5.5rem, 9vw, 8.5rem) 0;
+  }
+
+  .container {
+    margin-inline: auto;
+    width: min(1200px, calc(100% - 80px));
+  }
+
+  h2,
+  h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    line-height: 0.98;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: clamp(3rem, 4.7vw, 4.4rem);
+  }
+
+  h3 {
+    font-size: 1.75rem;
+  }
+
+  .case {
+    align-items: center;
+    display: grid;
+    gap: clamp(3rem, 8vw, 8rem);
+    grid-template-columns: 1.12fr 0.88fr;
+  }
+
+  .images {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(150px, 0.58fr);
+    position: relative;
+  }
+
+  .images img {
+    border-radius: 20px;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .images img:first-child {
+    aspect-ratio: 1;
+  }
+
+  .images img:last-child {
+    align-self: end;
+    aspect-ratio: 1.2;
+    border: 8px solid #121820;
+    margin: 0 0 8% -18%;
+    position: relative;
+  }
+
+  .eyebrow {
+    color: #b68a5e;
+    font:
+      700 0.69rem/1.3 Inter,
+      Arial,
+      sans-serif;
+    letter-spacing: 0.16em;
+    margin: 0 0 1.15rem;
+    text-transform: uppercase;
+  }
+
+  .copy > p:last-of-type {
+    color: #dcd4c8;
+    font:
+      1rem/1.65 Inter,
+      Arial,
+      sans-serif;
+    margin: 1.5rem 0 1.75rem;
+    max-width: 500px;
+  }
+
+  .copy a {
+    color: #fff;
+    font:
+      700 0.72rem/1 Inter,
+      Arial,
+      sans-serif;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .copy a span {
+    color: #b68a5e;
+    margin-left: 0.55rem;
+  }
+
+  .process {
+    border-top: 1px solid #ffffff2e;
+    margin-top: clamp(5rem, 10vw, 9rem);
+    padding-top: clamp(5rem, 8vw, 7.5rem);
+  }
+
+  .process-head {
+    align-items: center;
+    display: grid;
+    gap: clamp(2rem, 7vw, 7rem);
+    grid-template-columns: 1.15fr 0.85fr;
+    margin-bottom: clamp(3rem, 6vw, 5.5rem);
+  }
+
+  .process-head img {
+    border-radius: 20px;
+    height: clamp(260px, 28vw, 390px);
+    object-fit: cover;
+    width: 100%;
+  }
+
+  ol {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    border-top: 1px solid #ffffff3d;
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 48px 1fr;
+    list-style: none;
+    padding: 2rem 2rem 2rem 0;
+  }
+
+  li:nth-child(odd) {
+    margin-right: 2rem;
+  }
+
+  li > span {
+    color: #b68a5e;
+    font:
+      500 2rem/1 'Cormorant Garamond',
+      Georgia,
+      serif;
+  }
+
+  li p {
+    color: #dcd4c8;
+    font:
+      0.9rem/1.65 Inter,
+      Arial,
+      sans-serif;
+    margin: 0.65rem 0 0;
+  }
+
+  @media (max-width: 900px) {
+    .container {
+      width: min(1200px, calc(100% - 40px));
+    }
+
+    .case,
+    .process-head {
+      grid-template-columns: 1fr;
+    }
+
+    .case {
+      gap: 3rem;
+    }
+
+    .images {
+      max-width: 680px;
+    }
+
+    .process-head {
+      gap: 1.75rem;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .section {
+      padding: 5.25rem 0;
+    }
+
+    ol {
+      grid-template-columns: 1fr;
+    }
+
+    li:nth-child(odd) {
+      margin-right: 0;
+    }
+  }
+</style>

@@ -1,5 +1,108 @@
 ---
 import { assetUrl } from '../config/assets';
 ---
-<section class="trust" aria-label="Professional credentials"><div class="container grid"><article><img src={assetUrl('htaCertification')} width="2000" height="971" alt="HTA Certified" /><div><b>HTA Certified</b><span>Home Technology Association</span></div></article><article><img src={assetUrl('cediaMembership')} width="1668" height="1043" alt="CEDIA member" /><div><b>CEDIA Member</b><span>Industry-recognized expertise</span></div></article><article><img src={assetUrl('industryMembership')} width="450" height="360" alt="Smart home industry member" /><div><b>17+ Years</b><span>Smart home industry experience</span></div></article></div></section>
-<style>.trust{background:#f7f4ed;padding:2.25rem 0}.container{margin-inline:auto;width:min(1200px,calc(100% - 80px))}.grid{display:grid;gap:2rem;grid-template-columns:repeat(3,1fr)}article{align-items:center;display:flex;gap:1rem;min-width:0}img{height:50px;object-fit:contain;width:70px}b,span{display:block;font-family:Inter,Arial,sans-serif}b{font-size:.85rem}span{color:#5f6670;font-size:.72rem;margin-top:.25rem}@media(max-width:900px){.container{width:min(1200px,calc(100% - 40px))}.grid{gap:1.25rem}}@media(max-width:680px){.trust{padding:1.75rem 0}.grid{grid-template-columns:1fr}img{height:42px;width:62px}}</style>
+
+<section class="trust" aria-label="Professional credentials">
+  <div class="container grid">
+    <article>
+      <img src={assetUrl('htaCertification')} width="2000" height="971" alt="HTA Certified" />
+      <div>
+        <b>HTA Certified</b>
+        <span>Home Technology Association</span>
+      </div>
+    </article>
+
+    <article>
+      <img src={assetUrl('cediaMembership')} width="1668" height="1043" alt="CEDIA member" />
+      <div>
+        <b>CEDIA Member</b>
+        <span>Industry-recognized expertise</span>
+      </div>
+    </article>
+
+    <article>
+      <img
+        src={assetUrl('industryMembership')}
+        width="450"
+        height="360"
+        alt="Smart home industry member"
+      />
+      <div>
+        <b>17+ Years</b>
+        <span>Smart home industry experience</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<style>
+  .trust {
+    background: #f7f4ed;
+    padding: 2.25rem 0;
+  }
+
+  .container {
+    margin-inline: auto;
+    width: min(1200px, calc(100% - 80px));
+  }
+
+  .grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  article {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  img {
+    height: 50px;
+    object-fit: contain;
+    width: 70px;
+  }
+
+  b,
+  span {
+    display: block;
+    font-family: Inter, Arial, sans-serif;
+  }
+
+  b {
+    font-size: 0.85rem;
+  }
+
+  span {
+    color: #5f6670;
+    font-size: 0.72rem;
+    margin-top: 0.25rem;
+  }
+
+  @media (max-width: 900px) {
+    .container {
+      width: min(1200px, calc(100% - 40px));
+    }
+
+    .grid {
+      gap: 1.25rem;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .trust {
+      padding: 1.75rem 0;
+    }
+
+    .grid {
+      grid-template-columns: 1fr;
+    }
+
+    img {
+      height: 42px;
+      width: 62px;
+    }
+  }
+</style>

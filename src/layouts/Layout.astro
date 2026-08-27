@@ -10,10 +10,10 @@ interface Props {
 }
 
 const {
-  title = "Outdoor Lighting & Audio - PROJECT:automate",
-  description = "Your Home Shouldn’t End at the Back Door. Architectural landscape lighting and high-performance outdoor audio designed as one seamless outdoor experience.",
-  ogImage = "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/hero/estate-at-sunset.webp",
-  preloadVideo
+  title = 'Outdoor Lighting & Audio - PROJECT:automate',
+  description = 'Your Home Shouldn’t End at the Back Door. Architectural landscape lighting and high-performance outdoor audio designed as one seamless outdoor experience.',
+  ogImage = 'https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/hero/estate-at-sunset.webp',
+  preloadVideo,
 } = Astro.props;
 ---
 
@@ -27,14 +27,18 @@ const {
     <meta name="robots" content="index, follow" />
     <link rel="icon" type="image/png" href={assetUrl('brandMark')} />
     <link rel="apple-touch-icon" href={assetUrl('brandMark')} />
-    {preloadVideo && <link rel="preload" href={preloadVideo} as="video" type="video/webm" fetchpriority="high" />}
-    
+    {
+      preloadVideo && (
+        <link rel="preload" href={preloadVideo} as="video" type="video/webm" fetchpriority="high" />
+      )
+    }
+
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
-    
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />

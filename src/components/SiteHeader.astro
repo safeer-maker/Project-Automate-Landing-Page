@@ -4,5 +4,67 @@ import HeaderCallButton from './header/HeaderCallButton.astro';
 import HeaderCtaButton from './header/HeaderCtaButton.astro';
 import HeaderMobileMenu from './header/HeaderMobileMenu.astro';
 ---
-<header class="site-header"><nav class="container navigation" aria-label="Primary navigation"><HeaderBrand /><div class="desktop-actions"><HeaderCallButton /><HeaderCtaButton /></div><HeaderMobileMenu /></nav></header>
-<style>.site-header{left:0;padding-top:1.25rem;position:absolute;right:0;top:0;z-index:10}.container{margin-inline:auto;width:min(1200px,calc(100% - 80px))}.navigation{align-items:center;background:rgb(10 17 22 / .8);border:1px solid rgb(255 255 255 / .16);border-radius:999px;box-shadow:0 12px 35px rgb(0 0 0 / .16);display:flex;min-height:76px;padding:.4rem .55rem .4rem 1.35rem;backdrop-filter:blur(18px)}.desktop-actions{align-items:center;display:flex;gap:.65rem;margin-left:auto}@media(max-width:900px){.site-header{padding-top:.75rem}.container{width:min(1200px,calc(100% - 40px))}.navigation{min-height:62px}.desktop-actions{display:none}}</style>
+
+<header class="site-header">
+  <nav class="container navigation" aria-label="Primary navigation">
+    <HeaderBrand />
+    <div class="desktop-actions">
+      <HeaderCallButton />
+      <HeaderCtaButton />
+    </div>
+    <HeaderMobileMenu />
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    left: 0;
+    padding-top: 1.25rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 10;
+  }
+
+  .container {
+    margin-inline: auto;
+    width: min(1200px, calc(100% - 80px));
+  }
+
+  .navigation {
+    align-items: center;
+    backdrop-filter: blur(18px);
+    background: rgb(10 17 22 / 0.8);
+    border: 1px solid rgb(255 255 255 / 0.16);
+    border-radius: 999px;
+    box-shadow: 0 12px 35px rgb(0 0 0 / 0.16);
+    display: flex;
+    min-height: 76px;
+    padding: 0.4rem 0.55rem 0.4rem 1.35rem;
+  }
+
+  .desktop-actions {
+    align-items: center;
+    display: flex;
+    gap: 0.65rem;
+    margin-left: auto;
+  }
+
+  @media (max-width: 900px) {
+    .site-header {
+      padding-top: 0.75rem;
+    }
+
+    .container {
+      width: min(1200px, calc(100% - 40px));
+    }
+
+    .navigation {
+      min-height: 62px;
+    }
+
+    .desktop-actions {
+      display: none;
+    }
+  }
+</style>

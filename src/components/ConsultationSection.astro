@@ -2,5 +2,144 @@
 import { assetUrl } from '../config/assets';
 import GhlInlineForm from './GhlInlineForm.astro';
 ---
-<section id="booking" class="section" aria-labelledby="booking-title"><div class="container grid"><div class="intro"><div><p class="eyebrow">Private consultation</p><h2 id="booking-title">Tell us about your property.</h2><p>Share your goals, timing, and project details. Our design team will review your request and contact you about the right next step.</p></div><figure><img src={assetUrl('consultationContact')} width="941" height="1672" alt="Private outdoor living space illuminated at sunset" loading="lazy"/><figcaption>Prefer to speak directly? <a href="tel:+13107405375">Call (310) 740-5375</a></figcaption></figure></div><GhlInlineForm title="Request Your Consultation" /></div></section>
-<style>.section{background:#121820;color:#fff;padding:clamp(5.5rem,9vw,8.5rem) 0;scroll-margin-top:1rem}.container{margin-inline:auto;width:min(1200px,calc(100% - 80px))}.grid{align-items:start;display:grid;gap:clamp(3rem,7vw,7rem);grid-template-columns:minmax(0,.78fr) minmax(420px,1fr)}.intro{display:grid;gap:2.5rem}.eyebrow{color:#b68a5e;font:700 .69rem/1.3 Inter,Arial,sans-serif;letter-spacing:.16em;margin:0 0 1.15rem;text-transform:uppercase}h2{font:500 clamp(3rem,5.2vw,4.65rem)/.98 'Cormorant Garamond',Georgia,serif;letter-spacing:-.045em;margin:0}.intro>div>p:last-child{color:#dcd4c8;font:1rem/1.65 Inter,Arial,sans-serif;margin:1.5rem 0 0;max-width:500px}figure{margin:0}img{aspect-ratio:1.65;border-radius:20px;object-fit:cover;object-position:center 58%;width:100%}figcaption{color:#dcd4c8;font:.78rem/1.5 Inter,Arial,sans-serif;margin-top:.9rem}figcaption a{color:#fff;font-weight:700}@media(max-width:900px){.container{width:min(1200px,calc(100% - 40px))}.grid{gap:3.5rem;grid-template-columns:1fr}.intro{grid-template-columns:1fr 1fr}}@media(max-width:680px){.section{padding:5.25rem 0}.intro{grid-template-columns:1fr}img{aspect-ratio:1.4}}</style>
+
+<section id="booking" class="section" aria-labelledby="booking-title">
+  <div class="container grid">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">Private consultation</p>
+        <h2 id="booking-title">Tell us about your property.</h2>
+        <p>
+          Share your goals, timing, and project details. Our design team will review your request
+          and contact you about the right next step.
+        </p>
+      </div>
+
+      <figure>
+        <img
+          src={assetUrl('consultationContact')}
+          width="941"
+          height="1672"
+          alt="Private outdoor living space illuminated at sunset"
+          loading="lazy"
+        />
+        <figcaption>
+          Prefer to speak directly? <a href="tel:+13107405375">Call (310) 740-5375</a>
+        </figcaption>
+      </figure>
+    </div>
+
+    <GhlInlineForm title="Request Your Consultation" />
+  </div>
+</section>
+
+<style>
+  .section {
+    background: #121820;
+    color: #fff;
+    padding: clamp(5.5rem, 9vw, 8.5rem) 0;
+    scroll-margin-top: 1rem;
+  }
+
+  .container {
+    margin-inline: auto;
+    width: min(1200px, calc(100% - 80px));
+  }
+
+  .grid {
+    align-items: start;
+    display: grid;
+    gap: clamp(3rem, 7vw, 7rem);
+    grid-template-columns: minmax(0, 0.78fr) minmax(420px, 1fr);
+  }
+
+  .intro {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .eyebrow {
+    color: #b68a5e;
+    font:
+      700 0.69rem/1.3 Inter,
+      Arial,
+      sans-serif;
+    letter-spacing: 0.16em;
+    margin: 0 0 1.15rem;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font:
+      500 clamp(3rem, 5.2vw, 4.65rem) / 0.98 'Cormorant Garamond',
+      Georgia,
+      serif;
+    letter-spacing: -0.045em;
+    margin: 0;
+  }
+
+  .intro > div > p:last-child {
+    color: #dcd4c8;
+    font:
+      1rem/1.65 Inter,
+      Arial,
+      sans-serif;
+    margin: 1.5rem 0 0;
+    max-width: 500px;
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  img {
+    aspect-ratio: 1.65;
+    border-radius: 20px;
+    object-fit: cover;
+    object-position: center 58%;
+    width: 100%;
+  }
+
+  figcaption {
+    color: #dcd4c8;
+    font:
+      0.78rem/1.5 Inter,
+      Arial,
+      sans-serif;
+    margin-top: 0.9rem;
+  }
+
+  figcaption a {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .container {
+      width: min(1200px, calc(100% - 40px));
+    }
+
+    .grid {
+      gap: 3.5rem;
+      grid-template-columns: 1fr;
+    }
+
+    .intro {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .section {
+      padding: 5.25rem 0;
+    }
+
+    .intro {
+      grid-template-columns: 1fr;
+    }
+
+    img {
+      aspect-ratio: 1.4;
+    }
+  }
+</style>

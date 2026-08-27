@@ -1,5 +1,40 @@
 ---
 const { compact = false } = Astro.props;
 ---
-<a class:list={['button', compact && 'compact']} href="#consultation-form" data-ghl-form>Book a consultation <span aria-hidden="true">→</span></a>
-<style>.button{align-items:center;background:#b68a5e;border-radius:999px;color:#fff;display:inline-flex;font:700 .65rem/1 Inter,Arial,sans-serif;gap:.65rem;justify-content:center;letter-spacing:.08em;padding:.9rem 1.1rem;text-decoration:none;text-transform:uppercase;transition:background .2s ease,transform .2s ease}.button:hover{background:#d0a16f;transform:translateY(-1px)}.button:focus-visible{outline:2px solid #fff;outline-offset:4px}.compact{width:100%}</style>
+
+<a class:list={['button', compact && 'compact']} href="#consultation-form" data-ghl-form>
+  Book a consultation <span aria-hidden="true">→</span>
+</a>
+<style>
+  .button {
+    align-items: center;
+    background: #b68a5e;
+    border-radius: 999px;
+    color: #fff;
+    display: inline-flex;
+    font:
+      700 0.65rem/1 Inter,
+      Arial,
+      sans-serif;
+    gap: 0.65rem;
+    justify-content: center;
+    letter-spacing: 0.08em;
+    padding: 0.9rem 1.1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition:
+      background 0.2s ease,
+      transform 0.2s ease;
+  }
+  .button:hover {
+    background: #d0a16f;
+    transform: translateY(-1px);
+  }
+  .button:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+  }
+  .compact {
+    width: 100%;
+  }
+</style>
