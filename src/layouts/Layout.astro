@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import GhlFormModal from '../components/GhlFormModal.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -45,5 +46,6 @@ const {
       <slot />
     </main>
     <Footer />
+    <GhlFormModal />
   </body>
 </html>
