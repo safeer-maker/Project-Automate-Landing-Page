@@ -3,9 +3,13 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
+    "assets:download": "node scripts/download-framer-assets.mjs",
+    "assets:download:force": "node scripts/download-framer-assets.mjs --force",
+    "assets:check": "node scripts/download-framer-assets.mjs --dry-run",
+    "assets:validate": "node scripts/download-framer-assets.mjs --validate",
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "npm run assets:download && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },

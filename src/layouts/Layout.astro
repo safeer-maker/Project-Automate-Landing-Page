@@ -2,23 +2,26 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import GhlFormModal from '../components/GhlFormModal.astro';
+import { framerAssets } from '../config/assets';
 import '../styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  showChrome?: boolean;
 }
 
 const {
   title = "Outdoor Lighting & Audio - PROJECT:automate",
   description = "Your Home Shouldn’t End at the Back Door. Architectural landscape lighting and high-performance outdoor audio designed as one seamless outdoor experience.",
-  ogImage = "/assets/images/hero-og-image.webp"
+  ogImage = "/assets/images/hero-og-image.webp",
+  showChrome = true
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-framer-assets={framerAssets.publicDirectory}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -41,11 +44,11 @@ const {
     <meta name="twitter:image" content={ogImage} />
   </head>
   <body>
-    <Header />
+    {showChrome && <Header />}
     <main id="main-content">
       <slot />
     </main>
-    <Footer />
-    <GhlFormModal />
+    {showChrome && <Footer />}
+    {showChrome && <GhlFormModal />}
   </body>
 </html>

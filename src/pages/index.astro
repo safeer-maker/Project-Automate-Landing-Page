@@ -1,17 +1,144 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import ProjectForm from '../components/ProjectForm.astro';
-import ShowcaseGallery from '../components/ShowcaseGallery.astro';
-import ConsultationCTA from '../components/ConsultationCTA.astro';
+import { assetUrl } from '../config/assets';
+
+const services = [
+  { label: 'Landscape Lighting', copy: 'Architectural, pathway and garden lighting designed with precision.', image: assetUrl('landscapeLightingService') },
+  { label: 'Outdoor Audio', copy: 'Discreet, high-performance audio that elevates your outdoor lifestyle.', image: assetUrl('outdoorAudioService') },
+  { label: 'Smart Control', copy: 'Effortless control of lighting, audio and environments from anywhere.', image: assetUrl('smartControlService') },
+];
+
+const process = [
+  ['01', 'Project Brief & Discovery', 'We start by understanding your property, goals, timeline, and investment range to determine the right direction for your project.'],
+  ['02', 'Site & Design Evaluation', 'We evaluate architecture, landscaping, existing conditions, sightlines, and technical requirements.'],
+  ['03', 'Design & Installation', 'You receive a tailored lighting design and detailed proposal before our team installs every element with precision.'],
+  ['04', 'Commissioning & Support', 'After dark, we fine-tune placement, brightness, scenes, and controls, then remain available for ongoing support.'],
+];
 ---
 
 <Layout
-  title="Outdoor Lighting & Audio - PROJECT:automate"
-  description="Your Home Shouldn’t End at the Back Door. Architectural landscape lighting and high-performance outdoor audio designed as one seamless outdoor experience."
+  showChrome={false}
+  title="Architectural Landscape Lighting | PROJECT:automate"
+  description="Architectural landscape lighting, outdoor audio, and seamless control for Los Angeles estates."
+  ogImage={assetUrl('heroEstateAtSunset')}
 >
-  <Hero />
-  <ProjectForm />
-  <ShowcaseGallery />
-  <ConsultationCTA />
+  <header class="site-header">
+    <nav class="nav-shell container" aria-label="Primary navigation">
+      <a class="brand" href="/" aria-label="PROJECT:automate home">
+        <img src={assetUrl('brandMark')} alt="PROJECT:automate" width="314" height="184" />
+      </a>
+      <div class="nav-actions">
+        <a class="phone" href="tel:+13107405375" aria-label="Call PROJECT:automate">(310) 740-5375</a>
+        <a class="button button--small" href="#consultation">Request a Consultation <span aria-hidden="true">→</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero" aria-labelledby="hero-title">
+    <img class="hero-image" src={assetUrl('heroEstateAtSunset')} alt="Luxury estate with illuminated pool and outdoor living area at sunset" fetchpriority="high" />
+    <div class="hero-scrim"></div>
+    <div class="container hero-content">
+      <p class="eyebrow reveal">Architectural landscape lighting for Los Angeles estates</p>
+      <h1 id="hero-title" class="hero-title reveal">Your estate shouldn’t disappear after sunset.</h1>
+      <p class="hero-copy reveal">Tell us about your property, project goals, timing, and investment range. Our design team reviews every project before scheduling the next step.</p>
+      <a class="button reveal" href="#consultation">Request a Private Lighting Consultation <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section class="trust section section--light" aria-label="Credentials">
+    <div class="container trust-grid">
+      <article><img src={assetUrl('htaCertification')} alt="HTA Certified" /><div><strong>HTA Certified</strong><span>Home Technology Association</span></div></article>
+      <article><img src={assetUrl('cediaMembership')} alt="CEDIA Membership" /><div><strong>CEDIA Membership</strong><span>Industry-recognized expertise</span></div></article>
+      <article><img src={assetUrl('industryMembership')} alt="Smart home industry member" /><div><strong>17+ Years</strong><span>Member of the smart home industry</span></div></article>
+    </div>
+  </section>
+
+  <section class="section section--light experience" aria-labelledby="experience-title">
+    <div class="container">
+      <div class="section-heading narrow">
+        <p class="eyebrow">Designed for life after sunset</p>
+        <h2 id="experience-title">Your home was designed to be experienced.</h2>
+        <p>From subtle path lighting to dramatic architectural washes, we use light with precision and purpose—enhancing beauty, improving safety, and extending your lifestyle outdoors.</p>
+      </div>
+      <div class="feature-grid">
+        <figure class="feature feature--tall"><img src={assetUrl('revealArchitecture')} alt="Illuminated architecture at dusk" /><figcaption><strong>Reveal architecture</strong><span>Accentuate the details that make your home unique.</span></figcaption></figure>
+        <figure class="feature feature--wide"><img src={assetUrl('highlightLandscaping')} alt="Landscape lighting around a pool" /><figcaption><strong>Highlight landscaping</strong><span>Showcase mature trees, texture and natural beauty.</span></figcaption></figure>
+        <figure class="feature feature--wide"><img src={assetUrl('improveSafety')} alt="Illuminated driveway and entryway" /><figcaption><strong>Improve safety</strong><span>Create comfortable, well-lit pathways and entryways.</span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section process" aria-labelledby="process-title">
+    <div class="container process-intro">
+      <div class="section-heading"><p class="eyebrow">Our design + build process</p><h2 id="process-title">From First Conversation to Final Adjustment.</h2></div>
+      <img src={assetUrl('designBuildProcess')} alt="Landscape lighting design process" />
+    </div>
+    <div class="container case-study">
+      <div class="case-images"><img src={assetUrl('projectCaseStudy')} alt="Lighting redesign project" /><img src={assetUrl('projectCaseStudyDetail')} alt="Lighting redesign detail" /></div>
+      <div class="case-copy"><p class="eyebrow">Real project</p><h3>Lighting that reveals the property after dark.</h3><p>A dated lighting system was redesigned with layered architectural, landscape, and pathway lighting.</p></div>
+    </div>
+    <ol class="container process-list">
+      {process.map(([number, title, copy]) => <li><span>{number}</span><div><h3>{title}</h3><p>{copy}</p></div></li>)}
+    </ol>
+  </section>
+
+  <section class="section section--light services" aria-labelledby="services-title">
+    <div class="container"><div class="section-heading"><p class="eyebrow">Complete outdoor experience</p><h2 id="services-title">Landscape Lighting. Outdoor Audio. Seamless Control.</h2></div><div class="service-grid">{services.map((service) => <article class="service-card"><img src={service.image} alt={service.label} loading="lazy" /><h3>{service.label}</h3><p>{service.copy}</p></article>)}</div></div>
+  </section>
+
+  <section id="consultation" class="section consultation" aria-labelledby="consultation-title">
+    <div class="container consultation-grid">
+      <div class="consultation-copy"><p class="eyebrow">Get in touch</p><h2 id="consultation-title">Request a private lighting consultation.</h2><p>We will review your property, goals, timeline, and investment range to determine the right next step.</p><a class="button" href="tel:+13107405375">Call (310) 740-5375 <span aria-hidden="true">→</span></a></div>
+      <img src={assetUrl('consultationContact')} alt="Luxury outdoor living space at sunset" loading="lazy" />
+      <form class="contact-form" action="#" method="post">
+        <label>Full name<input required name="fullName" autocomplete="name" placeholder="Full Name *" /></label>
+        <label>Phone number<input required name="phone" type="tel" autocomplete="tel" placeholder="Phone Number *" /></label>
+        <label>Email address<input required name="email" type="email" autocomplete="email" placeholder="Email Address *" /></label>
+        <label>Location<select required name="location"><option value="" selected disabled>Select your location *</option><option>Los Angeles</option><option>Manhattan Beach</option><option>Other</option></select></label>
+        <label class="full">Project details<textarea name="details" rows="4" placeholder="Describe your ideas, needs, or questions..."></textarea></label>
+        <label class="consent full"><input type="checkbox" name="consent" /> <span>I agree to be contacted about my inquiry.</span></label>
+        <button class="button full" type="submit">Submit <span aria-hidden="true">→</span></button>
+      </form>
+    </div>
+  </section>
 </Layout>
+
+<style>
+  :global(html) { background: #f7f4ed; color: #121820; }
+  :global(body) { background: #f7f4ed; }
+  .container { width: min(1200px, calc(100% - 80px)); margin: 0 auto; }
+  .section { padding: clamp(5.5rem, 10vw, 9rem) 0; }
+  .section--light { background: #f7f4ed; color: #121820; }
+  .eyebrow { color: #b68a5e; font-size: .7rem; font-weight: 700; letter-spacing: .16em; line-height: 1.35; margin: 0 0 1.2rem; text-transform: uppercase; }
+  h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; letter-spacing: -.04em; }
+  h2 { font-size: clamp(2.8rem, 5.2vw, 4.5rem); line-height: .99; margin: 0; max-width: 800px; }
+  h3 { font-size: clamp(1.75rem, 2.5vw, 2.6rem); line-height: 1.05; }
+  p { font-family: Inter, Arial, sans-serif; font-size: 1rem; line-height: 1.65; }
+  .button { align-items: center; background: #b68a5e; border-radius: 999px; color: #fff; display: inline-flex; font: 600 .79rem/1 Inter, Arial, sans-serif; gap: .85rem; letter-spacing: .03em; padding: 1.1rem 1.45rem; text-transform: uppercase; transition: transform .25s ease, background .25s ease; }
+  .button:hover { background: #9f754d; transform: translateY(-2px); }
+  .button--small { font-size: .68rem; padding: .85rem 1.05rem; }
+  .site-header { left: 0; padding-top: 1.25rem; position: absolute; right: 0; top: 0; z-index: 3; }
+  .nav-shell { align-items: center; backdrop-filter: blur(8px); background: rgba(255,255,255,.4); border: 1px solid rgba(255,255,255,.72); border-radius: 999px; box-shadow: 0 1px 2px rgba(0,0,0,.25); display: flex; justify-content: space-between; min-height: 70px; padding: .4rem 1rem .4rem 1.25rem; }
+  .brand img { height: 38px; object-fit: contain; width: auto; }
+  .nav-actions { align-items: center; display: flex; gap: 1.15rem; }
+  .phone { color: #121820; font: 600 .72rem/1 Inter, Arial, sans-serif; letter-spacing: .04em; }
+  .hero { background: #121820; color: #fff; display: grid; min-height: 100svh; overflow: hidden; position: relative; }
+  .hero-image, .hero-scrim { grid-area: 1 / 1; height: 100%; position: absolute; width: 100%; }
+  .hero-image { object-fit: cover; }
+  .hero-scrim { background: linear-gradient(90deg, rgba(8,12,13,.76) 0%, rgba(8,12,13,.48) 38%, rgba(8,12,13,.09) 74%), linear-gradient(0deg, rgba(8,12,13,.44), transparent 45%); }
+  .hero-content { align-self: end; padding-bottom: clamp(4rem, 10vw, 9rem); position: relative; z-index: 1; }
+  .hero-title { font-size: clamp(3.5rem, 7vw, 6.4rem); line-height: .9; margin: 0; max-width: 760px; }
+  .hero-copy { color: #eee9e2; margin: 2rem 0; max-width: 540px; }
+  .reveal { animation: resolve .9s cubic-bezier(.2,.8,.2,1) both; }
+  .hero-title { animation-delay: .12s; }.hero-copy { animation-delay: .24s; }.hero .button { animation-delay: .36s; }
+  @keyframes resolve { from { filter: blur(10px); opacity: .01; transform: translateY(10px); } to { filter: blur(0); opacity: 1; transform: translateY(0); } }
+  .trust { padding: 2.5rem 0; }.trust-grid { display: grid; gap: 2rem; grid-template-columns: repeat(3,1fr); }.trust article { align-items: center; display: flex; gap: 1rem; }.trust img { height: 52px; object-fit: contain; width: 72px; }.trust strong, .trust span { display: block; font-family: Inter, Arial, sans-serif; }.trust strong { font-size: .88rem; }.trust span { color: #5f6670; font-size: .75rem; margin-top: .2rem; }
+  .section-heading { margin-bottom: clamp(3rem, 7vw, 6rem); }.section-heading > p:last-child { color: #5f6670; margin-top: 1.75rem; max-width: 620px; }.narrow { max-width: 800px; }
+  .feature-grid { display: grid; gap: 1.25rem; grid-template-columns: .85fr 1.15fr; }.feature { margin: 0; overflow: hidden; position: relative; }.feature img { border-radius: 20px; height: 100%; min-height: 310px; object-fit: cover; width: 100%; }.feature--tall { grid-row: span 2; }.feature--wide { min-height: 315px; }.feature figcaption { background: linear-gradient(0deg, rgba(0,0,0,.72), transparent); bottom: 0; color: #fff; display: grid; gap: .25rem; left: 0; padding: 2rem; position: absolute; right: 0; }.feature figcaption strong { font: 700 .72rem/1.3 Inter, Arial, sans-serif; letter-spacing: .13em; text-transform: uppercase; }.feature figcaption span { font: .9rem/1.35 Inter, Arial, sans-serif; }
+  .process { background: #121820; color: #fff; }.process-intro { align-items: end; display: grid; gap: 4rem; grid-template-columns: 1fr .8fr; }.process-intro .section-heading { margin: 0; }.process-intro img { border-radius: 20px; max-height: 420px; object-fit: cover; width: 100%; }.case-study { align-items: center; display: grid; gap: clamp(2rem,6vw,6rem); grid-template-columns: 1.1fr .9fr; margin-top: clamp(5rem,12vw,10rem); }.case-images { display: grid; gap: 1rem; grid-template-columns: 1fr .6fr; }.case-images img { border-radius: 20px; height: 350px; object-fit: cover; width: 100%; }.case-images img:last-child { align-self: end; height: 210px; }.case-copy p:last-child { color: #dcd4c8; margin-top: 1rem; }.process-list { display: grid; grid-template-columns: repeat(2,1fr); margin-top: 6rem; }.process-list li { border-top: 1px solid rgba(255,255,255,.25); display: grid; gap: 1.5rem; grid-template-columns: 55px 1fr; list-style: none; padding: 2rem 1.5rem 2rem 0; }.process-list li:nth-child(odd) { margin-right: 1.5rem; }.process-list li span { color: #b68a5e; font: 500 2rem/1 'Cormorant Garamond', Georgia, serif; }.process-list h3 { font-size: 1.7rem; }.process-list p { color: #dcd4c8; font-size: .9rem; margin-top: .6rem; }
+  .service-grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(3,1fr); }.service-card img { aspect-ratio: 1.35; border-radius: 20px; object-fit: cover; width: 100%; }.service-card h3 { font-size: 2rem; margin: 1.25rem 0 .65rem; }.service-card p { color: #5f6670; font-size: .92rem; }
+  .consultation { background: #0f171c; color: #fff; }.consultation-grid { align-items: start; display: grid; gap: 3rem; grid-template-columns: .9fr .55fr 1fr; }.consultation-copy { padding-top: 2rem; }.consultation-copy > p:not(.eyebrow) { color: #dcd4c8; margin: 1.5rem 0 2rem; }.consultation-grid > img { border-radius: 20px; height: 560px; object-fit: cover; width: 100%; }.contact-form { background: #f7f4ed; border-radius: 20px; color: #121820; display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; padding: clamp(1.25rem,3vw,2rem); }.contact-form label { color: #5f6670; display: grid; font: 600 .68rem/1.4 Inter, Arial, sans-serif; gap: .4rem; letter-spacing: .08em; text-transform: uppercase; }.contact-form input, .contact-form select, .contact-form textarea { background: rgba(255,255,255,.72); border: 1px solid rgba(18,24,32,.2); border-radius: 6px; color: #121820; font: 400 .9rem Inter, Arial, sans-serif; padding: .85rem; }.contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: #b68a5e; outline: 2px solid rgba(182,138,94,.18); }.contact-form .full { grid-column: 1 / -1; }.consent { align-items: center; grid-template-columns: auto 1fr; text-transform: none !important; }.consent input { accent-color: #b68a5e; }.contact-form button { border: 0; width: 100%; }
+  @media (max-width: 1199px) { .consultation-grid { grid-template-columns: 1fr 1fr; }.contact-form { grid-column: 1 / -1; }.process-intro { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 809px) { .container { width: min(100% - 40px, 1200px); }.site-header { padding-top: .75rem; }.nav-shell { min-height: 58px; padding-left: .9rem; }.brand img { height: 31px; }.phone { display: none; }.button--small { font-size: .58rem; padding: .75rem .85rem; }.hero-scrim { background: linear-gradient(90deg, rgba(8,12,13,.75), rgba(8,12,13,.25)), linear-gradient(0deg, rgba(8,12,13,.7), transparent 75%); }.hero-content { padding-bottom: 3rem; }.hero-title { font-size: clamp(3.25rem,15vw,4.6rem); }.hero .button { width: 100%; }.trust-grid, .service-grid, .consultation-grid, .process-intro, .case-study { grid-template-columns: 1fr; }.trust-grid { gap: 1.25rem; }.trust { padding: 2rem 0; }.feature-grid { grid-template-columns: 1fr; }.feature--tall { grid-row: auto; }.feature img { min-height: 300px; }.feature--wide { min-height: auto; }.process-intro { align-items: start; gap: 2.5rem; }.case-study { margin-top: 5rem; }.case-images { grid-template-columns: 1fr .65fr; }.case-images img { height: 260px; }.case-images img:last-child { height: 160px; }.process-list { grid-template-columns: 1fr; margin-top: 4rem; }.process-list li:nth-child(odd) { margin-right: 0; }.consultation-grid > img { height: 440px; }.contact-form { grid-template-columns: 1fr; }.contact-form .full { grid-column: auto; } }
+  @media (prefers-reduced-motion: reduce) { .reveal { animation: none; } }
+</style>

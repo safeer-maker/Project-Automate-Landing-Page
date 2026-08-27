@@ -1,0 +1,22 @@
+{
+  "$schema": "./framer-assets.schema.json",
+  "publicDirectory": "framer-extracted-assets",
+  "r2Prefix": "framer-extracted-assets",
+  "assets": [
+    { "id": "brandMark", "source": "https://framerusercontent.com/images/k84EaIFtm9ftwVBcAYsOxkoxvk.png", "path": "brand/project-automate-mark.png" },
+    { "id": "heroEstateAtSunset", "source": "https://framerusercontent.com/images/jmHA5OzF9u2QJZ8w2XVCBVVsknw.jpeg", "path": "hero/estate-at-sunset.jpeg" },
+    { "id": "htaCertification", "source": "https://framerusercontent.com/images/WTCJCHwPyvqAsuoIuNMGTOdxYyo.png", "path": "certifications/hta-certified.png" },
+    { "id": "cediaMembership", "source": "https://framerusercontent.com/images/b6niPWNZJzNJnhixUffvGaVzlo0.png", "path": "certifications/cedia-membership.png" },
+    { "id": "industryMembership", "source": "https://framerusercontent.com/images/DDo5qkPTjHKsTJJsCunNOCqEjs.png", "path": "certifications/smart-home-industry-member.png" },
+    { "id": "revealArchitecture", "source": "https://framerusercontent.com/images/vhHWy8kT2ayRzra33hUx5d0N77M.png", "path": "features/reveal-architecture.png" },
+    { "id": "highlightLandscaping", "source": "https://framerusercontent.com/images/2sqG9U2DSTUrvRmR5LzST4bqq8.png", "path": "features/highlight-landscaping.png" },
+    { "id": "improveSafety", "source": "https://framerusercontent.com/images/PTpf545Wrj3hsbyb0KZ69CeN4.jpeg", "path": "features/improve-safety.jpeg" },
+    { "id": "designBuildProcess", "source": "https://framerusercontent.com/images/B09sqH3TIMTukSH6CHAwQlVGPu4.png", "path": "process/design-build-process.png" },
+    { "id": "projectCaseStudy", "source": "https://framerusercontent.com/images/2MR4btwe7qMs428r3039qUiNkw.png", "path": "case-studies/lighting-redesign.png" },
+    { "id": "projectCaseStudyDetail", "source": "https://framerusercontent.com/images/xwHRUD4mSN9fDEhG6peZXqPk9s.png", "path": "case-studies/lighting-redesign-detail.png" },
+    { "id": "landscapeLightingService", "source": "https://framerusercontent.com/images/EVXwSGYAXnXbq2mGYgylzsw6c4.png", "path": "services/landscape-lighting.png" },
+    { "id": "outdoorAudioService", "source": "https://framerusercontent.com/images/oEgojNveE2uwZqhgMtVW81XZweU.png", "path": "services/outdoor-audio.png" },
+    { "id": "smartControlService", "source": "https://framerusercontent.com/images/xZqGNjmYZMpRaQ0SJYqMIh2XYps.png", "path": "services/smart-control.png" },
+    { "id": "consultationContact", "source": "https://framerusercontent.com/images/PIoaoHZx8tl0BNGDc0ABr4H54.png", "path": "contact/private-consultation.png" }
+  ]
+}
