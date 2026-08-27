@@ -1,41 +1,8 @@
 ---
-import { assetUrl } from '../config/assets';
-const isHome = Astro.url.pathname === '/';
-const link = (anchor: string) => isHome ? anchor : `/${anchor}`;
+import HeaderBrand from './header/HeaderBrand.astro';
+import HeaderCallButton from './header/HeaderCallButton.astro';
+import HeaderCtaButton from './header/HeaderCtaButton.astro';
+import HeaderMobileMenu from './header/HeaderMobileMenu.astro';
 ---
-
-<header class="site-header">
-  <nav class="container navigation" aria-label="Primary navigation">
-    <a class="brand" href="/" aria-label="PROJECT:automate home">
-      <img src={assetUrl('brandMark')} width="314" height="184" alt="" />
-      <span><strong>PROJECT:</strong><strong>automate</strong></span>
-    </a>
-    <div class="desktop-actions">
-      <a class="phone" href="tel:+13107405375" aria-label="Call PROJECT:automate at (310) 740-5375" title="Call (310) 740-5375">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.2 16.5v2.8a1.9 1.9 0 0 1-2 1.9A18.8 18.8 0 0 1 2.8 4.8a1.9 1.9 0 0 1 1.9-2h2.8a1.9 1.9 0 0 1 1.9 1.6c.1 1 .4 2 .8 2.9a1.9 1.9 0 0 1-.4 2L8.6 10.5a15.1 15.1 0 0 0 4.9 4.9l1.2-1.2a1.9 1.9 0 0 1 2-.4c.9.4 1.9.7 2.9.8a1.9 1.9 0 0 1 1.6 1.9Z" /></svg>
-      </a>
-      <a class="button" href={link('#booking')}>Book a consultation <span aria-hidden="true">→</span></a>
-    </div>
-    <details class="mobile-menu">
-      <summary><span>Menu</span><span class="menu-icon" aria-hidden="true"></span></summary>
-      <div class="mobile-panel"><a class="mobile-phone" href="tel:+13107405375">Call (310) 740-5375</a><a class="button" href={link('#booking')}>Book a consultation <span aria-hidden="true">→</span></a></div>
-    </details>
-  </nav>
-</header>
-
-<style>
-  .site-header { left:0; padding-top:1.25rem; position:absolute; right:0; top:0; z-index:10; }
-  .container { margin-inline:auto; width:min(1200px,calc(100% - 80px)); }
-  .navigation { align-items:center; background:rgb(10 17 22 / .8); border:1px solid rgb(255 255 255 / .16); border-radius:999px; box-shadow:0 12px 35px rgb(0 0 0 / .16); display:flex; min-height:76px; padding:.4rem .55rem .4rem 1.35rem; backdrop-filter:blur(18px); }
-  .brand { align-items:center; color:#fff; display:flex; flex-shrink:0; gap:.9rem; text-decoration:none; transform-origin:left center; }
-  .brand img { height:48px; object-fit:contain; width:66px; }
-  .brand span { display:grid; font:700 1rem/.9 Inter,Arial,sans-serif; letter-spacing:-.035em; }
-  .brand strong:last-child { color:#d9b384; }
-  .desktop-actions { align-items:center; display:flex; gap:.65rem; margin-left:auto; }
-  .phone { align-items:center; border:1px solid rgb(255 255 255 / .22); border-radius:50%; color:#d9b384; display:inline-flex; height:42px; justify-content:center; transition:background .2s ease,color .2s ease; width:42px; }
-  .phone:hover { background:#fff; color:#121820; }.phone svg { fill:none; height:17px; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; stroke-width:1.7; width:17px; }
-  .button { align-items:center; background:#b68a5e; border-radius:999px; color:#fff; display:inline-flex; font:700 .65rem/1 Inter,Arial,sans-serif; gap:.65rem; justify-content:center; letter-spacing:.08em; padding:.9rem 1.1rem; text-decoration:none; text-transform:uppercase; transition:background .2s ease,transform .2s ease; }.button:hover { background:#d0a16f; transform:translateY(-1px); }a:focus-visible,summary:focus-visible { outline:2px solid #fff; outline-offset:4px; }
-  .mobile-menu { display:none; margin-left:auto; position:relative; }.mobile-menu summary { align-items:center; color:#fff; cursor:pointer; display:flex; font:700 .67rem/1 Inter,Arial,sans-serif; gap:.65rem; letter-spacing:.1em; list-style:none; padding:.85rem .7rem; text-transform:uppercase; }.mobile-menu summary::-webkit-details-marker { display:none; }.menu-icon,.menu-icon::before { background:currentColor; display:block; height:1px; position:relative; width:18px; }.menu-icon::before { content:''; position:absolute; top:-5px; }.mobile-panel { background:#10181e; border:1px solid rgb(255 255 255 / .15); border-radius:18px; box-shadow:0 18px 40px rgb(0 0 0 / .28); display:grid; gap:1.25rem; padding:1.35rem; position:absolute; right:0; top:calc(100% + .75rem); width:min(290px,calc(100vw - 40px)); }.mobile-phone { color:#d9b384; font:600 .74rem/1 Inter,Arial,sans-serif; letter-spacing:.08em; text-decoration:none; text-transform:uppercase; }
-  @supports (animation-timeline: scroll()) { .brand { animation:brand-scale linear both; animation-range:0 240px; animation-timeline:scroll(root); } @keyframes brand-scale { to { transform:scale(.72); } } }
-  @media(max-width:900px) { .site-header { padding-top:.75rem; }.container { width:min(1200px,calc(100% - 40px)); }.navigation { min-height:62px; }.brand { gap:.65rem; }.brand img { height:34px; width:46px; }.brand span { font-size:.77rem; }.desktop-actions { display:none; }.mobile-menu { display:block; } }
-</style>
+<header class="site-header"><nav class="container navigation" aria-label="Primary navigation"><HeaderBrand /><div class="desktop-actions"><HeaderCallButton /><HeaderCtaButton /></div><HeaderMobileMenu /></nav></header>
+<style>.site-header{left:0;padding-top:1.25rem;position:absolute;right:0;top:0;z-index:10}.container{margin-inline:auto;width:min(1200px,calc(100% - 80px))}.navigation{align-items:center;background:rgb(10 17 22 / .8);border:1px solid rgb(255 255 255 / .16);border-radius:999px;box-shadow:0 12px 35px rgb(0 0 0 / .16);display:flex;min-height:76px;padding:.4rem .55rem .4rem 1.35rem;backdrop-filter:blur(18px)}.desktop-actions{align-items:center;display:flex;gap:.65rem;margin-left:auto}@media(max-width:900px){.site-header{padding-top:.75rem}.container{width:min(1200px,calc(100% - 40px))}.navigation{min-height:62px}.desktop-actions{display:none}}</style>

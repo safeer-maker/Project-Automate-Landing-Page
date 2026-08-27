@@ -6,8 +6,8 @@ import TrustSection from '../components/TrustSection.astro';
 import BenefitsSection from '../components/BenefitsSection.astro';
 import ProjectProcessSection from '../components/ProjectProcessSection.astro';
 import ServicesSection from '../components/ServicesSection.astro';
-import ConsultationSection from '../components/ConsultationSection.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import GhlFormModal from '../components/GhlFormModal.astro';
 import { assetUrl } from '../config/assets';
 ---
 
@@ -15,6 +15,7 @@ import { assetUrl } from '../config/assets';
   title="Architectural Landscape Lighting | PROJECT:automate"
   description="Architectural landscape lighting, outdoor audio, and seamless control for Los Angeles estates."
   ogImage={assetUrl('heroEstateAtSunset')}
+  preloadVideo="/framer-extracted-assets/hero/estate-at-sunset.webm"
 >
   <SiteHeader />
   <HeroSection />
@@ -22,6 +23,6 @@ import { assetUrl } from '../config/assets';
   <BenefitsSection />
   <ProjectProcessSection />
   <ServicesSection />
-  <ConsultationSection />
   <SiteFooter />
+  <GhlFormModal />
 </Layout>
