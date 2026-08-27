@@ -13,9 +13,11 @@ export function assetUrl(id: AssetId): string {
   if (!asset) throw new Error(`Unknown asset id: ${id}`);
 
   const r2BaseUrl = import.meta.env.PUBLIC_R2_ASSET_URL?.replace(/\/$/, '');
-  return r2BaseUrl
-    ? `${r2BaseUrl}/${manifest.r2Prefix}/${asset.path}`
-    : `/${manifest.publicDirectory}/${asset.path}`;
+  if (r2BaseUrl) {
+    const prefix = manifest.r2Prefix ? `${manifest.r2Prefix}/` : '';
+    return `${r2BaseUrl}/${prefix}${asset.path}`;
+  }
+  return asset.source;
 }
 
 export { manifest as framerAssets };

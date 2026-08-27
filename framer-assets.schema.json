@@ -5,7 +5,7 @@
   "required": ["publicDirectory", "r2Prefix", "assets"],
   "properties": {
     "publicDirectory": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
-    "r2Prefix": { "type": "string", "pattern": "^[a-z0-9][a-z0-9/-]*$" },
+    "r2Prefix": { "type": "string", "pattern": "^[a-z0-9/-]*$" },
     "assets": {
       "type": "array",
       "items": {

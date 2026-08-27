@@ -1,5 +1,4 @@
 ---
-import GhlFormModal from '../components/GhlFormModal.astro';
 import { assetUrl, framerAssets } from '../config/assets';
 import '../styles/global.css';
 
@@ -12,7 +11,7 @@ interface Props {
 const {
   title = "Outdoor Lighting & Audio - PROJECT:automate",
   description = "Your Home Shouldn’t End at the Back Door. Architectural landscape lighting and high-performance outdoor audio designed as one seamless outdoor experience.",
-  ogImage = "/framer-extracted-assets/hero/estate-at-sunset.jpeg"
+  ogImage = "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/hero/estate-at-sunset.webp"
 } = Astro.props;
 ---
 
@@ -43,6 +42,5 @@ const {
     <main id="main-content">
       <slot />
     </main>
-    <GhlFormModal />
   </body>
 </html>
