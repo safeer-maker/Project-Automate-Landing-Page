@@ -1,51 +1,126 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import GhlFormModal from '../components/GhlFormModal.astro';
+import { assetUrl, framerAssets } from '../config/assets';
 import '../styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  preloadVideo?: string;
 }
 
 const {
-  title = "Outdoor Lighting & Audio - PROJECT:automate",
-  description = "Your Home Shouldn’t End at the Back Door. Architectural landscape lighting and high-performance outdoor audio designed as one seamless outdoor experience.",
-  ogImage = "/assets/images/hero-og-image.webp"
+  title = 'Outdoor Lighting & Audio - PROJECT:automate',
+  description = 'Your Home Shouldn’t End at the Back Door. Architectural landscape lighting and high-performance outdoor audio designed as one seamless outdoor experience.',
+  ogImage = 'https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/hero/estate-at-sunset.webp',
+  preloadVideo,
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-framer-assets={framerAssets.publicDirectory}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <link rel="icon" type="image/webp" href="/assets/logos/favicon.webp" />
-    <link rel="apple-touch-icon" href="/assets/logos/favicon.webp" />
-    
+    <link rel="preconnect" href="https://api.leadconnectorhq.com" crossorigin />
+    <link rel="dns-prefetch" href="https://api.leadconnectorhq.com" />
+    <link rel="icon" type="image/png" href={assetUrl('brandMark')} />
+    <link rel="apple-touch-icon" href={assetUrl('brandMark')} />
+    {
+      preloadVideo && (
+        <link rel="preload" href={preloadVideo} as="video" type="video/webm" fetchpriority="high" />
+      )
+    }
+
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
-    
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
   </head>
   <body>
-    <Header />
     <main id="main-content">
       <slot />
     </main>
-    <Footer />
-    <GhlFormModal />
+    <script>
+      const revealItems = document.querySelectorAll<HTMLElement>('[data-reveal], [data-motion]');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      const reveal = (item: HTMLElement) => {
+        if (item.classList.contains('motion-in')) return;
+        item.classList.remove('motion-pending');
+        item.classList.add('motion-in');
+
+        const complete = () => {
+          item.classList.remove('motion-in', 'motion-pending');
+          item.classList.add('motion-complete');
+        };
+
+        item.addEventListener(
+          'animationend',
+          (event) => {
+            if (event.target === item) complete();
+          },
+          { once: true },
+        );
+
+        // Safety net for interrupted animations, background tabs, and browser edge cases.
+        window.setTimeout(complete, 2200);
+      };
+
+      if (reducedMotion.matches || !('IntersectionObserver' in window)) {
+        revealItems.forEach((item) => item.classList.add('motion-complete'));
+      } else {
+        revealItems.forEach((item) => item.classList.add('motion-pending'));
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              reveal(entry.target as HTMLElement);
+              observer.unobserve(entry.target);
+            });
+          },
+          { rootMargin: '0px 0px 12% 0px', threshold: 0.01 },
+        );
+
+        revealItems.forEach((item) => observer.observe(item));
+
+        const releaseStuckVisibleItems = () => {
+          revealItems.forEach((item) => {
+            if (!item.classList.contains('motion-pending')) return;
+            const bounds = item.getBoundingClientRect();
+            if (bounds.bottom <= 0 || bounds.top >= window.innerHeight) return;
+
+            item.classList.remove('motion-pending');
+            item.classList.add('motion-complete');
+            observer.unobserve(item);
+          });
+        };
+
+        let fallbackTimer = 0;
+        window.addEventListener(
+          'scroll',
+          () => {
+            window.clearTimeout(fallbackTimer);
+            fallbackTimer = window.setTimeout(releaseStuckVisibleItems, 350);
+          },
+          { passive: true },
+        );
+        window.setTimeout(releaseStuckVisibleItems, 2200);
+      }
+    </script>
   </body>
 </html>

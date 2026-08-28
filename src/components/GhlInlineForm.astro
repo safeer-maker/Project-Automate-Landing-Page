@@ -1,0 +1,98 @@
+---
+interface Props {
+  title?: string;
+  eyebrow?: string;
+  description?: string;
+  variant?: 'light' | 'glass';
+}
+
+const {
+  title = 'Tell Us About Your Outdoor Project',
+  eyebrow = 'Private consultation',
+  description = 'Share a few details and our design team will review your project before reaching out.',
+  variant = 'light',
+} = Astro.props;
+---
+
+<section class:list={['ghl-inline', `ghl-inline--${variant}`]} aria-labelledby="ghl-inline-title">
+  <div class="ghl-inline__heading">
+    <p>{eyebrow}</p>
+    <h2 id="ghl-inline-title">{title}</h2>
+    <span>{description}</span>
+  </div>
+  <iframe
+    src="https://api.leadconnectorhq.com/widget/form/ZiepwgoZzuozaOg3NIkl"
+    id="inline-ZiepwgoZzuozaOg3NIkl"
+    data-layout="{'id':'INLINE'}"
+    data-height="1015"
+    data-form-id="ZiepwgoZzuozaOg3NIkl"
+    title="PROJECT:automate consultation form"
+    loading="lazy"
+  >
+  </iframe>
+</section>
+
+<style>
+  .ghl-inline {
+    background: #f7f4ed;
+    border-radius: 20px;
+    color: #121820;
+    overflow: hidden;
+    padding: clamp(1.25rem, 3vw, 2rem);
+  }
+  .ghl-inline--glass {
+    backdrop-filter: blur(18px);
+    background: rgb(247 244 237 / 0.9);
+    border: 1px solid rgb(255 255 255 / 0.86);
+    box-shadow:
+      0 30px 70px -25px rgb(18 24 32 / 0.28),
+      inset 0 2px 18px rgb(255 255 255 / 0.75);
+  }
+  .ghl-inline__heading {
+    margin-bottom: 1.5rem;
+  }
+  .ghl-inline__heading p {
+    color: #b68a5e;
+    font:
+      700 0.68rem/1.3 Inter,
+      Arial,
+      sans-serif;
+    letter-spacing: 0.15em;
+    margin: 0 0 0.7rem;
+    text-transform: uppercase;
+  }
+  .ghl-inline__heading h2 {
+    font:
+      500 clamp(2rem, 3vw, 2.75rem)/0.95 'Cormorant Garamond',
+      Georgia,
+      serif;
+    letter-spacing: -0.04em;
+    margin: 0;
+  }
+  .ghl-inline__heading span {
+    color: #5f6670;
+    display: block;
+    font:
+      0.9rem/1.55 Inter,
+      Arial,
+      sans-serif;
+    margin-top: 0.9rem;
+  }
+  iframe {
+    border: 0;
+    border-radius: 8px;
+    display: block;
+    min-height: 1015px;
+    width: 100%;
+  }
+
+  @media (max-width: 809px) {
+    .ghl-inline {
+      padding: 1rem;
+    }
+
+    .ghl-inline__heading h2 {
+      font-size: 2rem;
+    }
+  }
+</style>

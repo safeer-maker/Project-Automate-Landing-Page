@@ -1,0 +1,296 @@
+---
+import { assetUrl } from '../config/assets';
+import GhlInlineForm from './GhlInlineForm.astro';
+
+const contactItems = [
+  {
+    label: 'Call Us',
+    value: '(310) 740-5375',
+    href: 'tel:+13107405375',
+    icon: 'phone',
+  },
+  {
+    label: 'Email Us',
+    value: 'sales@projectautomate.com',
+    href: 'mailto:sales@projectautomate.com',
+    icon: 'email',
+  },
+  {
+    label: 'Visit Us',
+    value: '1600 Rosecrans Ave, Building 7, Suite 400, Manhattan Beach, CA 90266',
+    href: 'https://maps.google.com/?q=1600+Rosecrans+Ave+Building+7+Suite+400+Manhattan+Beach+CA+90266',
+    icon: 'location',
+  },
+  {
+    label: 'Schedule a Consultation',
+    value: 'Share your goals and our design team will help determine the right next step.',
+    href: '/schedule/',
+    icon: 'calendar',
+  },
+] as const;
+---
+
+<section id="consultation" class="consultation" aria-labelledby="consultation-title">
+  <div class="container consultation-layout">
+    <div class="consultation-copy">
+      <header data-reveal>
+        <p class="eyebrow">Get in touch</p>
+        <h2 id="consultation-title">Request a Private Lighting Consultation</h2>
+      </header>
+
+      <div class="contact-list">
+        {
+          contactItems.map((item, index) => (
+            <a
+              class="contact-item"
+              href={item.href}
+              target={item.icon === 'location' ? '_blank' : undefined}
+              rel={item.icon === 'location' ? 'noopener noreferrer' : undefined}
+              data-reveal
+              style={`--reveal-delay: ${index * 70}ms`}
+            >
+              <span class="contact-item__icon" aria-hidden="true">
+                {item.icon === 'phone' && (
+                  <svg viewBox="0 0 24 24">
+                    <path d="M21 16.7v2.7a1.8 1.8 0 0 1-2 1.8A18.2 18.2 0 0 1 2.8 5a1.8 1.8 0 0 1 1.8-2h2.7A1.8 1.8 0 0 1 9 4.5c.1.9.4 1.8.7 2.7a1.8 1.8 0 0 1-.4 1.9L8.2 10.2a14.7 14.7 0 0 0 5.6 5.6l1.1-1.1a1.8 1.8 0 0 1 1.9-.4c.9.3 1.8.6 2.7.7a1.8 1.8 0 0 1 1.5 1.7Z" />
+                  </svg>
+                )}
+                {item.icon === 'email' && (
+                  <svg viewBox="0 0 24 24">
+                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                    <path d="m4 7 8 6 8-6" />
+                  </svg>
+                )}
+                {item.icon === 'location' && (
+                  <svg viewBox="0 0 24 24">
+                    <path d="M20 10c0 5.2-8 11-8 11S4 15.2 4 10a8 8 0 1 1 16 0Z" />
+                    <circle cx="12" cy="10" r="2.4" />
+                  </svg>
+                )}
+                {item.icon === 'calendar' && (
+                  <svg viewBox="0 0 24 24">
+                    <rect x="3" y="5" width="18" height="16" rx="2" />
+                    <path d="M7 3v4M17 3v4M3 10h18" />
+                  </svg>
+                )}
+              </span>
+              <span>
+                <strong>{item.label}</strong>
+                <span>{item.value}</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="form-visual" data-reveal data-motion="media" style="--reveal-delay: 100ms">
+      <img
+        src={assetUrl('consultationContact')}
+        width="941"
+        height="1672"
+        alt="Architectural outdoor living space overlooking the water at sunset"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="form-visual__wash"></div>
+      <div class="form-shell">
+        <GhlInlineForm
+          title="Send Us a Message"
+          eyebrow="Private consultation"
+          description="Tell us about your property and we'll get back to you shortly."
+          variant="glass"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .consultation {
+    background: #f7f4ed;
+    color: #121820;
+    padding: clamp(4.25rem, 5vw, 5.5rem) 0;
+    scroll-margin-top: 90px;
+  }
+
+  .container {
+    margin-inline: auto;
+    width: min(var(--page-max), calc(100% - var(--page-gutter) - var(--page-gutter)));
+  }
+
+  .consultation-layout {
+    align-items: start;
+    display: grid;
+    gap: clamp(2.25rem, 3.5vw, 4rem);
+    grid-template-columns: minmax(300px, 0.78fr) minmax(520px, 1.22fr);
+  }
+
+  .consultation-copy {
+    align-self: center;
+    padding-block: 3rem;
+  }
+
+  .eyebrow {
+    color: #b68a5e;
+    font:
+      700 0.7rem/1 Inter,
+      Arial,
+      sans-serif;
+    letter-spacing: 0.14em;
+    margin: 0 0 1.1rem;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font:
+      400 clamp(2.8rem, 3.45vw, 3.2rem) / 1.02 Arial,
+      Helvetica,
+      sans-serif;
+    letter-spacing: -0.05em;
+    margin: 0;
+    max-width: 500px;
+    text-transform: uppercase;
+  }
+
+  .contact-list {
+    display: grid;
+    gap: 1.5rem 2rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 3.5rem;
+  }
+
+  .contact-item {
+    align-items: flex-start;
+    display: grid;
+    gap: 0.85rem;
+    grid-template-columns: 38px minmax(0, 1fr);
+    text-decoration: none;
+  }
+
+  .contact-item__icon {
+    align-items: center;
+    border: 1px solid rgb(182 138 94 / 0.3);
+    border-radius: 50%;
+    color: #b68a5e;
+    display: inline-flex;
+    height: 34px;
+    justify-content: center;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+    width: 34px;
+  }
+
+  .contact-item:hover .contact-item__icon {
+    background: #b68a5e;
+    color: #fff;
+  }
+
+  .contact-item svg {
+    fill: none;
+    height: 15px;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.6;
+    width: 15px;
+  }
+
+  .contact-item strong,
+  .contact-item > span:last-child > span {
+    display: block;
+  }
+
+  .contact-item strong {
+    font:
+      600 0.67rem/1.2 Inter,
+      Arial,
+      sans-serif;
+    letter-spacing: 0.04em;
+    margin: 0.1rem 0 0.3rem;
+    text-transform: uppercase;
+  }
+
+  .contact-item > span:last-child > span {
+    color: #5f6670;
+    font:
+      0.83rem/1.5 Inter,
+      Arial,
+      sans-serif;
+  }
+
+  .form-visual {
+    border-radius: 20px;
+    min-height: 850px;
+    overflow: hidden;
+    padding: 3rem;
+    position: relative;
+  }
+
+  .form-visual > img,
+  .form-visual__wash {
+    inset: 0;
+    position: absolute;
+  }
+
+  .form-visual > img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center 58%;
+    width: 100%;
+  }
+
+  .form-visual__wash {
+    background: linear-gradient(135deg, rgb(247 244 237 / 0.42), rgb(247 244 237 / 0.72));
+  }
+
+  .form-shell {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 1199px) {
+    .consultation-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .consultation-copy {
+      padding-block: 0;
+    }
+
+    .consultation-copy header {
+      max-width: 700px;
+    }
+
+    .contact-list {
+      gap: 1.5rem 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .form-visual {
+      min-height: 820px;
+    }
+  }
+
+  @media (max-width: 809px) {
+    .consultation {
+      padding: 3.75rem 0;
+    }
+
+    h2 {
+      font-size: clamp(2.45rem, 10.5vw, 2.9rem);
+    }
+
+    .contact-list {
+      grid-template-columns: 1fr;
+    }
+
+    .form-visual {
+      border-radius: 18px;
+      margin-inline: -10px;
+      min-height: 800px;
+      padding: 1.25rem;
+    }
+  }
+</style>

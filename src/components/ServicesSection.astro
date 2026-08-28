@@ -1,0 +1,346 @@
+---
+import { assetUrl } from '../config/assets';
+
+const services = [
+  {
+    id: 'landscapeLightingService',
+    title: 'Landscape Lighting',
+    copy: 'Architectural, pathway and garden lighting designed with precision.',
+    icon: 'landscape',
+  },
+  {
+    id: 'outdoorAudioService',
+    title: 'Outdoor Audio',
+    copy: 'Discreet, high-performance audio that elevates your outdoor lifestyle.',
+    icon: 'audio',
+  },
+  {
+    id: 'smartControlService',
+    title: 'Smart Control',
+    copy: 'Effortless control of lighting, audio and environments from anywhere.',
+    icon: 'control',
+  },
+] as const;
+---
+
+<section id="services" class="services-section" aria-labelledby="services-title">
+  <div class="container">
+    <header class="section-heading" data-reveal>
+      <p class="eyebrow">Complete outdoor experience</p>
+      <h2 id="services-title">Landscape Lighting. Outdoor Audio. Seamless Control.</h2>
+      <p class="intro">Outdoor spaces designed to feel as connected as your home.</p>
+    </header>
+
+    <div class="services-grid">
+      {
+        services.map((service, index) => (
+          <article
+            class:list={['service-card', `service-card--${service.icon}`]}
+            data-reveal
+            style={`--reveal-delay: ${index * 90}ms`}
+          >
+            <div class="service-card__media">
+              <img
+                src={assetUrl(service.id)}
+                alt={`${service.title} installation at a luxury residence`}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="service-card__content">
+              {service.icon === 'landscape' && (
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 20V9l8-5 8 5v11h-6v-6h-4v6H4Z" />
+                  <path d="M3 20h18M5 6l2-3M19 6l-2-3" />
+                </svg>
+              )}
+              {service.icon === 'audio' && (
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 9v6M8 6v12M12 9v6M16 4v16M20 8v8" />
+                </svg>
+              )}
+              {service.icon === 'control' && (
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 9a10 10 0 0 1 14 0M8 12a6 6 0 0 1 8 0M11 15a2 2 0 0 1 2 0" />
+                  <circle cx="12" cy="18" r="1" />
+                </svg>
+              )}
+              <div>
+                <h3>{service.title}</h3>
+                <p>{service.copy}</p>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-section {
+    background: #f7f4ed;
+    color: #121820;
+    padding: 0 0 clamp(4.25rem, 5vw, 5.5rem);
+    scroll-margin-top: 90px;
+  }
+
+  .container {
+    margin-inline: auto;
+    width: min(var(--page-max), calc(100% - var(--page-gutter) - var(--page-gutter)));
+  }
+
+  .section-heading {
+    margin: 0 auto clamp(2.75rem, 4vw, 3.75rem);
+    max-width: 920px;
+    text-align: center;
+  }
+
+  .eyebrow {
+    color: #b68a5e;
+    font:
+      700 0.7rem/1 Inter,
+      Arial,
+      sans-serif;
+    letter-spacing: 0.14em;
+    margin: 0 0 1.1rem;
+    text-transform: uppercase;
+  }
+
+  h2,
+  h3,
+  p {
+    margin-top: 0;
+  }
+
+  h2 {
+    font:
+      400 clamp(2.65rem, 3.4vw, 3rem) / 1.05 Arial,
+      Helvetica,
+      sans-serif;
+    letter-spacing: -0.045em;
+    margin-bottom: 1.35rem;
+  }
+
+  .intro {
+    color: #5f6670;
+    font:
+      1rem/1.6 Inter,
+      Arial,
+      sans-serif;
+    margin-bottom: 0;
+  }
+
+  .services-grid {
+    display: grid;
+    gap: clamp(1.5rem, 2.5vw, 2.5rem);
+  }
+
+  .service-card {
+    align-items: stretch;
+    background: #efe9de;
+    border-radius: 24px;
+    box-shadow: 0 22px 55px rgb(31 36 40 / 0.08);
+    display: grid;
+    grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.98fr);
+    height: clamp(320px, 26vw, 370px);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .service-card:nth-child(even) {
+    grid-template-columns: minmax(320px, 0.98fr) minmax(0, 1.02fr);
+  }
+
+  .service-card__media {
+    clip-path: polygon(0 0, 100% 0, 87% 100%, 0 100%);
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .service-card:nth-child(even) .service-card__media {
+    clip-path: polygon(13% 0, 100% 0, 100% 100%, 0 100%);
+    grid-column: 2;
+  }
+
+  .service-card__media::after {
+    background: linear-gradient(90deg, transparent 65%, rgb(14 20 25 / 0.12));
+    content: '';
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .service-card:nth-child(even) .service-card__media::after {
+    background: linear-gradient(270deg, transparent 65%, rgb(14 20 25 / 0.12));
+  }
+
+  .service-card__media img {
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    width: 100%;
+  }
+
+  .service-card--audio .service-card__media img {
+    object-position: 22% 39%;
+  }
+
+  .service-card:hover .service-card__media img {
+    transform: scale(1.035);
+  }
+
+  .service-card__content {
+    align-items: center;
+    display: grid;
+    gap: 1.35rem;
+    grid-column: 2;
+    grid-row: 1;
+    grid-template-columns: 46px minmax(0, 1fr);
+    padding: clamp(2rem, 3.5vw, 4rem);
+    z-index: 1;
+  }
+
+  .service-card:nth-child(even) .service-card__content {
+    grid-column: 1;
+  }
+
+  .service-card__content svg {
+    fill: none;
+    height: 38px;
+    stroke: #b68a5e;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.35;
+    width: 38px;
+  }
+
+  .service-card__content h3 {
+    font:
+      400 clamp(1.85rem, 2.5vw, 2.6rem) / 1.04 Arial,
+      Helvetica,
+      sans-serif;
+    letter-spacing: -0.04em;
+    margin-bottom: 0.8rem;
+  }
+
+  .service-card__content p {
+    color: #5f6670;
+    font:
+      clamp(0.88rem, 1vw, 1rem) / 1.6 Inter,
+      Arial,
+      sans-serif;
+    max-width: 34rem;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 1199px) {
+    .service-card {
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 1fr);
+      height: 310px;
+    }
+
+    .service-card:nth-child(even) {
+      grid-template-columns: minmax(300px, 1fr) minmax(0, 1fr);
+    }
+
+    .service-card__content {
+      padding: clamp(1.75rem, 3vw, 2.75rem);
+    }
+  }
+
+  @media (max-width: 809px) {
+    .services-section {
+      padding-bottom: 3.75rem;
+    }
+
+    .section-heading {
+      margin-bottom: 2.4rem;
+      text-align: left;
+    }
+
+    h2 {
+      font-size: clamp(2.35rem, 10vw, 2.7rem);
+    }
+
+    .intro {
+      font-size: 0.9rem;
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .service-card,
+    .service-card:last-child {
+      border: 2px solid #fff;
+      border-radius: 20px;
+      grid-column: auto;
+      display: block;
+      height: 320px;
+      min-height: 0;
+    }
+
+    .service-card__media,
+    .service-card:nth-child(even) .service-card__media {
+      clip-path: none;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .service-card__media::after,
+    .service-card:nth-child(even) .service-card__media::after {
+      background: linear-gradient(180deg, transparent 45%, rgb(4 9 13 / 0.38));
+    }
+
+    .service-card__content,
+    .service-card:nth-child(even) .service-card__content {
+      align-items: center;
+      backdrop-filter: blur(18px);
+      background: rgb(255 255 255 / 0.78);
+      border: 1px solid rgb(255 255 255 / 0.82);
+      border-radius: 12px;
+      bottom: 12px;
+      box-shadow:
+        0 24px 50px -20px rgb(0 0 0 / 0.24),
+        inset 0 2px 18px rgb(255 255 255 / 0.78);
+      display: grid;
+      gap: 0.9rem;
+      grid-template-columns: 38px minmax(0, 1fr);
+      left: 12px;
+      padding: 1rem 1.05rem;
+      position: absolute;
+      right: 12px;
+    }
+
+    .service-card__content svg {
+      height: 30px;
+      width: 30px;
+    }
+
+    .service-card__content h3 {
+      font:
+        500 0.78rem/1.2 Inter,
+        Arial,
+        sans-serif;
+      letter-spacing: 0.035em;
+      margin-bottom: 0.3rem;
+      text-transform: uppercase;
+    }
+
+    .service-card__content p {
+      font-size: 0.68rem;
+      line-height: 1.5;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-card__media img {
+      transition: none;
+    }
+  }
+</style>

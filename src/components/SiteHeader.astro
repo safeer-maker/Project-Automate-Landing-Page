@@ -1,0 +1,125 @@
+---
+import HeaderBrand from './header/HeaderBrand.astro';
+import HeaderCallButton from './header/HeaderCallButton.astro';
+import HeaderCtaButton from './header/HeaderCtaButton.astro';
+---
+
+<header class="site-header">
+  <nav class="container navigation" aria-label="Primary navigation">
+    <HeaderBrand />
+    <div class="desktop-actions">
+      <HeaderCallButton />
+      <HeaderCtaButton />
+    </div>
+    <div class="mobile-actions">
+      <HeaderCallButton />
+      <a class="mobile-cta" href="#consultation-form" data-ghl-form>
+        Begin Your Private Consultation
+      </a>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    left: 0;
+    padding-top: 1.25rem;
+    pointer-events: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 100;
+  }
+
+  .container {
+    margin-inline: auto;
+    width: min(1200px, calc(100% - var(--page-gutter) - var(--page-gutter)));
+  }
+
+  .navigation {
+    align-items: center;
+    backdrop-filter: blur(18px);
+    background: rgb(10 17 22 / 0.8);
+    border: 1px solid rgb(255 255 255 / 0.16);
+    border-radius: 999px;
+    box-shadow: 0 12px 35px rgb(0 0 0 / 0.16);
+    display: flex;
+    min-height: 76px;
+    padding: 0.4rem 0.55rem 0.4rem 1.35rem;
+    pointer-events: auto;
+    transition:
+      background-color 0.25s ease,
+      box-shadow 0.25s ease,
+      min-height 0.25s ease;
+  }
+
+  .site-header[data-scrolled='true'] .navigation {
+    background: rgb(10 17 22 / 0.92);
+    box-shadow: 0 14px 38px rgb(0 0 0 / 0.24);
+    min-height: 68px;
+  }
+
+  .desktop-actions {
+    align-items: center;
+    display: flex;
+    gap: 0.65rem;
+    margin-left: auto;
+  }
+
+  .mobile-actions {
+    align-items: center;
+    display: none;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+
+  .mobile-cta {
+    background: #b68a5e;
+    border-radius: 999px;
+    color: #fff;
+    font:
+      700 0.57rem/1.15 Inter,
+      Arial,
+      sans-serif;
+    letter-spacing: 0.045em;
+    max-width: 154px;
+    padding: 0.72rem 0.85rem;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 900px) {
+    .site-header {
+      padding-top: 0.75rem;
+    }
+
+    .navigation {
+      min-height: 62px;
+    }
+
+    .desktop-actions {
+      display: none;
+    }
+
+    .mobile-actions {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .navigation :global(.brand span) {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('.site-header');
+  const updateHeader = () => {
+    if (header) header.dataset.scrolled = String(window.scrollY > 24);
+  };
+
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+</script>

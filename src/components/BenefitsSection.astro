@@ -1,0 +1,393 @@
+---
+import { assetUrl } from '../config/assets';
+
+const benefits = [
+  {
+    image: assetUrl('revealArchitecture'),
+    alt: 'Architectural lighting revealing the shape and details of a home after dark',
+  },
+  {
+    image: assetUrl('highlightLandscaping'),
+    alt: 'Landscape lighting highlighting mature trees and natural textures',
+  },
+  {
+    image: assetUrl('improveSafety'),
+    alt: 'Soft pathway lighting creating a safer, more comfortable entry',
+  },
+] as const;
+---
+
+<section id="approach" class="benefits" aria-labelledby="benefits-title">
+  <div class="container">
+    <div class="section-layout">
+      <div class="content">
+        <p class="eyebrow" data-motion>Designed for life after sunset</p>
+        <h2 id="benefits-title" data-motion style="--reveal-delay: 70ms">
+          Your home was designed to be experienced.
+        </h2>
+        <p class="intro" data-motion style="--reveal-delay: 140ms">
+          From subtle path lighting to dramatic architectural washes, every layer of light has a
+          purpose—enhancing beauty, improving safety, and extending your lifestyle outdoors.
+        </p>
+
+        <a
+          class="cta"
+          href="#consultation-form"
+          data-ghl-form
+          data-motion
+          style="--reveal-delay: 210ms"
+        >
+          Discuss Your Estate With Us <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div
+        class="slider"
+        data-motion="media"
+        style="--reveal-delay: 90ms"
+        data-benefits-slider
+        aria-roledescription="carousel"
+        aria-label="Landscape lighting results"
+      >
+        <div class="slider-viewport">
+          <div class="slider-track">
+            {
+              benefits.map((benefit, index) => (
+                <div
+                  class="slide"
+                  data-position={index}
+                  aria-hidden={index === 0 ? 'false' : 'true'}
+                >
+                  <img
+                    src={benefit.image}
+                    alt={benefit.alt}
+                    width="1000"
+                    height="720"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="slider-controls">
+          <div class="dots" aria-label="Choose an image">
+            {
+              benefits.map((_, index) => (
+                <button
+                  class:list={['dot', { active: index === 0 }]}
+                  type="button"
+                  aria-label={`Show image ${index + 1}`}
+                  aria-current={index === 0 ? 'true' : undefined}
+                  data-slide-to={index}
+                />
+              ))
+            }
+          </div>
+          <div class="arrows">
+            <button type="button" data-slide-prev aria-label="Previous image">←</button>
+            <button type="button" data-slide-next aria-label="Next image">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-benefits-slider]').forEach((slider) => {
+    const slides = [...slider.querySelectorAll<HTMLElement>('.slide')];
+    const dots = [...slider.querySelectorAll<HTMLButtonElement>('[data-slide-to]')];
+    const previous = slider.querySelector<HTMLButtonElement>('[data-slide-prev]');
+    const next = slider.querySelector<HTMLButtonElement>('[data-slide-next]');
+    let activeIndex = 0;
+    let autoplay: number | undefined;
+
+    const showSlide = (index: number) => {
+      activeIndex = (index + slides.length) % slides.length;
+      slides.forEach((slide, slideIndex) => {
+        const position = (slideIndex - activeIndex + slides.length) % slides.length;
+        slide.dataset.position = String(position);
+        slide.setAttribute('aria-hidden', String(position !== 0));
+      });
+      dots.forEach((dot, dotIndex) => {
+        dot.classList.toggle('active', dotIndex === activeIndex);
+        dot.toggleAttribute('aria-current', dotIndex === activeIndex);
+      });
+    };
+
+    const startAutoplay = () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      window.clearInterval(autoplay);
+      autoplay = window.setInterval(() => showSlide(activeIndex + 1), 5000);
+    };
+
+    previous?.addEventListener('click', () => {
+      showSlide(activeIndex - 1);
+      startAutoplay();
+    });
+    next?.addEventListener('click', () => {
+      showSlide(activeIndex + 1);
+      startAutoplay();
+    });
+    dots.forEach((dot, index) =>
+      dot.addEventListener('click', () => {
+        showSlide(index);
+        startAutoplay();
+      }),
+    );
+    slider.addEventListener('mouseenter', () => window.clearInterval(autoplay));
+    slider.addEventListener('mouseleave', startAutoplay);
+    startAutoplay();
+  });
+</script>
+
+<style>
+  .benefits {
+    background: #f7f4ed;
+    padding: clamp(3.75rem, 5vw, 5rem) 0;
+  }
+
+  .container {
+    margin-inline: auto;
+    width: min(var(--page-max), calc(100% - var(--page-gutter) - var(--page-gutter)));
+  }
+
+  .section-layout {
+    align-items: center;
+    display: grid;
+    gap: clamp(2.25rem, 4vw, 4rem);
+    grid-template-columns: minmax(280px, 7fr) minmax(0, 13fr);
+  }
+
+  .eyebrow {
+    color: #a9784d;
+    font:
+      700 0.69rem/1.3 Inter,
+      Arial,
+      sans-serif;
+    letter-spacing: 0.16em;
+    margin: 0 0 0.9rem;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    color: #121820;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: clamp(2.75rem, 4.4vw, 4.15rem);
+    line-height: 0.98;
+    max-width: 600px;
+  }
+
+  .intro {
+    color: #5f6670;
+    font:
+      0.96rem/1.62 Inter,
+      Arial,
+      sans-serif;
+    margin: 1.25rem 0 1.65rem;
+    max-width: 510px;
+  }
+
+  .cta {
+    align-items: center;
+    background: linear-gradient(110deg, #a9784d, #c99b6e 52%, #aa794e);
+    background-size: 200% 100%;
+    border: 1px solid rgb(255 235 204 / 0.45);
+    border-radius: 999px;
+    box-shadow: 0 10px 24px rgb(31 36 40 / 0.14);
+    color: #fff;
+    display: inline-flex;
+    font:
+      700 0.72rem/1 Inter,
+      Arial,
+      sans-serif;
+    gap: 1rem;
+    letter-spacing: 0.1em;
+    padding: 0.72rem 0.75rem 0.72rem 1.15rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition:
+      background-position 0.3s ease,
+      box-shadow 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .cta:hover {
+    background-position: 100% 0;
+    box-shadow: 0 14px 30px rgb(31 36 40 / 0.2);
+    transform: translateY(-2px);
+  }
+
+  .cta span {
+    align-items: center;
+    background: #fff;
+    border-radius: 50%;
+    color: #9d7049;
+    display: inline-flex;
+    font-size: 1.05rem;
+    height: 34px;
+    justify-content: center;
+    width: 34px;
+  }
+
+  .slider {
+    min-width: 0;
+  }
+
+  .slider-viewport {
+    aspect-ratio: 4 / 3;
+    overflow: visible;
+  }
+
+  .slider-track {
+    height: 100%;
+    position: relative;
+    width: 92%;
+  }
+
+  .slide {
+    border-radius: 24px;
+    box-shadow: 0 22px 55px rgb(27 30 33 / 0.2);
+    inset: 0;
+    overflow: hidden;
+    position: absolute;
+    transform-origin: left center;
+    transition:
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.8s ease,
+      opacity 0.8s ease;
+    will-change: transform;
+  }
+
+  .slide[data-position='0'] {
+    filter: brightness(1);
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    z-index: 3;
+  }
+
+  .slide[data-position='1'] {
+    filter: brightness(0.78);
+    opacity: 0.94;
+    transform: translateX(9%) scale(0.96);
+    z-index: 2;
+  }
+
+  .slide[data-position='2'] {
+    filter: brightness(0.62);
+    opacity: 0.82;
+    transform: translateX(18%) scale(0.92);
+    z-index: 1;
+  }
+
+  .slide img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+  }
+
+  .slider-controls {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.9rem;
+  }
+
+  .dots,
+  .arrows {
+    align-items: center;
+    display: flex;
+    gap: 0.55rem;
+  }
+
+  .dot {
+    background: #12182036;
+    border: 0;
+    border-radius: 999px;
+    height: 4px;
+    padding: 0;
+    transition:
+      background 0.25s ease,
+      width 0.25s ease;
+    width: 20px;
+  }
+
+  .dot.active {
+    background: #a9784d;
+    width: 38px;
+  }
+
+  .arrows button {
+    align-items: center;
+    background: transparent;
+    border: 1px solid #12182038;
+    border-radius: 50%;
+    color: #121820;
+    display: inline-flex;
+    font:
+      400 1rem/1 Arial,
+      sans-serif;
+    height: 36px;
+    justify-content: center;
+    transition:
+      background 0.25s ease,
+      color 0.25s ease;
+    width: 36px;
+  }
+
+  .arrows button:hover {
+    background: #121820;
+    color: #fff;
+  }
+
+  @media (max-width: 900px) {
+    .section-layout {
+      align-items: start;
+      gap: 2.5rem;
+      grid-template-columns: 1fr;
+    }
+
+    .content {
+      max-width: 680px;
+    }
+
+    .slider-viewport {
+      aspect-ratio: 16 / 10;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .benefits {
+      padding: 3.25rem 0;
+    }
+
+    .slider-viewport {
+      aspect-ratio: 4 / 3;
+    }
+
+    .slide {
+      border-radius: 18px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slider-track,
+    .cta span,
+    .cta,
+    .dot,
+    .arrows button {
+      transition: none;
+    }
+  }
+</style>

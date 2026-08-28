@@ -1,0 +1,183 @@
+---
+import { assetUrl } from '../config/assets';
+
+const credentials = [
+  {
+    type: 'image',
+    src: assetUrl('htaCertification'),
+    alt: 'HTA Certified',
+    title: 'HTA Certified',
+    detail: 'Home Technology Association',
+  },
+  {
+    type: 'image',
+    src: assetUrl('cediaMembership'),
+    alt: 'CEDIA member',
+    title: 'CEDIA Member',
+    detail: 'Industry-recognized expertise',
+  },
+  {
+    type: 'image',
+    src: assetUrl('industryMembership'),
+    alt: 'Smart home industry member',
+    title: 'Since 2009',
+    detail: 'Trusted smart home expertise',
+  },
+  {
+    type: 'stat',
+    title: '50+ Properties completed',
+    detail: 'Thoughtfully designed outdoor spaces',
+  },
+  {
+    type: 'image',
+    src: '/framer-extracted-assets/certifications/lifetime-warranty.webp',
+    alt: 'Lifetime warranty badge',
+    title: 'Hardware Warranty',
+    detail: 'Quality components, built to last',
+  },
+] as const;
+---
+
+<section class="trust" aria-label="Professional credentials and project guarantees">
+  <div class="marquee" data-motion>
+    <div class="track">
+      {
+        [false, true].map((isDuplicate) => (
+          <div class="card-set" aria-hidden={isDuplicate ? 'true' : undefined}>
+            {credentials.map((credential) => (
+              <article class="credential">
+                {credential.type === 'image' ? (
+                  <img
+                    src={credential.src}
+                    alt={isDuplicate ? '' : credential.alt}
+                    width="200"
+                    height="120"
+                    decoding="async"
+                  />
+                ) : (
+                  <span class="stat" aria-hidden="true">
+                    50<span>+</span>
+                  </span>
+                )}
+                <div>
+                  <b>{credential.title}</b>
+                  <span>{credential.detail}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .trust {
+    --card-gap: clamp(1.5rem, 3vw, 3.5rem);
+    background: #f7f4ed;
+    overflow: hidden;
+    padding: 2.25rem 0;
+  }
+  .marquee {
+    overflow: hidden;
+    width: 100%;
+  }
+  .track {
+    animation: glide-right 30s linear infinite;
+    display: flex;
+    width: max-content;
+  }
+  .card-set {
+    display: flex;
+    flex-shrink: 0;
+    gap: var(--card-gap);
+    padding-right: var(--card-gap);
+  }
+  .credential {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    justify-content: flex-start;
+    padding: 0 clamp(1rem, 2vw, 2rem);
+    text-align: center;
+    width: clamp(195px, 18vw, 280px);
+  }
+  img {
+    height: 92px;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
+    width: 175px;
+  }
+  b,
+  span {
+    display: block;
+    font-family: Inter, Arial, sans-serif;
+  }
+  b {
+    font-size: 0.76rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .credential div > span {
+    color: #5f6670;
+    font-size: 0.7rem;
+    line-height: 1.4;
+    margin-top: 0.28rem;
+  }
+  .stat {
+    align-items: baseline;
+    color: #b68a5e;
+    display: flex;
+    font:
+      500 4.75rem/0.8 'Cormorant Garamond',
+      Georgia,
+      serif;
+    height: 92px;
+    justify-content: center;
+    letter-spacing: -0.08em;
+    width: 175px;
+  }
+  .stat span {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+  }
+  @keyframes glide-right {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .track {
+      animation: none;
+      transform: translateX(0);
+    }
+  }
+  @media (max-width: 680px) {
+    .trust {
+      --card-gap: 1.5rem;
+      padding: 1.75rem 0;
+    }
+    .track {
+      animation-duration: 24s;
+    }
+    .credential {
+      padding: 0 1rem;
+      width: 175px;
+    }
+    img,
+    .stat {
+      height: 65px;
+      width: 120px;
+    }
+    .stat {
+      font-size: 3.7rem;
+    }
+  }
+</style>

@@ -148,3 +148,11 @@ dist/
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+.prettierrc.json
+
+# Local browser audit state and generated visual-capture artifacts
+.edge-audit/
+docs/implementation-*.png
+docs/implementation-*.json
+docs/services-desktop-close.png
+scripts/capture-framer-audit.mjs

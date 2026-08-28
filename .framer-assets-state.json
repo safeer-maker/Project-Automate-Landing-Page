@@ -1,0 +1,64 @@
+{
+  "assets": {
+    "brandMark": {
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/brand/project-automate-mark.webp",
+      "path": "brand/project-automate-mark.webp"
+    },
+    "heroEstateAtSunset": {
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/hero/estate-at-sunset.webp",
+      "path": "hero/estate-at-sunset.webp"
+    },
+    "htaCertification": {
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/certifications/hta-certified.webp",
+      "path": "certifications/hta-certified.webp"
+    },
+    "cediaMembership": {
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/certifications/cedia-membership.webp",
+      "path": "certifications/cedia-membership.webp"
+    },
+    "industryMembership": {
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/certifications/smart-home-industry-member.webp",
+      "path": "certifications/smart-home-industry-member.webp"
+    },
+    "revealArchitecture": {
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/features/reveal-architecture.webp",
+      "path": "features/reveal-architecture.webp"
+    },
+    "highlightLandscaping": {
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/features/highlight-landscaping.webp",
+      "path": "features/highlight-landscaping.webp"
+    },
+    "improveSafety": {
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/features/improve-safety.webp",
+      "path": "features/improve-safety.webp"
+    },
+    "designBuildProcess": {
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/process/design-build-process.webp",
+      "path": "process/design-build-process.webp"
+    },
+    "projectCaseStudy": {
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/case-studies/lighting-redesign.webp",
+      "path": "case-studies/lighting-redesign.webp"
+    },
+    "projectCaseStudyDetail": {
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/case-studies/lighting-redesign-detail.webp",
+      "path": "case-studies/lighting-redesign-detail.webp"
+    },
+    "landscapeLightingService": {
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/services/landscape-lighting.webp",
+      "path": "services/landscape-lighting.webp"
+    },
+    "outdoorAudioService": {
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/services/outdoor-audio.webp",
+      "path": "services/outdoor-audio.webp"
+    },
+    "smartControlService": {
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/services/smart-control.webp",
+      "path": "services/smart-control.webp"
+    },
+    "consultationContact": {
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/contact/private-consultation.webp",
+      "path": "contact/private-consultation.webp"
+    }
+  }
+}
