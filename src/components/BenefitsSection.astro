@@ -29,7 +29,7 @@ const benefits = [
         </p>
 
         <a class="cta" href="#consultation-form" data-ghl-form>
-          Discuss your property <span aria-hidden="true">→</span>
+          Discuss Your Estate With Us <span aria-hidden="true">→</span>
         </a>
       </div>
 
@@ -189,43 +189,46 @@ const benefits = [
 
   .cta {
     align-items: center;
-    color: #121820;
-    display: inline-flex;
+    background: linear-gradient(110deg, #a9784d, #c99b6e 52%, #aa794e);
+    background-size: 200% 100%;
+    border: 1px solid rgb(255 235 204 / 0.45);
+    border-radius: 999px;
+    box-shadow: 0 10px 24px rgb(31 36 40 / 0.14);
+    color: #fff;
+    display: flex;
     font:
       700 0.72rem/1 Inter,
       Arial,
       sans-serif;
-    gap: 0.65rem;
+    gap: 1rem;
     letter-spacing: 0.1em;
-    padding-bottom: 0.45rem;
-    position: relative;
+    margin-inline: auto;
+    padding: 0.72rem 0.75rem 0.72rem 1.15rem;
     text-decoration: none;
     text-transform: uppercase;
+    transition:
+      background-position 0.3s ease,
+      box-shadow 0.25s ease,
+      transform 0.25s ease;
+    width: max-content;
   }
 
-  .cta::after {
-    background: #b68a5e;
-    bottom: 0;
-    content: '';
-    height: 1px;
-    left: 0;
-    position: absolute;
-    transition: width 0.25s ease;
-    width: 42px;
-  }
-
-  .cta:hover::after {
-    width: 100%;
+  .cta:hover {
+    background-position: 100% 0;
+    box-shadow: 0 14px 30px rgb(31 36 40 / 0.2);
+    transform: translateY(-2px);
   }
 
   .cta span {
-    color: #a9784d;
-    font-size: 1rem;
-    transition: transform 0.25s ease;
-  }
-
-  .cta:hover span {
-    transform: translateX(4px);
+    align-items: center;
+    background: #fff;
+    border-radius: 50%;
+    color: #9d7049;
+    display: inline-flex;
+    font-size: 1.05rem;
+    height: 34px;
+    justify-content: center;
+    width: 34px;
   }
 
   .slider {
@@ -373,7 +376,7 @@ const benefits = [
   @media (prefers-reduced-motion: reduce) {
     .slider-track,
     .cta span,
-    .cta::after,
+    .cta,
     .dot,
     .arrows button {
       transition: none;

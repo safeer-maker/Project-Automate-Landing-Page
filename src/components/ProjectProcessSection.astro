@@ -80,21 +80,26 @@ const steps = [
       </div>
     </div>
 
-    <ol class="process-list" aria-label="Our four-step design and build process">
-      {
-        steps.map((step, index) => (
-          <li data-reveal style={`--reveal-delay: ${index * 80}ms`}>
-            <span class="number" aria-hidden="true">
-              {step.number}
-            </span>
-            <div>
-              <h3>{step.title}</h3>
-              <p>{step.copy}</p>
-            </div>
-          </li>
-        ))
-      }
-    </ol>
+    <div class="process-steps">
+      <ol class="process-list" aria-label="Our four-step design and build process">
+        {
+          steps.map((step, index) => (
+            <li data-reveal style={`--reveal-delay: ${index * 80}ms`}>
+              <span class="number" aria-hidden="true">
+                {step.number}
+              </span>
+              <div>
+                <h3>{step.title}</h3>
+                <p>{step.copy}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+      <a class="process-cta" href="#consultation-form" data-ghl-form data-reveal>
+        Begin Your Private Project Review <span aria-hidden="true">→</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -254,6 +259,50 @@ const steps = [
     padding: 0;
   }
 
+  .process-cta {
+    align-items: center;
+    background: linear-gradient(110deg, #a9784d, #c99b6e 52%, #aa794e);
+    background-size: 200% 100%;
+    border: 1px solid rgb(255 235 204 / 0.45);
+    border-radius: 999px;
+    box-shadow: 0 10px 24px rgb(31 36 40 / 0.14);
+    color: #fff;
+    display: flex;
+    font:
+      700 0.7rem/1 Inter,
+      Arial,
+      sans-serif;
+    gap: 1rem;
+    letter-spacing: 0.09em;
+    margin: 1.75rem auto 0;
+    padding: 0.72rem 0.75rem 0.72rem 1.15rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition:
+      background-position 0.3s ease,
+      box-shadow 0.25s ease,
+      transform 0.25s ease;
+    width: max-content;
+  }
+
+  .process-cta:hover {
+    background-position: 100% 0;
+    box-shadow: 0 14px 30px rgb(31 36 40 / 0.2);
+    transform: translateY(-2px);
+  }
+
+  .process-cta span {
+    align-items: center;
+    background: #fff;
+    border-radius: 50%;
+    color: #9d7049;
+    display: inline-flex;
+    font-size: 1.05rem;
+    height: 34px;
+    justify-content: center;
+    width: 34px;
+  }
+
   .process-list li {
     border-bottom: 1px solid rgb(182 138 94 / 0.35);
     display: grid;
@@ -314,7 +363,7 @@ const steps = [
       max-width: 440px;
     }
 
-    .process-list {
+    .process-steps {
       margin-top: 3.25rem;
     }
   }
@@ -354,7 +403,7 @@ const steps = [
       font-size: 1.4rem;
     }
 
-    .process-list {
+    .process-steps {
       margin-top: 0;
     }
 

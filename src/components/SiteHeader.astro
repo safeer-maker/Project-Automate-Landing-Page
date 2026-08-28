@@ -2,7 +2,6 @@
 import HeaderBrand from './header/HeaderBrand.astro';
 import HeaderCallButton from './header/HeaderCallButton.astro';
 import HeaderCtaButton from './header/HeaderCtaButton.astro';
-import HeaderMobileMenu from './header/HeaderMobileMenu.astro';
 ---
 
 <header class="site-header">
@@ -12,7 +11,12 @@ import HeaderMobileMenu from './header/HeaderMobileMenu.astro';
       <HeaderCallButton />
       <HeaderCtaButton />
     </div>
-    <HeaderMobileMenu />
+    <div class="mobile-actions">
+      <HeaderCallButton />
+      <a class="mobile-cta" href="#consultation-form" data-ghl-form>
+        Begin Your Private Consultation
+      </a>
+    </div>
   </nav>
 </header>
 
@@ -62,6 +66,29 @@ import HeaderMobileMenu from './header/HeaderMobileMenu.astro';
     margin-left: auto;
   }
 
+  .mobile-actions {
+    align-items: center;
+    display: none;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+
+  .mobile-cta {
+    background: #b68a5e;
+    border-radius: 999px;
+    color: #fff;
+    font:
+      700 0.57rem/1.15 Inter,
+      Arial,
+      sans-serif;
+    letter-spacing: 0.045em;
+    max-width: 154px;
+    padding: 0.72rem 0.85rem;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
   @media (max-width: 900px) {
     .site-header {
       padding-top: 0.75rem;
@@ -72,6 +99,16 @@ import HeaderMobileMenu from './header/HeaderMobileMenu.astro';
     }
 
     .desktop-actions {
+      display: none;
+    }
+
+    .mobile-actions {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .navigation :global(.brand span) {
       display: none;
     }
   }

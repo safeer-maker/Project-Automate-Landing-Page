@@ -53,6 +53,55 @@ button {
   cursor: pointer;
 }
 
+/* A restrained light sweep keeps conversion actions visible without feeling promotional. */
+a[data-ghl-form] {
+  animation: cta-glow 5s ease-in-out infinite;
+  isolation: isolate;
+  overflow: hidden;
+  position: relative;
+}
+
+a[data-ghl-form]::before {
+  animation: cta-light-sweep 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgb(255 255 255 / 0.08) 38%,
+    rgb(255 248 225 / 0.72) 50%,
+    rgb(255 255 255 / 0.1) 62%,
+    transparent 80%
+  );
+  content: '';
+  inset: -35% auto -35% -75%;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-160%) skewX(-16deg);
+  width: 65%;
+  z-index: 2;
+}
+
+@keyframes cta-light-sweep {
+  0%,
+  58% {
+    transform: translateX(-160%) skewX(-16deg);
+  }
+  82%,
+  100% {
+    transform: translateX(430%) skewX(-16deg);
+  }
+}
+
+@keyframes cta-glow {
+  0%,
+  55%,
+  100% {
+    filter: drop-shadow(0 0 0 rgb(214 169 111 / 0));
+  }
+  72% {
+    filter: drop-shadow(0 0 9px rgb(214 169 111 / 0.32));
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html.js [data-reveal] {
     opacity: 0;
@@ -71,5 +120,10 @@ button {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  a[data-ghl-form],
+  a[data-ghl-form]::before {
+    animation: none;
   }
 }

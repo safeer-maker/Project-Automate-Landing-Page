@@ -1,9 +1,10 @@
 ---
-const { compact = false } = Astro.props;
+const { compact = false, label = 'Request a Private Consultation' } = Astro.props;
 ---
 
 <a class:list={['button', compact && 'compact']} href="#consultation-form" data-ghl-form>
-  Book a consultation <span aria-hidden="true">→</span>
+  {label}
+  <span aria-hidden="true">→</span>
 </a>
 <style>
   .button {
