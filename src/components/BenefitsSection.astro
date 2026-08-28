@@ -1,149 +1,314 @@
 ---
 import { assetUrl } from '../config/assets';
 
-const features = [
-  [
-    'revealArchitecture',
-    'Reveal architecture',
-    'Accentuate the details that make your home unique.',
-  ],
-  [
-    'highlightLandscaping',
-    'Highlight landscaping',
-    'Showcase mature trees, texture, and natural beauty.',
-  ],
-  ['improveSafety', 'Improve safety', 'Create comfortable, well-lit pathways and entryways.'],
+const benefits = [
+  {
+    image: assetUrl('revealArchitecture'),
+    alt: 'Architectural lighting revealing the shape and details of a home after dark',
+  },
+  {
+    image: assetUrl('highlightLandscaping'),
+    alt: 'Landscape lighting highlighting mature trees and natural textures',
+  },
+  {
+    image: assetUrl('improveSafety'),
+    alt: 'Soft pathway lighting creating a safer, more comfortable entry',
+  },
 ] as const;
 ---
 
-<section id="approach" class="section" aria-labelledby="benefits-title">
+<section id="approach" class="benefits" aria-labelledby="benefits-title">
   <div class="container">
-    <div class="heading">
-      <div>
+    <div class="section-layout">
+      <div class="content">
         <p class="eyebrow">Designed for life after sunset</p>
         <h2 id="benefits-title">Your home was designed to be experienced.</h2>
-      </div>
-      <p>
-        From subtle path lighting to dramatic architectural washes, every layer of light has a
-        purpose—enhancing beauty, improving safety, and extending your lifestyle outdoors.
-      </p>
-    </div>
+        <p class="intro">
+          From subtle path lighting to dramatic architectural washes, every layer of light has a
+          purpose—enhancing beauty, improving safety, and extending your lifestyle outdoors.
+        </p>
 
-    <div class="features">
-      {
-        features.map(([id, title, copy], index) => (
-          <figure class:list={['feature', index === 0 && 'tall']}>
-            <img src={assetUrl(id)} alt={title} loading="lazy" />
-            <figcaption>
-              <b>{title}</b>
-              <span>{copy}</span>
-            </figcaption>
-          </figure>
-        ))
-      }
+        <a class="cta" href="#consultation-form" data-ghl-form>
+          Discuss your property <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div
+        class="slider"
+        data-benefits-slider
+        aria-roledescription="carousel"
+        aria-label="Landscape lighting results"
+      >
+        <div class="slider-viewport">
+          <div class="slider-track">
+            {
+              benefits.map((benefit, index) => (
+                <div class="slide" aria-hidden={index === 0 ? 'false' : 'true'}>
+                  <img
+                    src={benefit.image}
+                    alt={benefit.alt}
+                    width="1000"
+                    height="720"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="slider-controls">
+          <div class="dots" aria-label="Choose an image">
+            {
+              benefits.map((_, index) => (
+                <button
+                  class:list={['dot', { active: index === 0 }]}
+                  type="button"
+                  aria-label={`Show image ${index + 1}`}
+                  aria-current={index === 0 ? 'true' : undefined}
+                  data-slide-to={index}
+                />
+              ))
+            }
+          </div>
+          <div class="arrows">
+            <button type="button" data-slide-prev aria-label="Previous image">←</button>
+            <button type="button" data-slide-next aria-label="Next image">→</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
+<script>
+  document.querySelectorAll<HTMLElement>('[data-benefits-slider]').forEach((slider) => {
+    const track = slider.querySelector<HTMLElement>('.slider-track');
+    const slides = [...slider.querySelectorAll<HTMLElement>('.slide')];
+    const dots = [...slider.querySelectorAll<HTMLButtonElement>('[data-slide-to]')];
+    const previous = slider.querySelector<HTMLButtonElement>('[data-slide-prev]');
+    const next = slider.querySelector<HTMLButtonElement>('[data-slide-next]');
+    let activeIndex = 0;
+    let autoplay: number | undefined;
+
+    const showSlide = (index: number) => {
+      activeIndex = (index + slides.length) % slides.length;
+      if (track) track.style.transform = `translateX(-${activeIndex * 100}%)`;
+      slides.forEach((slide, slideIndex) =>
+        slide.setAttribute('aria-hidden', String(slideIndex !== activeIndex)),
+      );
+      dots.forEach((dot, dotIndex) => {
+        dot.classList.toggle('active', dotIndex === activeIndex);
+        dot.toggleAttribute('aria-current', dotIndex === activeIndex);
+      });
+    };
+
+    const startAutoplay = () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      window.clearInterval(autoplay);
+      autoplay = window.setInterval(() => showSlide(activeIndex + 1), 5000);
+    };
+
+    previous?.addEventListener('click', () => {
+      showSlide(activeIndex - 1);
+      startAutoplay();
+    });
+    next?.addEventListener('click', () => {
+      showSlide(activeIndex + 1);
+      startAutoplay();
+    });
+    dots.forEach((dot, index) =>
+      dot.addEventListener('click', () => {
+        showSlide(index);
+        startAutoplay();
+      }),
+    );
+    slider.addEventListener('mouseenter', () => window.clearInterval(autoplay));
+    slider.addEventListener('mouseleave', startAutoplay);
+    startAutoplay();
+  });
+</script>
+
 <style>
-  .section {
+  .benefits {
     background: #f7f4ed;
-    padding: clamp(5.5rem, 9vw, 8.5rem) 0;
+    padding: clamp(4.25rem, 6.5vw, 6.25rem) 0;
   }
 
   .container {
     margin-inline: auto;
-    width: min(1200px, calc(100% - 80px));
+    width: min(1280px, calc(100% - 80px));
   }
 
-  h2 {
-    font:
-      500 clamp(3rem, 5.2vw, 4.65rem) / 0.98 'Cormorant Garamond',
-      Georgia,
-      serif;
-    letter-spacing: -0.045em;
-    margin: 0;
-  }
-
-  .heading {
-    align-items: end;
+  .section-layout {
+    align-items: center;
     display: grid;
-    gap: clamp(2rem, 7vw, 7rem);
-    grid-template-columns: 1.15fr 0.85fr;
-    margin-bottom: clamp(3rem, 6vw, 5.5rem);
+    gap: clamp(3rem, 6vw, 5.5rem);
+    grid-template-columns: minmax(280px, 7fr) minmax(0, 13fr);
   }
 
   .eyebrow {
-    color: #b68a5e;
+    color: #a9784d;
     font:
       700 0.69rem/1.3 Inter,
       Arial,
       sans-serif;
     letter-spacing: 0.16em;
-    margin: 0 0 1.15rem;
+    margin: 0 0 0.9rem;
     text-transform: uppercase;
   }
 
-  .heading > p {
+  h2 {
+    color: #121820;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: clamp(2.75rem, 4.4vw, 4.15rem);
+    line-height: 0.98;
+    max-width: 600px;
+  }
+
+  .intro {
     color: #5f6670;
     font:
-      1rem/1.65 Inter,
+      0.96rem/1.62 Inter,
       Arial,
       sans-serif;
-    margin: 0 0 0.35rem;
-    max-width: 520px;
+    margin: 1.25rem 0 1.65rem;
+    max-width: 510px;
   }
 
-  .features {
-    display: grid;
-    gap: 1.25rem;
-    grid-template-columns: 0.92fr 1.08fr;
-    grid-template-rows: repeat(2, minmax(280px, 330px));
-  }
-
-  .feature {
-    border-radius: 20px;
-    margin: 0;
-    overflow: hidden;
+  .cta {
+    align-items: center;
+    color: #121820;
+    display: inline-flex;
+    font:
+      700 0.72rem/1 Inter,
+      Arial,
+      sans-serif;
+    gap: 0.65rem;
+    letter-spacing: 0.1em;
+    padding-bottom: 0.45rem;
     position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
   }
 
-  .tall {
-    grid-row: span 2;
+  .cta::after {
+    background: #b68a5e;
+    bottom: 0;
+    content: '';
+    height: 1px;
+    left: 0;
+    position: absolute;
+    transition: width 0.25s ease;
+    width: 42px;
   }
 
-  .feature img {
-    height: 100%;
-    object-fit: cover;
+  .cta:hover::after {
     width: 100%;
   }
 
-  .feature figcaption {
-    background: linear-gradient(0deg, #000d, transparent);
-    bottom: 0;
+  .cta span {
+    color: #a9784d;
+    font-size: 1rem;
+    transition: transform 0.25s ease;
+  }
+
+  .cta:hover span {
+    transform: translateX(4px);
+  }
+
+  .slider {
+    min-width: 0;
+  }
+
+  .slider-viewport {
+    aspect-ratio: 4 / 3;
+    background: #fff;
+    border: 6px solid #fff;
+    border-radius: 26px;
+    box-shadow:
+      0 24px 60px rgb(27 30 33 / 0.16),
+      0 0 0 1px rgb(182 138 94 / 0.2);
+    overflow: hidden;
+  }
+
+  .slider-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .slide {
+    flex: 0 0 100%;
+    height: 100%;
+  }
+
+  .slide img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+  }
+
+  .slider-controls {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.9rem;
+  }
+
+  .dots,
+  .arrows {
+    align-items: center;
+    display: flex;
+    gap: 0.55rem;
+  }
+
+  .dot {
+    background: #12182036;
+    border: 0;
+    border-radius: 999px;
+    height: 4px;
+    padding: 0;
+    transition:
+      background 0.25s ease,
+      width 0.25s ease;
+    width: 20px;
+  }
+
+  .dot.active {
+    background: #a9784d;
+    width: 38px;
+  }
+
+  .arrows button {
+    align-items: center;
+    background: transparent;
+    border: 1px solid #12182038;
+    border-radius: 50%;
+    color: #121820;
+    display: inline-flex;
+    font:
+      400 1rem/1 Arial,
+      sans-serif;
+    height: 36px;
+    justify-content: center;
+    transition:
+      background 0.25s ease,
+      color 0.25s ease;
+    width: 36px;
+  }
+
+  .arrows button:hover {
+    background: #121820;
     color: #fff;
-    display: grid;
-    gap: 0.35rem;
-    left: 0;
-    padding: 2rem;
-    position: absolute;
-    right: 0;
-  }
-
-  .feature b {
-    font:
-      700 0.7rem/1.3 Inter,
-      Arial,
-      sans-serif;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-  }
-
-  .feature span {
-    font:
-      0.9rem/1.4 Inter,
-      Arial,
-      sans-serif;
   }
 
   @media (max-width: 900px) {
@@ -151,31 +316,41 @@ const features = [
       width: min(1200px, calc(100% - 40px));
     }
 
-    .heading {
+    .section-layout {
       align-items: start;
-      gap: 1.75rem;
+      gap: 2.5rem;
       grid-template-columns: 1fr;
+    }
+
+    .content {
+      max-width: 680px;
+    }
+
+    .slider-viewport {
+      aspect-ratio: 16 / 10;
+      width: 100%;
     }
   }
 
   @media (max-width: 680px) {
-    .section {
-      padding: 5.25rem 0;
+    .benefits {
+      padding: 4rem 0;
     }
 
-    .features {
-      grid-template-columns: 1fr;
-      grid-template-rows: none;
+    .slider-viewport {
+      aspect-ratio: 4 / 3;
+      border-radius: 20px;
+      border-width: 4px;
     }
+  }
 
-    .feature,
-    .tall {
-      aspect-ratio: 1.2;
-      grid-row: auto;
-    }
-
-    .feature figcaption {
-      padding: 1.5rem;
+  @media (prefers-reduced-motion: reduce) {
+    .slider-track,
+    .cta span,
+    .cta::after,
+    .dot,
+    .arrows button {
+      transition: none;
     }
   }
 </style>
