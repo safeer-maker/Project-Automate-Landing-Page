@@ -2,158 +2,264 @@
 import { assetUrl } from '../config/assets';
 
 const services = [
-  [
-    'landscapeLightingService',
-    'Landscape Lighting',
-    'Architectural, pathway, and garden lighting designed with precision.',
-  ],
-  [
-    'outdoorAudioService',
-    'Outdoor Audio',
-    'Discreet, high-performance audio that elevates outdoor living.',
-  ],
-  [
-    'smartControlService',
-    'Smart Control',
-    'Effortless control of lighting, audio, and outdoor environments.',
-  ],
+  {
+    id: 'landscapeLightingService',
+    title: 'Landscape Lighting',
+    copy: 'Architectural, pathway and garden lighting designed with precision.',
+    icon: 'landscape',
+  },
+  {
+    id: 'outdoorAudioService',
+    title: 'Outdoor Audio',
+    copy: 'Discreet, high-performance audio that elevates your outdoor lifestyle.',
+    icon: 'audio',
+  },
+  {
+    id: 'smartControlService',
+    title: 'Smart Control',
+    copy: 'Effortless control of lighting, audio and environments from anywhere.',
+    icon: 'control',
+  },
 ] as const;
 ---
 
-<section id="services" class="section" aria-labelledby="services-title">
+<section id="services" class="services-section" aria-labelledby="services-title">
   <div class="container">
-    <div class="heading">
-      <p class="eyebrow">One complete outdoor experience</p>
-      <h2 id="services-title">Lighting, audio, and control—designed to work together.</h2>
-    </div>
+    <header class="section-heading" data-reveal>
+      <p class="eyebrow">Complete outdoor experience</p>
+      <h2 id="services-title">Landscape Lighting. Outdoor Audio. Seamless Control.</h2>
+      <p class="intro">Outdoor spaces designed to feel as connected as your home.</p>
+    </header>
 
-    <div class="services">
+    <div class="services-grid">
       {
-        services.map(([id, title, copy]) => (
-          <article>
-            <img src={assetUrl(id)} alt={title} loading="lazy" />
-            <h3>{title}</h3>
-            <p>{copy}</p>
+        services.map((service, index) => (
+          <article
+            class:list={['service-card', `service-card--${service.icon}`]}
+            data-reveal
+            style={`--reveal-delay: ${index * 90}ms`}
+          >
+            <img
+              src={assetUrl(service.id)}
+              alt={`${service.title} installation at a luxury residence`}
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="service-card__content">
+              {service.icon === 'landscape' && (
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 20V9l8-5 8 5v11h-6v-6h-4v6H4Z" />
+                  <path d="M3 20h18M5 6l2-3M19 6l-2-3" />
+                </svg>
+              )}
+              {service.icon === 'audio' && (
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 9v6M8 6v12M12 9v6M16 4v16M20 8v8" />
+                </svg>
+              )}
+              {service.icon === 'control' && (
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 9a10 10 0 0 1 14 0M8 12a6 6 0 0 1 8 0M11 15a2 2 0 0 1 2 0" />
+                  <circle cx="12" cy="18" r="1" />
+                </svg>
+              )}
+              <div>
+                <h3>{service.title}</h3>
+                <p>{service.copy}</p>
+              </div>
+            </div>
           </article>
         ))
       }
-    </div>
-
-    <div class="cta">
-      <a href="#consultation-form" data-ghl-form>
-        Start your consultation <span>→</span>
-      </a>
     </div>
   </div>
 </section>
 
 <style>
-  .section {
+  .services-section {
     background: #f7f4ed;
-    padding: clamp(5.5rem, 9vw, 8.5rem) 0;
+    color: #121820;
+    padding: 0 0 clamp(4.25rem, 5vw, 5.5rem);
+    scroll-margin-top: 90px;
   }
 
   .container {
     margin-inline: auto;
-    width: min(1200px, calc(100% - 80px));
+    width: min(var(--page-max), calc(100% - var(--page-gutter) - var(--page-gutter)));
   }
 
-  .heading {
-    margin-bottom: clamp(3rem, 6vw, 5.5rem);
-    max-width: 850px;
+  .section-heading {
+    margin-bottom: 2.8rem;
+    max-width: 820px;
   }
 
   .eyebrow {
     color: #b68a5e;
     font:
-      700 0.69rem/1.3 Inter,
+      700 0.7rem/1 Inter,
       Arial,
       sans-serif;
-    letter-spacing: 0.16em;
-    margin: 0 0 1.15rem;
+    letter-spacing: 0.14em;
+    margin: 0 0 1.1rem;
     text-transform: uppercase;
   }
 
   h2,
-  h3 {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-weight: 500;
-    letter-spacing: -0.045em;
-    line-height: 0.98;
-    margin: 0;
+  h3,
+  p {
+    margin-top: 0;
   }
 
   h2 {
-    font-size: clamp(3rem, 5.2vw, 4.65rem);
+    font:
+      400 clamp(2.65rem, 3.4vw, 3rem) / 1.05 Arial,
+      Helvetica,
+      sans-serif;
+    letter-spacing: -0.045em;
+    margin-bottom: 1.35rem;
   }
 
-  h3 {
-    font-size: clamp(1.75rem, 2.4vw, 2.45rem);
-    margin: 1.25rem 0 0.6rem;
-  }
-
-  .services {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  img {
-    aspect-ratio: 1.35;
-    border-radius: 20px;
-    object-fit: cover;
-    width: 100%;
-  }
-
-  article p {
+  .intro {
     color: #5f6670;
     font:
-      0.92rem/1.65 Inter,
+      1rem/1.6 Inter,
       Arial,
       sans-serif;
     margin-bottom: 0;
   }
 
-  .cta {
-    margin-top: 3rem;
-    text-align: center;
+  .services-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .cta a {
+  .service-card {
+    border: 2px solid #fff;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgb(31 36 40 / 0.08);
+    height: clamp(360px, 28vw, 430px);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .service-card::after {
+    background: linear-gradient(180deg, transparent 45%, rgb(4 9 13 / 0.38));
+    content: '';
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .service-card > img {
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    width: 100%;
+  }
+
+  .service-card--audio > img {
+    object-position: 22% 39%;
+  }
+
+  .service-card:hover > img {
+    transform: scale(1.035);
+  }
+
+  .service-card__content {
     align-items: center;
-    background: #121820;
-    border-radius: 999px;
-    color: #fff;
-    display: inline-flex;
+    backdrop-filter: blur(18px);
+    background: rgb(255 255 255 / 0.78);
+    border: 1px solid rgb(255 255 255 / 0.82);
+    border-radius: 12px;
+    bottom: 12px;
+    box-shadow:
+      0 24px 50px -20px rgb(0 0 0 / 0.24),
+      inset 0 2px 18px rgb(255 255 255 / 0.78);
+    display: grid;
+    gap: 0.9rem;
+    grid-template-columns: 38px minmax(0, 1fr);
+    left: 12px;
+    padding: 1rem 1.05rem;
+    position: absolute;
+    right: 12px;
+    z-index: 1;
+  }
+
+  .service-card__content svg {
+    fill: none;
+    height: 30px;
+    stroke: #b68a5e;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.35;
+    width: 30px;
+  }
+
+  .service-card__content h3 {
     font:
-      700 0.72rem/1 Inter,
+      500 0.78rem/1.2 Inter,
       Arial,
       sans-serif;
-    gap: 0.8rem;
-    letter-spacing: 0.07em;
-    padding: 1.15rem 1.55rem;
-    text-decoration: none;
+    letter-spacing: 0.035em;
+    margin-bottom: 0.3rem;
     text-transform: uppercase;
   }
 
-  @media (max-width: 900px) {
-    .container {
-      width: min(1200px, calc(100% - 40px));
+  .service-card__content p {
+    color: #5f6670;
+    font:
+      0.68rem/1.5 Inter,
+      Arial,
+      sans-serif;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 1199px) {
+    .services-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .service-card {
+      height: 300px;
+    }
+
+    .service-card:last-child {
+      grid-column: 1;
     }
   }
 
-  @media (max-width: 680px) {
-    .section {
-      padding: 5.25rem 0;
+  @media (max-width: 809px) {
+    .services-section {
+      padding-bottom: 3.75rem;
     }
 
-    .services {
-      gap: 2.5rem;
+    .section-heading {
+      margin-bottom: 2.4rem;
+    }
+
+    h2 {
+      font-size: clamp(2.35rem, 10vw, 2.7rem);
+    }
+
+    .intro {
+      font-size: 0.9rem;
+    }
+
+    .services-grid {
       grid-template-columns: 1fr;
     }
 
-    .cta a {
-      width: 100%;
+    .service-card,
+    .service-card:last-child {
+      grid-column: auto;
+      height: 320px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-card > img {
+      transition: none;
     }
   }
 </style>

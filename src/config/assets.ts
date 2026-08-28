@@ -17,7 +17,7 @@ export function assetUrl(id: AssetId): string {
     const prefix = manifest.r2Prefix ? `${manifest.r2Prefix}/` : '';
     return `${r2BaseUrl}/${prefix}${asset.path}`;
   }
-  return asset.source;
+  return `/${manifest.publicDirectory}/${asset.path}`;
 }
 
 export { manifest as framerAssets };

@@ -36,12 +36,12 @@ const credentials = [
   .marquee { overflow:hidden; width:100%; }
   .track { animation:glide-right 30s linear infinite; display:flex; width:max-content; }
   .card-set { display:flex; flex-shrink:0; gap:var(--card-gap); padding-right:var(--card-gap); }
-  .credential { align-items:center; display:flex; flex-direction:column; gap:.85rem; justify-content:flex-start; padding:0 clamp(1.25rem,3vw,3rem); text-align:center; width:clamp(180px,18vw,255px); }
-  img { height:78px; max-width:100%; object-fit:contain; object-position:center; width:150px; }
+  .credential { align-items:center; display:flex; flex-direction:column; gap:.85rem; justify-content:flex-start; padding:0 clamp(1rem,2vw,2rem); text-align:center; width:clamp(195px,18vw,280px); }
+  img { height:92px; max-width:100%; object-fit:contain; object-position:center; width:175px; }
   b,span { display:block; font-family:Inter,Arial,sans-serif; }
   b { font-size:.76rem; letter-spacing:.03em; text-transform:uppercase; }
   .credential div > span { color:#5f6670; font-size:.7rem; line-height:1.4; margin-top:.28rem; }
-  .stat { align-items:baseline; color:#b68a5e; display:flex; font:500 4.25rem/.8 'Cormorant Garamond',Georgia,serif; height:78px; justify-content:center; letter-spacing:-.08em; width:150px; }
+  .stat { align-items:baseline; color:#b68a5e; display:flex; font:500 4.75rem/.8 'Cormorant Garamond',Georgia,serif; height:92px; justify-content:center; letter-spacing:-.08em; width:175px; }
   .stat span { color:inherit; font:inherit; margin:0; }
   @keyframes glide-right { from { transform:translateX(-50%); } to { transform:translateX(0); } }
   @media (prefers-reduced-motion:reduce) { .track { animation:none; transform:translateX(0); } }

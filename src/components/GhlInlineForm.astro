@@ -1,14 +1,24 @@
 ---
-const { title = 'Tell Us About Your Outdoor Project' } = Astro.props;
+interface Props {
+  title?: string;
+  eyebrow?: string;
+  description?: string;
+  variant?: 'light' | 'glass';
+}
+
+const {
+  title = 'Tell Us About Your Outdoor Project',
+  eyebrow = 'Private consultation',
+  description = 'Share a few details and our design team will review your project before reaching out.',
+  variant = 'light',
+} = Astro.props;
 ---
 
-<section class="ghl-inline" aria-labelledby="ghl-inline-title">
+<section class:list={['ghl-inline', `ghl-inline--${variant}`]} aria-labelledby="ghl-inline-title">
   <div class="ghl-inline__heading">
-    <p>Private consultation</p>
+    <p>{eyebrow}</p>
     <h2 id="ghl-inline-title">{title}</h2>
-    <span>
-      Share a few details and our design team will review your project before reaching out.
-    </span>
+    <span>{description}</span>
   </div>
   <iframe
     src="https://api.leadconnectorhq.com/widget/form/ZiepwgoZzuozaOg3NIkl"
@@ -29,6 +39,14 @@ const { title = 'Tell Us About Your Outdoor Project' } = Astro.props;
     color: #121820;
     overflow: hidden;
     padding: clamp(1.25rem, 3vw, 2rem);
+  }
+  .ghl-inline--glass {
+    backdrop-filter: blur(18px);
+    background: rgb(247 244 237 / 0.9);
+    border: 1px solid rgb(255 255 255 / 0.86);
+    box-shadow:
+      0 30px 70px -25px rgb(18 24 32 / 0.28),
+      inset 0 2px 18px rgb(255 255 255 / 0.75);
   }
   .ghl-inline__heading {
     margin-bottom: 1.5rem;
@@ -66,5 +84,15 @@ const { title = 'Tell Us About Your Outdoor Project' } = Astro.props;
     display: block;
     min-height: 1015px;
     width: 100%;
+  }
+
+  @media (max-width: 809px) {
+    .ghl-inline {
+      padding: 1rem;
+    }
+
+    .ghl-inline__heading h2 {
+      font-size: 2rem;
+    }
   }
 </style>

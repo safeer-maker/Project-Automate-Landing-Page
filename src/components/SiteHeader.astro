@@ -20,15 +20,16 @@ import HeaderMobileMenu from './header/HeaderMobileMenu.astro';
   .site-header {
     left: 0;
     padding-top: 1.25rem;
-    position: absolute;
+    pointer-events: none;
+    position: fixed;
     right: 0;
     top: 0;
-    z-index: 10;
+    z-index: 100;
   }
 
   .container {
     margin-inline: auto;
-    width: min(1200px, calc(100% - 80px));
+    width: min(1200px, calc(100% - var(--page-gutter) - var(--page-gutter)));
   }
 
   .navigation {
@@ -41,6 +42,17 @@ import HeaderMobileMenu from './header/HeaderMobileMenu.astro';
     display: flex;
     min-height: 76px;
     padding: 0.4rem 0.55rem 0.4rem 1.35rem;
+    pointer-events: auto;
+    transition:
+      background-color 0.25s ease,
+      box-shadow 0.25s ease,
+      min-height 0.25s ease;
+  }
+
+  .site-header[data-scrolled='true'] .navigation {
+    background: rgb(10 17 22 / 0.92);
+    box-shadow: 0 14px 38px rgb(0 0 0 / 0.24);
+    min-height: 68px;
   }
 
   .desktop-actions {
@@ -55,10 +67,6 @@ import HeaderMobileMenu from './header/HeaderMobileMenu.astro';
       padding-top: 0.75rem;
     }
 
-    .container {
-      width: min(1200px, calc(100% - 40px));
-    }
-
     .navigation {
       min-height: 62px;
     }
@@ -68,3 +76,13 @@ import HeaderMobileMenu from './header/HeaderMobileMenu.astro';
     }
   }
 </style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('.site-header');
+  const updateHeader = () => {
+    if (header) header.dataset.scrolled = String(window.scrollY > 24);
+  };
+
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+</script>

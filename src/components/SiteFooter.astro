@@ -1,8 +1,17 @@
 <footer class="footer">
   <div class="container">
-    <span>© {new Date().getFullYear()} PROJECT:automate</span>
-    <span>Architectural lighting and outdoor technology · Los Angeles</span>
-    <a href="tel:+13107405375">(310) 740-5375</a>
+    <a class="brand" href="/" aria-label="PROJECT:automate home">
+      <strong>PROJECT:</strong><span>automate</span>
+    </a>
+    <p>Architectural landscape lighting and outdoor technology for Los Angeles estates.</p>
+    <div class="footer-links">
+      <a href="tel:+13107405375">(310) 740-5375</a>
+      <a href="https://projectautomate.com/privacy-policy/">Privacy</a>
+      <a href="https://projectautomate.com/terms-and-conditions/">Terms</a>
+    </div>
+  </div>
+  <div class="container legal">
+    <span>© {new Date().getFullYear()} PROJECT:automate. All rights reserved.</span>
   </div>
 </footer>
 
@@ -10,40 +19,78 @@
   .footer {
     background: #0b1016;
     color: #cfc8bd;
-    padding: 1.5rem 0;
+    padding: 2.25rem 0 1.4rem;
   }
 
   .container {
     align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    font:
-      0.68rem/1.5 Inter,
-      Arial,
-      sans-serif;
-    gap: 0.75rem 2rem;
-    justify-content: space-between;
-    letter-spacing: 0.04em;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: auto minmax(220px, 1fr) auto;
     margin-inline: auto;
-    width: min(1200px, calc(100% - 80px));
+    width: min(var(--page-max), calc(100% - var(--page-gutter) - var(--page-gutter)));
   }
 
-  .footer a {
+  .brand {
     color: #fff;
-    font-weight: 700;
+    display: grid;
+    font:
+      700 0.78rem/0.9 Inter,
+      Arial,
+      sans-serif;
     text-decoration: none;
   }
 
-  @media (max-width: 900px) {
-    .container {
-      width: min(1200px, calc(100% - 40px));
-    }
+  .brand span {
+    font-weight: 500;
+  }
+
+  p,
+  .legal,
+  .footer-links {
+    font:
+      0.7rem/1.55 Inter,
+      Arial,
+      sans-serif;
+  }
+
+  p {
+    margin: 0;
+    max-width: 480px;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 1.25rem;
+    justify-content: flex-end;
+  }
+
+  .footer-links a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .footer-links a:hover {
+    color: #d9b384;
+  }
+
+  .legal {
+    border-top: 1px solid rgb(255 255 255 / 0.1);
+    color: #8a8f94;
+    display: block;
+    margin-top: 1.5rem;
+    padding-top: 1.15rem;
   }
 
   @media (max-width: 680px) {
     .container {
-      align-items: flex-start;
-      flex-direction: column;
+      align-items: start;
+      grid-template-columns: 1fr;
+    }
+
+    .footer-links {
+      justify-content: flex-start;
     }
   }
 </style>

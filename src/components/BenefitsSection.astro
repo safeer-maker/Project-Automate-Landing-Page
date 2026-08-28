@@ -137,18 +137,18 @@ const benefits = [
 <style>
   .benefits {
     background: #f7f4ed;
-    padding: clamp(4.25rem, 6.5vw, 6.25rem) 0;
+    padding: clamp(3.75rem, 5vw, 5rem) 0;
   }
 
   .container {
     margin-inline: auto;
-    width: min(1280px, calc(100% - 80px));
+    width: min(var(--page-max), calc(100% - var(--page-gutter) - var(--page-gutter)));
   }
 
   .section-layout {
     align-items: center;
     display: grid;
-    gap: clamp(3rem, 6vw, 5.5rem);
+    gap: clamp(2.25rem, 4vw, 4rem);
     grid-template-columns: minmax(280px, 7fr) minmax(0, 13fr);
   }
 
@@ -240,7 +240,7 @@ const benefits = [
   .slider-track {
     height: 100%;
     position: relative;
-    width: 86%;
+    width: 92%;
   }
 
   .slide {
@@ -340,10 +340,6 @@ const benefits = [
   }
 
   @media (max-width: 900px) {
-    .container {
-      width: min(1200px, calc(100% - 40px));
-    }
-
     .section-layout {
       align-items: start;
       gap: 2.5rem;
@@ -362,7 +358,7 @@ const benefits = [
 
   @media (max-width: 680px) {
     .benefits {
-      padding: 4rem 0;
+      padding: 3.25rem 0;
     }
 
     .slider-viewport {
