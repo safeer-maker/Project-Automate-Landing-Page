@@ -103,17 +103,108 @@ a[data-ghl-form]::before {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  html.js [data-reveal] {
+  [data-reveal].motion-pending,
+  [data-motion].motion-pending {
     opacity: 0;
     transform: translateY(24px);
-    transition:
-      opacity 0.7s ease var(--reveal-delay, 0ms),
-      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
   }
 
-  html.js [data-reveal].is-visible {
+  [data-motion='media'].motion-pending {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
+  }
+
+  [data-motion='media'].motion-pending img,
+  .service-card.motion-pending .service-card__media img,
+  .final-cta__panel.motion-pending > img {
+    transform: scale(1.075);
+  }
+
+  [data-reveal].motion-in,
+  [data-motion].motion-in {
+    animation: motion-fade-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  [data-motion='media'].motion-in {
+    animation-name: motion-media-reveal;
+    animation-duration: 1.05s;
+    overflow: hidden;
+    will-change: clip-path, opacity;
+  }
+
+  [data-motion='media'].motion-in img,
+  .service-card.motion-in .service-card__media img,
+  .final-cta__panel.motion-in > img {
+    animation: motion-image-settle 1.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--reveal-delay, 0ms);
+    will-change: transform;
+  }
+
+  [data-motion='rule'].motion-in {
+    animation-name: motion-rule-reveal;
+    transform-origin: left center;
+  }
+
+  [data-motion].motion-complete,
+  [data-reveal].motion-complete {
+    animation: none;
+    clip-path: none;
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+
+  [data-motion].motion-complete img,
+  [data-reveal].motion-complete img,
+  .service-card.motion-complete .service-card__media img,
+  .final-cta__panel.motion-complete > img {
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
+
+  @keyframes motion-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes motion-media-reveal {
+    from {
+      clip-path: inset(0 0 100% 0 round 22px);
+      opacity: 0.72;
+    }
+    to {
+      clip-path: inset(0 0 0 0 round 22px);
+      opacity: 1;
+    }
+  }
+
+  @keyframes motion-image-settle {
+    from {
+      transform: scale(1.075);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes motion-rule-reveal {
+    from {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    to {
+      opacity: 1;
+      transform: scaleX(1);
+    }
   }
 }
 
@@ -125,5 +216,14 @@ a[data-ghl-form]::before {
   a[data-ghl-form],
   a[data-ghl-form]::before {
     animation: none;
+  }
+
+  [data-reveal],
+  [data-motion],
+  [data-motion] img {
+    animation: none !important;
+    clip-path: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

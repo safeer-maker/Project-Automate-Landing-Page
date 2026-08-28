@@ -21,20 +21,30 @@ const benefits = [
   <div class="container">
     <div class="section-layout">
       <div class="content">
-        <p class="eyebrow">Designed for life after sunset</p>
-        <h2 id="benefits-title">Your home was designed to be experienced.</h2>
-        <p class="intro">
+        <p class="eyebrow" data-motion>Designed for life after sunset</p>
+        <h2 id="benefits-title" data-motion style="--reveal-delay: 70ms">
+          Your home was designed to be experienced.
+        </h2>
+        <p class="intro" data-motion style="--reveal-delay: 140ms">
           From subtle path lighting to dramatic architectural washes, every layer of light has a
           purpose—enhancing beauty, improving safety, and extending your lifestyle outdoors.
         </p>
 
-        <a class="cta" href="#consultation-form" data-ghl-form>
+        <a
+          class="cta"
+          href="#consultation-form"
+          data-ghl-form
+          data-motion
+          style="--reveal-delay: 210ms"
+        >
           Discuss Your Estate With Us <span aria-hidden="true">→</span>
         </a>
       </div>
 
       <div
         class="slider"
+        data-motion="media"
+        style="--reveal-delay: 90ms"
         data-benefits-slider
         aria-roledescription="carousel"
         aria-label="Landscape lighting results"
