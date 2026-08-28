@@ -9,23 +9,24 @@ const formUrl = 'https://api.leadconnectorhq.com/widget/form/ZiepwgoZzuozaOg3NIk
         <p>Private consultation</p><h2 id="consultation-form-title">
           Tell us about your property.
         </h2>
-      </div><button class="close" type="button" aria-label="Close consultation form">×</button>
+      </div><button class="close" type="button" aria-label="Close consultation form">
+        <span aria-hidden="true">×</span>
+      </button>
     </div>
-    <iframe data-ghl-src={formUrl} title="PROJECT:automate consultation form" loading="lazy">
-    </iframe>
+    <iframe src={formUrl} title="PROJECT:automate consultation form" loading="eager"></iframe>
   </div>
 </dialog>
 
 <script>
   const modal = document.querySelector<HTMLDialogElement>('#consultation-form');
-  const iframe = modal?.querySelector<HTMLIFrameElement>('iframe');
   const closeButton = modal?.querySelector<HTMLButtonElement>('.close');
+  let activeTrigger: HTMLElement | null = null;
 
   document.addEventListener('click', (event) => {
     const trigger = (event.target as Element).closest<HTMLElement>('[data-ghl-form]');
     if (!trigger || !modal) return;
     event.preventDefault();
-    if (iframe && !iframe.src) iframe.src = iframe.dataset.ghlSrc ?? '';
+    activeTrigger = trigger;
     modal.showModal();
   });
 
@@ -33,6 +34,7 @@ const formUrl = 'https://api.leadconnectorhq.com/widget/form/ZiepwgoZzuozaOg3NIk
   modal?.addEventListener('click', (event) => {
     if (event.target === modal) modal.close();
   });
+  modal?.addEventListener('close', () => activeTrigger?.focus());
 </script>
 
 <style>
