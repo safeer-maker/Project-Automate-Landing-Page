@@ -1,87 +1,493 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import GhlInlineForm from '../components/GhlInlineForm.astro';
+import HeaderBrand from '../components/header/HeaderBrand.astro';
+import { assetUrl } from '../config/assets';
 ---
 
 <Layout
-  title="Request a Consultation | PROJECT:automate"
-  description="Start a private landscape lighting consultation with PROJECT:automate."
+  title="Schedule a Private Consultation | PROJECT:automate"
+  description="Choose a convenient time for a private landscape lighting and outdoor technology consultation with PROJECT:automate."
+  ogImage={assetUrl('consultationContact')}
 >
-  <section class="schedule-page">
-    <div class="schedule-page__copy">
-      <p>Private consultation</p><h1>Let’s design your life after sunset.</h1><span>
-        Tell us about your estate, goals, timing, and investment range. Our design team will review
-        your project and get in touch.
-      </span><a href="/">← Return home</a>
+  <div class="schedule-page">
+    <div class="schedule-page__backdrop" aria-hidden="true">
+      <img src={assetUrl('consultationContact')} alt="" loading="eager" decoding="async" />
     </div>
-    <GhlInlineForm title="Tell Us About Your Project" />
-  </section>
+
+    <header class="schedule-header" data-motion>
+      <div class="schedule-container schedule-header__inner">
+        <HeaderBrand />
+        <div class="schedule-header__actions">
+          <a href="tel:+13107405375">(310) 740-5375</a>
+          <a class="back-link" href="/">
+            <span aria-hidden="true">←</span> Return home
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <div class="schedule-main schedule-container">
+      <section class="schedule-copy" aria-labelledby="schedule-title">
+        <p class="eyebrow" data-motion style="--reveal-delay: 80ms">Private design consultation</p>
+        <h1 id="schedule-title" data-motion style="--reveal-delay: 150ms">
+          Let’s begin with a conversation.
+        </h1>
+        <p class="introduction" data-motion style="--reveal-delay: 230ms">
+          Choose a convenient time to speak with our design team about your property, your vision,
+          and the experience you want to create after sunset.
+        </p>
+
+        <div class="expectations" data-motion style="--reveal-delay: 310ms">
+          <p>What to expect</p>
+          <ul>
+            <li>
+              <span>01</span>
+              <div>
+                <strong>Tell us about your estate</strong>
+                <small>We’ll discuss the property, your priorities, and the project scope.</small>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <strong>Explore the right direction</strong>
+                <small>Our team will help identify the most thoughtful next step.</small>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <p class="support" data-motion style="--reveal-delay: 390ms">
+          Prefer to speak directly? <a href="tel:+13107405375">Call our design team</a>.
+        </p>
+      </section>
+
+      <section class="calendar-shell" aria-labelledby="calendar-title" data-motion="media">
+        <header class="calendar-heading">
+          <div>
+            <p>Book your consultation</p>
+            <h2 id="calendar-title">Select a date and time</h2>
+          </div>
+          <span class="secure-note">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="5" y="10" width="14" height="10" rx="2"></rect>
+              <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+            </svg>
+            Private &amp; secure
+          </span>
+        </header>
+
+        <div class="calendar-frame">
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/booking/UF6HdyNtYwKpZHABOBtL"
+            allow="payment"
+            scrolling="no"
+            id="UF6HdyNtYwKpZHABOBtL_1787920370333"
+            title="Schedule a private PROJECT:automate consultation"
+          >
+          </iframe>
+        </div>
+      </section>
+    </div>
+
+    <footer class="schedule-footer schedule-container">
+      <span>© {new Date().getFullYear()} PROJECT:automate</span>
+      <nav aria-label="Legal">
+        <a href="https://projectautomate.com/privacy-policy/">Privacy</a>
+        <a href="https://projectautomate.com/terms-and-conditions/">Terms</a>
+      </nav>
+    </footer>
+  </div>
+
+  <script is:inline src="https://link.msgsndr.com/js/form_embed.js"></script>
 </Layout>
 
 <style>
   :global(html),
   :global(body) {
-    background: #121820;
+    background: #0b1117;
   }
+
   .schedule-page {
-    display: grid;
-    gap: clamp(2rem, 5vw, 5rem);
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
-    margin: 0 auto;
-    max-width: 1200px;
-    min-height: 100svh;
-    padding: clamp(2rem, 7vw, 7rem) 40px;
-  }
-  .schedule-page__copy {
-    align-self: center;
     color: #fff;
+    isolation: isolate;
+    min-height: 100svh;
+    overflow: hidden;
+    position: relative;
   }
-  .schedule-page__copy p {
-    color: #b68a5e;
+
+  .schedule-page::before {
+    background:
+      radial-gradient(circle at 12% 28%, rgb(182 138 94 / 0.13), transparent 28rem),
+      linear-gradient(
+        115deg,
+        rgb(6 12 17 / 0.98) 0%,
+        rgb(10 17 23 / 0.95) 48%,
+        rgb(10 17 23 / 0.86)
+      );
+    content: '';
+    inset: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .schedule-page__backdrop {
+    inset: 0;
+    opacity: 0.17;
+    pointer-events: none;
+    position: absolute;
+    z-index: -2;
+  }
+
+  .schedule-page__backdrop::after {
+    background: linear-gradient(90deg, #0b1117 5%, transparent 52%, #0b1117 100%);
+    content: '';
+    inset: 0;
+    position: absolute;
+  }
+
+  .schedule-page__backdrop img {
+    filter: saturate(0.72);
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% center;
+    width: 100%;
+  }
+
+  .schedule-container {
+    margin-inline: auto;
+    width: min(1240px, calc(100% - var(--page-gutter) - var(--page-gutter)));
+  }
+
+  .schedule-header {
+    border-bottom: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  .schedule-header__inner {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    min-height: 92px;
+  }
+
+  .schedule-header__actions {
+    align-items: center;
+    display: flex;
+    gap: 1.6rem;
+  }
+
+  .schedule-header__actions a {
+    color: #eee8df;
     font:
-      700 0.7rem/1.3 Inter,
+      600 0.68rem/1 Inter,
+      Arial,
+      sans-serif;
+    letter-spacing: 0.075em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+  }
+
+  .schedule-header__actions a:hover {
+    color: #d9b384;
+  }
+
+  .back-link {
+    align-items: center;
+    border: 1px solid rgb(255 255 255 / 0.18);
+    border-radius: 999px;
+    display: inline-flex;
+    gap: 0.65rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .back-link span {
+    color: #d9b384;
+    font-size: 1rem;
+  }
+
+  .schedule-main {
+    align-items: start;
+    display: grid;
+    gap: clamp(3rem, 6vw, 6rem);
+    grid-template-columns: minmax(300px, 0.75fr) minmax(560px, 1.25fr);
+    padding-bottom: clamp(4rem, 7vw, 7rem);
+    padding-top: clamp(4rem, 7vw, 7rem);
+  }
+
+  .schedule-copy {
+    padding-top: clamp(1rem, 3vw, 2.5rem);
+    position: sticky;
+    top: 2rem;
+  }
+
+  .eyebrow,
+  .calendar-heading > div > p,
+  .expectations > p {
+    color: #d9b384;
+    font:
+      700 0.68rem/1.3 Inter,
       Arial,
       sans-serif;
     letter-spacing: 0.16em;
-    margin: 0 0 1.25rem;
+    margin: 0;
     text-transform: uppercase;
   }
-  .schedule-page__copy h1 {
+
+  h1 {
     font:
-      500 clamp(3.4rem, 6vw, 5.6rem)/0.9 'Cormorant Garamond',
+      500 clamp(3.5rem, 5.5vw, 5.4rem)/0.91 'Cormorant Garamond',
       Georgia,
       serif;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.052em;
+    margin: 1.1rem 0 0;
+    max-width: 620px;
+  }
+
+  .introduction {
+    color: #d2ccc3;
+    font:
+      0.94rem/1.7 Inter,
+      Arial,
+      sans-serif;
+    margin: 1.6rem 0 0;
+    max-width: 530px;
+  }
+
+  .expectations {
+    border-top: 1px solid rgb(255 255 255 / 0.14);
+    margin-top: 2.25rem;
+    padding-top: 1.5rem;
+  }
+
+  .expectations ul {
+    display: grid;
+    gap: 1.25rem;
+    list-style: none;
+    margin: 1.35rem 0 0;
+    padding: 0;
+  }
+
+  .expectations li {
+    align-items: start;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 34px minmax(0, 1fr);
+  }
+
+  .expectations li > span {
+    align-items: center;
+    border: 1px solid rgb(217 179 132 / 0.55);
+    border-radius: 50%;
+    color: #d9b384;
+    display: flex;
+    font:
+      600 0.59rem/1 Inter,
+      Arial,
+      sans-serif;
+    height: 32px;
+    justify-content: center;
+    letter-spacing: 0.06em;
+    width: 32px;
+  }
+
+  .expectations strong,
+  .expectations small {
+    display: block;
+    font-family: Inter, Arial, sans-serif;
+  }
+
+  .expectations strong {
+    font-size: 0.82rem;
+    letter-spacing: -0.01em;
+  }
+
+  .expectations small {
+    color: #aaa79f;
+    font-size: 0.72rem;
+    line-height: 1.55;
+    margin-top: 0.28rem;
+  }
+
+  .support {
+    color: #aaa79f;
+    font:
+      0.72rem/1.5 Inter,
+      Arial,
+      sans-serif;
+    margin: 2rem 0 0;
+  }
+
+  .support a {
+    color: #fff;
+    text-decoration-color: rgb(217 179 132 / 0.7);
+    text-underline-offset: 0.3rem;
+  }
+
+  .calendar-shell {
+    --reveal-delay: 140ms;
+    background: #f8f6f1;
+    border: 1px solid rgb(255 255 255 / 0.82);
+    border-radius: 26px;
+    box-shadow: 0 35px 90px rgb(0 0 0 / 0.34);
+    color: #121820;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .calendar-heading {
+    align-items: center;
+    border-bottom: 1px solid #ded9cf;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: space-between;
+    padding: 1.5rem 1.75rem;
+  }
+
+  .calendar-heading > div > p {
+    color: #a9784d;
+    font-size: 0.58rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .calendar-heading h2 {
+    font:
+      500 clamp(1.75rem, 2.5vw, 2.25rem)/1 'Cormorant Garamond',
+      Georgia,
+      serif;
+    letter-spacing: -0.035em;
     margin: 0;
   }
-  .schedule-page__copy span {
-    color: #dcd4c8;
-    display: block;
+
+  .secure-note {
+    align-items: center;
+    color: #656b70;
+    display: flex;
+    flex: 0 0 auto;
     font:
-      1rem/1.65 Inter,
+      600 0.6rem/1 Inter,
       Arial,
       sans-serif;
-    margin-top: 1.75rem;
-  }
-  .schedule-page__copy a {
-    color: #fff;
-    display: inline-block;
-    font:
-      700 0.72rem/1 Inter,
-      Arial,
-      sans-serif;
-    letter-spacing: 0.1em;
-    margin-top: 2rem;
-    text-decoration: none;
+    gap: 0.45rem;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
-  @media (max-width: 809px) {
-    .schedule-page {
+
+  .secure-note svg {
+    fill: none;
+    height: 15px;
+    stroke: #a9784d;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.6;
+    width: 15px;
+  }
+
+  .calendar-frame {
+    background: #fff;
+    min-height: 710px;
+    padding: 0.75rem;
+  }
+
+  .calendar-frame iframe {
+    border: 0;
+    display: block;
+    min-height: 690px;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .schedule-footer {
+    align-items: center;
+    border-top: 1px solid rgb(255 255 255 / 0.1);
+    color: #817f7a;
+    display: flex;
+    font:
+      0.62rem/1.5 Inter,
+      Arial,
+      sans-serif;
+    justify-content: space-between;
+    padding-bottom: 1.4rem;
+    padding-top: 1.4rem;
+  }
+
+  .schedule-footer nav {
+    display: flex;
+    gap: 1.2rem;
+  }
+
+  .schedule-footer a {
+    color: #aaa79f;
+    text-decoration: none;
+  }
+
+  @media (max-width: 1000px) {
+    .schedule-main {
       grid-template-columns: 1fr;
-      padding: 6rem 20px 3rem;
     }
-    .schedule-page__copy h1 {
-      font-size: clamp(3.25rem, 15vw, 4.6rem);
+
+    .schedule-copy {
+      max-width: 720px;
+      padding-top: 0;
+      position: static;
+    }
+
+    .expectations {
+      max-width: 570px;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .schedule-header__inner {
+      min-height: 76px;
+    }
+
+    .schedule-header__actions > a:first-child {
+      display: none;
+    }
+
+    .back-link {
+      border: 0;
+      padding: 0.5rem 0;
+    }
+
+    .schedule-main {
+      gap: 2.75rem;
+      padding-bottom: 3rem;
+      padding-top: 3.25rem;
+    }
+
+    h1 {
+      font-size: clamp(3.25rem, 15vw, 4.4rem);
+    }
+
+    .calendar-shell {
+      border-radius: 18px;
+      margin-inline: -6px;
+    }
+
+    .calendar-heading {
+      align-items: flex-start;
+      padding: 1.25rem;
+    }
+
+    .secure-note {
+      display: none;
+    }
+
+    .calendar-frame {
+      min-height: 760px;
+      padding: 0.25rem;
+    }
+
+    .calendar-frame iframe {
+      min-height: 750px;
+    }
+
+    .schedule-footer {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.65rem;
     }
   }
 </style>
