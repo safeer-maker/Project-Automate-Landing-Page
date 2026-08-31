@@ -100,6 +100,31 @@ import { assetUrl } from '../config/assets';
   </div>
 
   <script is:inline src="https://link.msgsndr.com/js/form_embed.js"></script>
+
+  <!-- Track booking form interactions -->
+  <script is:inline>
+    const bookingIframe = document.querySelector('iframe[id="UF6HdyNtYwKpZHABOBtL_1787920370333"]');
+
+    if (bookingIframe) {
+      // Track when iframe loads
+      bookingIframe.addEventListener('load', () => {
+        // Track booking page view/lead generation
+        if (window.fbq) {
+          fbq('track', 'Lead');
+        }
+      });
+
+      // Monitor for booking completion messages
+      window.addEventListener('message', (event) => {
+        // GHL may send postMessage events on booking completion
+        if (event.data?.type === 'booking' || event.data?.status === 'success' || event.data?.event === 'complete') {
+          if (window.fbq) {
+            fbq('track', 'Contact');
+          }
+        }
+      });
+    }
+  </script>
 </Layout>
 
 <style>
