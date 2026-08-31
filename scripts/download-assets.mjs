@@ -2,9 +2,9 @@ import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { resolve, sep } from 'node:path';
 
 const root = resolve(import.meta.dirname, '..');
-const manifest = JSON.parse(await readFile(resolve(root, 'framer-assets.config.json'), 'utf8'));
+const manifest = JSON.parse(await readFile(resolve(root, 'assets.config.json'), 'utf8'));
 const outputRoot = resolve(root, 'public', manifest.publicDirectory);
-const statePath = resolve(root, '.framer-assets-state.json');
+const statePath = resolve(root, '.assets-state.json');
 const force = process.argv.includes('--force');
 const dryRun = process.argv.includes('--dry-run');
 const validateOnly = process.argv.includes('--validate');

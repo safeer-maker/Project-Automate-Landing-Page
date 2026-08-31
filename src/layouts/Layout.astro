@@ -46,9 +46,47 @@ const {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+
+    <!-- Meta Pixel - Loaded from config.json -->
     <script is:inline>
       document.documentElement.classList.add('js');
+
+      // Load config and initialize Meta Pixel
+      fetch('/config.json')
+        .then(r => r.json())
+        .then(config => {
+          if (!config?.meta?.pixelId || config.meta.pixelId === 'YOUR_PIXEL_ID_HERE') {
+            console.warn('Meta Pixel ID not configured in /config.json');
+            return;
+          }
+
+          window.__fbPixelId = config.meta.pixelId;
+
+          // Initialize Meta Pixel
+          !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', config.meta.pixelId);
+          fbq('track', 'PageView');
+        })
+        .catch(err => console.warn('Failed to load /config.json:', err));
     </script>
+
+    <!-- Meta Pixel noscript fallback - uses pixel ID from config.json -->
+    <noscript>
+      <script is:inline>
+        fetch('/config.json')
+          .then(r => r.json())
+          .then(config => {
+            if (config?.meta?.pixelId) {
+              const img = document.createElement('img');
+              img.height = 1;
+              img.width = 1;
+              img.style.display = 'none';
+              img.src = 'https://www.facebook.com/tr?id=' + config.meta.pixelId + '&ev=PageView&noscript=1';
+              document.body.appendChild(img);
+            }
+          });
+      </script>
+    </noscript>
   </head>
   <body>
     <main id="main-content">

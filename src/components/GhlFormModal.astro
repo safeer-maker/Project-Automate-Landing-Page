@@ -20,6 +20,7 @@ const formUrl = 'https://api.leadconnectorhq.com/widget/form/ZiepwgoZzuozaOg3NIk
 <script>
   const modal = document.querySelector<HTMLDialogElement>('#consultation-form');
   const closeButton = modal?.querySelector<HTMLButtonElement>('.close');
+  const formIframe = modal?.querySelector<HTMLIFrameElement>('iframe');
   let activeTrigger: HTMLElement | null = null;
 
   document.addEventListener('click', (event) => {
@@ -28,6 +29,11 @@ const formUrl = 'https://api.leadconnectorhq.com/widget/form/ZiepwgoZzuozaOg3NIk
     event.preventDefault();
     activeTrigger = trigger;
     modal.showModal();
+
+    // Track form open event
+    if (window.fbq) {
+      fbq('track', 'Lead');
+    }
   });
 
   closeButton?.addEventListener('click', () => modal?.close());
@@ -35,6 +41,30 @@ const formUrl = 'https://api.leadconnectorhq.com/widget/form/ZiepwgoZzuozaOg3NIk
     if (event.target === modal) modal.close();
   });
   modal?.addEventListener('close', () => activeTrigger?.focus());
+
+  // Track form submission if available
+  if (formIframe) {
+    const trackFormSubmission = () => {
+      if (window.fbq) {
+        fbq('track', 'Contact');
+      }
+    };
+
+    formIframe.addEventListener('load', () => {
+      try {
+        formIframe.contentWindow?.addEventListener('submit', trackFormSubmission);
+      } catch (e) {
+        // Cross-origin access may be restricted
+      }
+    });
+
+    // Fallback: monitor for form submission via message events
+    window.addEventListener('message', (event) => {
+      if (event.data?.type === 'formSubmission' || event.data?.event === 'submit') {
+        trackFormSubmission();
+      }
+    });
+  }
 </script>
 
 <style>

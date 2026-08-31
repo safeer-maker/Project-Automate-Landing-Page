@@ -1,4 +1,4 @@
-import manifest from '../../framer-assets.config.json';
+import manifest from '../../assets.config.json';
 
 export type AssetId = (typeof manifest.assets)[number]['id'];
 
