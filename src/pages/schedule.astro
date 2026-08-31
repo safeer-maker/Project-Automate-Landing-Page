@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import HeaderBrand from '../components/header/HeaderBrand.astro';
 import { assetUrl } from '../config/assets';
+import { GHL_BOOKING_URL } from '../config/forms';
 ---
 
 <Layout
@@ -79,7 +80,7 @@ import { assetUrl } from '../config/assets';
 
         <div class="calendar-frame">
           <iframe
-            src="https://api.leadconnectorhq.com/widget/booking/UF6HdyNtYwKpZHABOBtL"
+            src={GHL_BOOKING_URL}
             allow="payment"
             scrolling="no"
             id="UF6HdyNtYwKpZHABOBtL_1787920370333"

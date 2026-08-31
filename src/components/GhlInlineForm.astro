@@ -1,4 +1,6 @@
 ---
+import { GHL_FORM_URL } from '../config/forms';
+
 interface Props {
   title?: string;
   eyebrow?: string;
@@ -21,7 +23,7 @@ const {
     <span>{description}</span>
   </div>
   <iframe
-    src="https://api.leadconnectorhq.com/widget/form/ZiepwgoZzuozaOg3NIkl"
+    src={GHL_FORM_URL}
     id="inline-ZiepwgoZzuozaOg3NIkl"
     data-layout="{'id':'INLINE'}"
     data-height="1015"

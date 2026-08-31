@@ -59,6 +59,10 @@
     "consultationContact": {
       "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/contact/private-consultation.webp",
       "path": "contact/private-consultation.webp"
+    },
+    "warrantyBadge": {
+      "source": "https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/certifications/lifetime-warranty.webp",
+      "path": "certifications/lifetime-warranty.webp"
     }
   }
 }

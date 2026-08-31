@@ -121,7 +121,7 @@ const benefits = [
     const startAutoplay = () => {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       window.clearInterval(autoplay);
-      autoplay = window.setInterval(() => showSlide(activeIndex + 1), 5000);
+      autoplay = window.setInterval(() => showSlide(activeIndex + 1), 3000);
     };
 
     previous?.addEventListener('click', () => {
@@ -262,9 +262,9 @@ const benefits = [
     position: absolute;
     transform-origin: left center;
     transition:
-      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-      filter 0.8s ease,
-      opacity 0.8s ease;
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.6s ease,
+      opacity 0.6s ease;
     will-change: transform;
   }
 
