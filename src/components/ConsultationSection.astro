@@ -28,15 +28,30 @@ const contactItems = [
     icon: 'calendar',
   },
 ] as const;
+
+const trustBadges = [
+  'Since 2009',
+  '50+ Properties Completed',
+  'HTA Certified',
+  'Lifetime Hardware Warranty',
+] as const;
 ---
 
-<section id="consultation" class="consultation" aria-labelledby="consultation-title">
+<section id="consultation-form" class="consultation" aria-labelledby="consultation-title">
   <div class="container consultation-layout">
     <div class="consultation-copy">
       <header data-reveal>
-        <p class="eyebrow">Get in touch</p>
+        <p class="eyebrow">Free, no-obligation consultation</p>
         <h2 id="consultation-title">Request a Private Lighting Consultation</h2>
+        <p class="subhead">
+          Tell us about your property and goals — our design team reviews every request and
+          typically responds within one business day.
+        </p>
       </header>
+
+      <ul class="trust-row" data-reveal style="--reveal-delay: 40ms">
+        {trustBadges.map((badge) => <li>{badge}</li>)}
+      </ul>
 
       <div class="contact-list">
         {
@@ -96,9 +111,9 @@ const contactItems = [
       <div class="form-visual__wash"></div>
       <div class="form-shell">
         <GhlInlineForm
-          title="Send Us a Message"
-          eyebrow="Private consultation"
-          description="Tell us about your property and we'll get back to you shortly."
+          title="Request Your Free Consultation"
+          eyebrow="No obligation"
+          description="Share a few details below and our design team will follow up within one business day."
           variant="glass"
         />
       </div>
@@ -153,11 +168,44 @@ const contactItems = [
     text-transform: uppercase;
   }
 
+  .subhead {
+    color: #5f6670;
+    font:
+      0.94rem/1.6 Inter,
+      Arial,
+      sans-serif;
+    margin: 1.15rem 0 0;
+    max-width: 460px;
+  }
+
+  .trust-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 0.9rem;
+    list-style: none;
+    margin: 1.75rem 0 0;
+    padding: 0;
+  }
+
+  .trust-row li {
+    background: rgb(182 138 94 / 0.1);
+    border: 1px solid rgb(182 138 94 / 0.25);
+    border-radius: 999px;
+    color: #8a6a45;
+    font:
+      600 0.65rem/1 Inter,
+      Arial,
+      sans-serif;
+    letter-spacing: 0.03em;
+    padding: 0.5rem 0.85rem;
+    text-transform: uppercase;
+  }
+
   .contact-list {
     display: grid;
     gap: 1.5rem 2rem;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-top: 3.5rem;
+    margin-top: 2.5rem;
   }
 
   .contact-item {

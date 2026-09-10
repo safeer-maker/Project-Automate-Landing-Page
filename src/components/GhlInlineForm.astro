@@ -1,5 +1,5 @@
 ---
-import { GHL_FORM_URL } from '../config/forms';
+import { GHL_FORM_ID, GHL_FORM_URL } from '../config/forms';
 
 interface Props {
   title?: string;
@@ -24,17 +24,28 @@ const {
   </div>
   <iframe
     src={GHL_FORM_URL}
-    id="inline-ZiepwgoZzuozaOg3NIkl"
+    id={`inline-${GHL_FORM_ID}`}
     data-layout="{'id':'INLINE'}"
-    data-height="1015"
-    data-form-id="ZiepwgoZzuozaOg3NIkl"
-    title="PROJECT:automate consultation form"
-    loading="lazy"
+    data-trigger-type="alwaysShow"
+    data-trigger-value=""
+    data-activation-type="alwaysActivated"
+    data-activation-value=""
+    data-deactivation-type="neverDeactivate"
+    data-deactivation-value=""
+    data-form-name="ProjectAutomateLP-Form - InlineWebsite"
+    data-height="861"
+    data-layout-iframe-id={`inline-${GHL_FORM_ID}`}
+    data-form-id={GHL_FORM_ID}
+    data-cookie-consent="true"
+    data-cookie-consent-provider="auto"
+    title="ProjectAutomateLP-Form - InlineWebsite"
   >
   </iframe>
 </section>
 
-<script is:inline define:vars={{ formId: 'ZiepwgoZzuozaOg3NIkl' }}>
+<script is:inline src="https://link.msgsndr.com/js/form_embed.js"></script>
+
+<script is:inline define:vars={{ formId: GHL_FORM_ID }}>
   const inlineIframe = document.querySelector(`#inline-${formId}`);
 
   if (inlineIframe) {
@@ -111,7 +122,7 @@ const {
     border: 0;
     border-radius: 8px;
     display: block;
-    min-height: 1015px;
+    min-height: 861px;
     width: 100%;
   }
 
