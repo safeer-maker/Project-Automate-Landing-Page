@@ -22,13 +22,19 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- Resource hints first so the GHL form's connections warm up before anything else competes for bandwidth -->
+    <link rel="preconnect" href="https://api.leadconnectorhq.com" crossorigin />
+    <link rel="dns-prefetch" href="https://api.leadconnectorhq.com" />
+    <link rel="preconnect" href="https://link.msgsndr.com" crossorigin />
+    <link rel="dns-prefetch" href="https://link.msgsndr.com" />
+    <link rel="preconnect" href="https://links.projectautomate.com" crossorigin />
+    <link rel="dns-prefetch" href="https://links.projectautomate.com" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <link rel="preconnect" href="https://api.leadconnectorhq.com" crossorigin />
-    <link rel="dns-prefetch" href="https://api.leadconnectorhq.com" />
     <script
       is:inline
+      async
       src="https://links.projectautomate.com/js/external-tracking.js"
       data-tracking-id="tk_b81ba4b6c2404a5c85eef5b4a25e33fb"></script>
     <link rel="icon" type="image/png" href={assetUrl('brandMark')} />
