@@ -1,140 +1,59 @@
 # Meta Pixel Configuration Guide
 
 ## Overview
-This document outlines the Meta (Facebook) Pixel configuration for the PROJECT:automate website. The pixel ID is dynamically loaded from `public/config.json` to enable easy configuration management.
+The Meta (Facebook) Pixel runs in two places:
 
-## Configuration Details
+1. **GHL form and calendar** – the pixel is attached inside GoHighLevel. GHL fires `Lead` when someone submits the consultation form or books on the calendar.
+2. **This website** – loads the same pixel, sends `PageView`, and tracks the link clicks GHL can't see.
 
-### Pixel ID
+Because GHL owns the conversions, the website must **not** fire `Lead`, `Schedule`, or any submission events. Doing so would count every conversion twice.
+
+## Pixel ID
 - **Current Pixel ID**: `1748478050610981`
-- **Location**: `public/config.json`
-- **Status**: ✅ Active and configured
+- **Location**: `src/config/tracking.ts` (`META_PIXEL_ID`)
+- Can be overridden at build time with the `PUBLIC_META_PIXEL_ID` environment variable (see `.env.example`). The ID is baked into the HTML at build time; no runtime config is fetched.
 
-```json
-{
-  "meta": {
-    "pixelId": "1748478050610981"
-  }
-}
-```
+## Events Sent by the Website
+
+| Event | Type | Trigger | Parameters |
+|-------|------|---------|-----------|
+| `PageView` | Standard | Every page load | – |
+| `Contact` | Standard | Click on any `tel:` or `mailto:` link | `method`: `phone` \| `email` |
+| `VisitMainWebsite` | Custom | Click on any link to `projectautomate.com` (header/footer logo, Privacy, Terms) | `destination`: page path, e.g. `/`, `/privacy-policy/` |
+| `FindLocation` | Standard | Click on the Google Maps "Visit Us" link | – |
+
+Events sent by GHL (from inside the form/calendar iframes): `Lead` on form submission and booking.
 
 ## Implementation
+All website tracking lives in `src/layouts/Layout.astro`:
+- Standard Meta base snippet, initialised with `META_PIXEL_ID`, followed by `fbq('track', 'PageView')`.
+- One delegated `click` listener on `document` that inspects the clicked link's URL. New `tel:`/`mailto:`/main-website links are tracked automatically, with no component changes needed.
+- A `<noscript>` image beacon for PageView when JavaScript is disabled.
 
-### 1. **Pixel Initialization** (Layout.astro)
-- **Method**: Dynamic configuration loading from `config.json`
-- **Script Type**: Inline, loads before page content
-- **Initialization Events**: 
-  - `fbq('init', pixelId)` - Initializes the pixel
-  - `fbq('track', 'PageView')` - Tracks every page view automatically
+The inline form component (`GhlInlineForm.astro`) and `schedule.astro` contain no pixel code.
 
-### 2. **Conversion Events**
+### Adding an event
+Extend the click listener in `Layout.astro`, or call `fbq('track', '<StandardEvent>')` / `fbq('trackCustom', '<Name>')` from a component script. Do not add events for form opens or submissions; GHL handles those.
 
-#### Lead Tracking
-Triggered when users:
-- **Open the consultation form modal** → `fbq('track', 'Lead')`
-- **View the inline form** (when it becomes visible) → `fbq('track', 'Lead')`
-
-#### Contact Tracking
-Triggered when users:
-- **Submit a consultation form** → `fbq('track', 'Contact')`
-- **Complete a booking on the schedule page** → `fbq('track', 'Contact')`
-
-### 3. **Noscript Fallback**
-- **Location**: Layout.astro (lines 71-88)
-- **Purpose**: Tracks page views for users with JavaScript disabled
-- **Fixed in v2**: Now dynamically loads pixel ID from config instead of hardcoded placeholder
-- **Method**: img beacon (minimal tracking for no-JS users)
-
-## Tracked Interactions
-
-| Event | Trigger | Components |
-|-------|---------|-----------|
-| **PageView** | Every page load | Global (Layout.astro) |
-| **Lead** | Form/booking modal opened | GhlFormModal.astro, GhlInlineForm.astro, schedule.astro |
-| **Lead** | Inline form becomes visible | GhlInlineForm.astro |
-| **Contact** | Form submission | GhlFormModal.astro, GhlInlineForm.astro, schedule.astro |
-
-## File Locations
-
-### Core Implementation Files
-- **Main Pixel Script**: `src/layouts/Layout.astro` (lines 50-69)
-- **Noscript Fallback**: `src/layouts/Layout.astro` (lines 71-88)
-- **Form Modal Tracking**: `src/components/GhlFormModal.astro` (lines 20-57)
-- **Inline Form Tracking**: `src/components/GhlInlineForm.astro` (lines 35-60)
-- **Schedule Page Tracking**: `src/pages/schedule.astro` (lines 102-126)
-
-### Configuration
-- **Config File**: `public/config.json`
-- **Asset URLs**: Configured to load from Cloudflare R2 in production
-
-## Verification Checklist
-
-### ✅ Before Deployment
-- [ ] Verify pixel ID in `public/config.json` is correct
-- [ ] Test pixel fires on page load (check Meta Events Manager)
-- [ ] Test Lead event fires when opening forms
-- [ ] Test Contact event fires on form submission
-- [ ] Verify noscript fallback works in testing
-
-### ✅ In Production
-- [ ] Monitor pixel events in Meta Ads Manager
-- [ ] Check Events Manager for all event types
-- [ ] Verify event counts match user interactions
-- [ ] Set up conversion columns in Facebook Ads for Lead and Contact events
+## Using the Events in Meta
+- **Ads optimisation**: optimise for `Lead` (from GHL).
+- **Main-website clicks**: create a Custom Conversion on `VisitMainWebsite` with the rule `destination` equals `/` to count logo clicks while ignoring Privacy/Terms clicks.
+- **Audiences**: `Contact`, `FindLocation`, and `VisitMainWebsite` are useful for retargeting audiences of engaged visitors.
 
 ## Testing
+Use Meta Pixel Helper, Events Manager → **Test Events**, or DevTools → Network filtered to `facebook.com/tr`.
 
-### Using Meta Pixel Helper (Browser Extension)
-1. Install Meta Pixel Helper extension
-2. Visit the website
-3. Open extension to see fired events:
-   - ✅ Should see `PageView` on initial load
-   - ✅ Should see `Lead` when opening consultation form
-   - ✅ Should see `Contact` when submitting form
+| Action | Expected |
+|--------|----------|
+| Load any page | One `PageView` |
+| Scroll to the inline form | Nothing from the site |
+| Click the phone number or email | One `Contact` |
+| Click the header/footer logo | One `VisitMainWebsite`, `destination=/` |
+| Click the "Visit Us" address | One `FindLocation` |
+| Submit a test form / make a test booking | One `Lead`, sent from the GHL iframe (`leadconnectorhq.com`) |
 
-### Console Testing
-```javascript
-// Check if fbq is available
-console.log(typeof fbq); // Should output: "function"
-
-// Check pixel initialization
-fbq('track', 'CustomEvent', {test: true});
-```
-
-### Network Tab Testing
-1. Open DevTools → Network tab
-2. Filter for `facebook.com/tr`
-3. Look for requests with parameters:
-   - `id=1748478050610981` (pixel ID)
-   - `ev=PageView|Lead|Contact` (event type)
-
-## Common Issues & Solutions
-
-### Issue: Pixel Not Firing
-- **Solution 1**: Verify `config.json` is being served and contains valid pixel ID
-- **Solution 2**: Check browser console for fetch errors loading config
-- **Solution 3**: Ensure JavaScript is enabled on the testing device
-
-### Issue: Noscript Not Working
-- **Solution**: The noscript fallback requires the `config.json` to be accessible from the origin
-
-### Issue: Form Events Not Tracking
-- **Problem**: GHL forms may be cross-origin and restrict message passing
-- **Solution**: Events are tracked on form open (Lead) which is more reliable
-- **Note**: Form submission tracking is a fallback that may not work due to cross-origin restrictions
-
-## Environment Variables
-- **PUBLIC_R2_ASSET_URL**: Set at build/deploy time for asset loading (optional)
-- **No other environment variables required for pixel**
-
-## Notes
-- Pixel ID should never be committed to git; it's loaded from config.json at runtime
-- The pixel tracks standard events (PageView, Lead, Contact)
-- Custom events can be added by calling `fbq('track', 'EventName')` from any component
-- For production, ensure the pixel ID is set correctly in the deployment config
+Note: `npm run dev` also fires the live pixel. Use Test Events or filter out test traffic.
 
 ## Updates & Changes
-- **v2** (2026-08-31): Fixed noscript fallback to use dynamic pixel ID from config
-- Added Lead tracking for form visibility
-- Added Contact tracking for form submissions
-- Added schedule page booking event tracking
+- **v3** (2026-09-29): GHL owns Lead/booking conversions. Removed the site-side Lead/Contact events on form visibility and booking iframe load, plus the postMessage listeners that guessed submission payloads. Pixel now loads synchronously from `src/config/tracking.ts` instead of fetching `public/config.json` (deleted). Fixed the noscript fallback. Added `Contact`, `VisitMainWebsite`, and `FindLocation` click tracking.
+- **v2** (2026-08-31): Initial site-side pixel with `config.json` loading.

@@ -46,33 +46,6 @@ const {
 
 <script is:inline src="https://link.msgsndr.com/js/form_embed.js"></script>
 
-<script is:inline define:vars={{ formId: GHL_FORM_ID }}>
-  const inlineIframe = document.querySelector(`#inline-${formId}`);
-
-  if (inlineIframe) {
-    // Track when form becomes visible (lazy-loaded)
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && window.fbq) {
-          fbq('track', 'Lead');
-          observer.disconnect();
-        }
-      });
-    }, { threshold: 0.1 });
-
-    observer.observe(inlineIframe);
-
-    // Monitor for form submission
-    window.addEventListener('message', (event) => {
-      if (event.data?.type === 'form' || event.data?.event === 'submit' || event.data?.status === 'success') {
-        if (window.fbq) {
-          fbq('track', 'Contact');
-        }
-      }
-    });
-  }
-</script>
-
 <style>
   .ghl-inline {
     background: #f7f4ed;
