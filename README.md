@@ -56,9 +56,6 @@ npm run format:check
 Copy `.env.example` to `.env.local` and configure:
 
 ```env
-# Meta Pixel ID for conversion tracking
-PUBLIC_META_PIXEL_ID=your_pixel_id
-
 # GoHighLevel Form & Booking IDs
 PUBLIC_GHL_FORM_ID=your_form_id
 PUBLIC_GHL_BOOKING_ID=your_booking_id
@@ -66,6 +63,8 @@ PUBLIC_GHL_BOOKING_ID=your_booking_id
 # Cloudflare R2 Asset CDN URL
 PUBLIC_R2_ASSET_URL=https://your-r2-url.com
 ```
+
+The Meta Pixel ID is set directly in `src/layouts/Layout.astro` (see `docs/PIXEL_CONFIGURATION.md`).
 
 ## 📊 Key Features
 

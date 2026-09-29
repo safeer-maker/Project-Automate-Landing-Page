@@ -1,0 +1,8 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "lp2-meta-ab-testing",
+  "compatibility_date": "2026-09-10",
+  "assets": {
+    "directory": "./dist"
+  }
+}
