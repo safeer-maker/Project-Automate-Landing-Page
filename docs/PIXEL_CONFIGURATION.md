@@ -10,8 +10,8 @@ Because GHL owns the conversions, the website must **not** fire `Lead`, `Schedul
 
 ## Pixel ID
 - **Current Pixel ID**: `1748478050610981`
-- **Location**: `src/config/tracking.ts` (`META_PIXEL_ID`)
-- Can be overridden at build time with the `PUBLIC_META_PIXEL_ID` environment variable (see `.env.example`). The ID is baked into the HTML at build time; no runtime config is fetched.
+- **Location**: written directly in `src/layouts/Layout.astro`, in two places: `fbq('init', …)` and the `<noscript>` image URL. To change the pixel, update both.
+- No environment variable or runtime config is used.
 
 ## Events Sent by the Website
 
@@ -26,7 +26,7 @@ Events sent by GHL (from inside the form/calendar iframes): `Lead` on form submi
 
 ## Implementation
 All website tracking lives in `src/layouts/Layout.astro`:
-- Standard Meta base snippet, initialised with `META_PIXEL_ID`, followed by `fbq('track', 'PageView')`.
+- Standard Meta base snippet, initialised with the pixel ID, followed by `fbq('track', 'PageView')`.
 - One delegated `click` listener on `document` that inspects the clicked link's URL. New `tel:`/`mailto:`/main-website links are tracked automatically, with no component changes needed.
 - A `<noscript>` image beacon for PageView when JavaScript is disabled.
 
@@ -55,5 +55,5 @@ Use Meta Pixel Helper, Events Manager → **Test Events**, or DevTools → Netwo
 Note: `npm run dev` also fires the live pixel. Use Test Events or filter out test traffic.
 
 ## Updates & Changes
-- **v3** (2026-09-29): GHL owns Lead/booking conversions. Removed the site-side Lead/Contact events on form visibility and booking iframe load, plus the postMessage listeners that guessed submission payloads. Pixel now loads synchronously from `src/config/tracking.ts` instead of fetching `public/config.json` (deleted). Fixed the noscript fallback. Added `Contact`, `VisitMainWebsite`, and `FindLocation` click tracking.
+- **v3** (2026-09-29): GHL owns Lead/booking conversions. Removed the site-side Lead/Contact events on form visibility and booking iframe load, plus the postMessage listeners that guessed submission payloads. Pixel now loads synchronously with the ID written directly in `Layout.astro` instead of fetching `public/config.json` (deleted). Fixed the noscript fallback. Added `Contact`, `VisitMainWebsite`, and `FindLocation` click tracking.
 - **v2** (2026-08-31): Initial site-side pixel with `config.json` loading.
