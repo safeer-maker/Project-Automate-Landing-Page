@@ -122,10 +122,20 @@ const {
         window.setTimeout(complete, 2200);
       };
 
+      const isInViewport = (item: HTMLElement) => {
+        const bounds = item.getBoundingClientRect();
+        return bounds.bottom > 0 && bounds.top < window.innerHeight;
+      };
+
       if (reducedMotion.matches || !('IntersectionObserver' in window)) {
         revealItems.forEach((item) => item.classList.add('motion-complete'));
       } else {
-        revealItems.forEach((item) => item.classList.add('motion-pending'));
+        // Items already on screen may have been painted before this script ran. Hiding them now
+        // would make them blink, so they stay visible and only off-screen items animate in.
+        const pendingItems = Array.from(revealItems).filter((item) => !isInViewport(item));
+        revealItems.forEach((item) => {
+          item.classList.add(pendingItems.includes(item) ? 'motion-pending' : 'motion-complete');
+        });
 
         const observer = new IntersectionObserver(
           (entries) => {
@@ -138,13 +148,11 @@ const {
           { rootMargin: '0px 0px 12% 0px', threshold: 0.01 },
         );
 
-        revealItems.forEach((item) => observer.observe(item));
+        pendingItems.forEach((item) => observer.observe(item));
 
         const releaseStuckVisibleItems = () => {
           revealItems.forEach((item) => {
-            if (!item.classList.contains('motion-pending')) return;
-            const bounds = item.getBoundingClientRect();
-            if (bounds.bottom <= 0 || bounds.top >= window.innerHeight) return;
+            if (!item.classList.contains('motion-pending') || !isInViewport(item)) return;
 
             item.classList.remove('motion-pending');
             item.classList.add('motion-complete');
