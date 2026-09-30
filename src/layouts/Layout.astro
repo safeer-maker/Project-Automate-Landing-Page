@@ -15,14 +15,12 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
-  preloadVideo?: string;
 }
 
 const {
   title = 'Outdoor Lighting & Audio - PROJECT:automate',
   description = 'Your Home Shouldn’t End at the Back Door. Architectural landscape lighting and high-performance outdoor audio designed as one seamless outdoor experience.',
   ogImage = 'https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/hero/estate-at-sunset.webp',
-  preloadVideo,
 } = Astro.props;
 ---
 
@@ -46,11 +44,6 @@ const {
       data-tracking-id="tk_9d37ae1b083b4d7f96de4bc2b7f4e6b0"></script>
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    {
-      preloadVideo && (
-        <link rel="preload" href={preloadVideo} as="video" type="video/webm" fetchpriority="high" />
-      )
-    }
 
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website" />

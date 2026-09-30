@@ -5,6 +5,12 @@ export type AssetId = (typeof manifest.assets)[number]['id'];
 const assets = Object.fromEntries(manifest.assets.map((asset) => [asset.id, asset]));
 
 /**
+ * Custom domain of the R2 media bucket (same keys as the manifest paths). Unlike the Worker's
+ * static assets it answers Range requests, which iOS needs to play video.
+ */
+export const MEDIA_BASE_URL = 'https://media.projectautomate.com';
+
+/**
  * Resolves an extracted asset locally in development, or from R2 when
  * PUBLIC_R2_ASSET_URL is supplied at build/deploy time.
  */
