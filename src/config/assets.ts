@@ -26,4 +26,13 @@ export function assetUrl(id: AssetId): string {
   return `/${manifest.publicDirectory}/${asset.path}`;
 }
 
+/** Absolute media-host URL of an extracted asset, for places that need one (e.g. og:image). */
+export function mediaUrl(id: AssetId): string {
+  const asset = assets[id];
+  if (!asset) throw new Error(`Unknown asset id: ${id}`);
+
+  const prefix = manifest.r2Prefix ? `${manifest.r2Prefix}/` : '';
+  return `${MEDIA_BASE_URL}/${prefix}${asset.path}`;
+}
+
 export { manifest as framerAssets };

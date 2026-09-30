@@ -1,5 +1,5 @@
 ---
-import { framerAssets } from '../config/assets';
+import { framerAssets, mediaUrl } from '../config/assets';
 // Self-hosted fonts: the exact families and weights the page used to fetch from Google Fonts.
 import '@fontsource/cormorant-garamond/400.css';
 import '@fontsource/cormorant-garamond/500.css';
@@ -20,7 +20,7 @@ interface Props {
 const {
   title = 'Outdoor Lighting & Audio - PROJECT:automate',
   description = 'Your Home Shouldn’t End at the Back Door. Architectural landscape lighting and high-performance outdoor audio designed as one seamless outdoor experience.',
-  ogImage = 'https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/hero/estate-at-sunset.webp',
+  ogImage = mediaUrl('heroEstateAtSunset'),
 } = Astro.props;
 ---
 

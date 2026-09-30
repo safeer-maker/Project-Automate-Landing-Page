@@ -1,14 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import HeaderBrand from '../components/header/HeaderBrand.astro';
-import { assetUrl } from '../config/assets';
+import { assetUrl, mediaUrl } from '../config/assets';
 import { GHL_BOOKING_URL } from '../config/forms';
 ---
 
 <Layout
   title="Schedule a Private Consultation | PROJECT:automate"
   description="Choose a convenient time for a private landscape lighting and outdoor technology consultation with PROJECT:automate."
-  ogImage={assetUrl('consultationContact')}
+  ogImage={mediaUrl('consultationContact')}
 >
   <div class="schedule-page">
     <div class="schedule-page__backdrop" aria-hidden="true">
