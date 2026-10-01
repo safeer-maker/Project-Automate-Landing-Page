@@ -172,28 +172,43 @@ const socialIconFile = (icon: string) => (icon === 'tiktok' ? 'tiktok-dark' : ic
     max-width: 460px;
   }
 
-  /* Each link is a 44px tap target around a ~28px mark. */
+  /* The logos have different shapes, so each sits in the same 46px circle (the contact icons'
+     style) and fits a 24px box. That keeps the row evenly spaced. It lines up with the copy on
+     desktop and is centred once the layout stacks. */
   .social {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
+    gap: 0.75rem;
+    justify-content: flex-start;
     list-style: none;
-    margin: 1.5rem 0 0;
+    margin: 1.75rem 0 0;
     padding: 0;
   }
 
   .social a {
-    border-radius: 4px;
+    background: #fff;
+    border: 1px solid rgb(182 138 94 / 0.3);
+    border-radius: 50%;
     display: grid;
-    height: 44px;
+    height: 46px;
     place-items: center;
-    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    width: 44px;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    width: 46px;
+  }
+
+  .social img {
+    height: 24px;
+    object-fit: contain;
+    width: 24px;
   }
 
   .social a:hover,
   .social a:focus-visible {
+    border-color: #b68a5e;
+    box-shadow: 0 8px 18px -10px rgb(18 24 32 / 0.35);
     transform: translateY(-2px);
   }
 
@@ -323,6 +338,10 @@ const socialIconFile = (icon: string) => (icon === 'tiktok' ? 'tiktok-dark' : ic
     .consultation-copy {
       padding-block: 0;
       position: static;
+    }
+
+    .social {
+      justify-content: center;
     }
 
     .consultation-copy header {

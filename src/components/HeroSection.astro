@@ -11,7 +11,13 @@ import { assetUrl, MEDIA_BASE_URL } from '../config/assets';
     preload="metadata"
     poster={assetUrl('heroEstateAtSunset')}
     aria-label="Illuminated luxury estate with a pool at sunset"
+    data-hero-video
   >
+    {
+      /* H.264 MP4 first: WebKit can claim VP9 WebM support and then stall on the first frame, so
+         iPhones need the MP4 ahead of the WebM. */
+    }
+    <source src={`${MEDIA_BASE_URL}/hero/estate-at-sunset.mp4`} type="video/mp4" />
     <source src={`${MEDIA_BASE_URL}/hero/estate-at-sunset.webm`} type="video/webm" />
     <source src="/framer-extracted-assets/hero/estate-at-sunset.webm" type="video/webm" />
   </video>
@@ -58,6 +64,39 @@ import { assetUrl, MEDIA_BASE_URL } from '../config/assets';
     </p>
   </div>
 </section>
+<script>
+  // Phones can refuse autoplay (iOS Low Power Mode, Android data saver), which leaves the poster
+  // up. Retry when the video can play and on every tap until playback starts (iOS may not count
+  // the touchend that ends a scroll as a gesture), and pause it while the hero is off screen so
+  // it isn't decoding in the background.
+  const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+
+  if (video) {
+    let onScreen = true;
+    const play = () => {
+      if (onScreen && video.paused) video.play().catch(() => {});
+    };
+
+    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) play();
+    else video.addEventListener('canplay', play, { once: true });
+
+    const gestures = ['touchend', 'click'] as const;
+    gestures.forEach((type) => window.addEventListener(type, play, { passive: true }));
+    video.addEventListener(
+      'playing',
+      () => gestures.forEach((type) => window.removeEventListener(type, play)),
+      { once: true },
+    );
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => {
+        onScreen = entry.isIntersecting;
+        if (onScreen) play();
+        else video.pause();
+      }).observe(video);
+    }
+  }
+</script>
 <style>
   .container {
     margin-inline: auto;
