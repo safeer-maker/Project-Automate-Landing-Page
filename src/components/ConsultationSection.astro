@@ -1,6 +1,7 @@
 ---
 import { assetUrl } from '../config/assets';
 import GhlInlineForm from './GhlInlineForm.astro';
+import { siteInfo, socialLogos } from '../config/site';
 
 const contactItems = [
   {
@@ -15,26 +16,10 @@ const contactItems = [
     href: 'mailto:sales@projectautomate.com',
     icon: 'email',
   },
-  {
-    label: 'Visit Us',
-    value: '1600 Rosecrans Ave, Building 7, Suite 400, Manhattan Beach, CA 90266',
-    href: 'https://maps.google.com/?q=1600+Rosecrans+Ave+Building+7+Suite+400+Manhattan+Beach+CA+90266',
-    icon: 'location',
-  },
-  {
-    label: 'Schedule a Consultation',
-    value: 'Share your goals and our design team will help determine the right next step.',
-    href: '/schedule/',
-    icon: 'calendar',
-  },
 ] as const;
 
-const trustBadges = [
-  'Since 2009',
-  '50+ Properties Completed',
-  'HTA Certified',
-  'Lifetime Hardware Warranty',
-] as const;
+// TikTok's own logo has a white note for dark backgrounds; this cream section uses its dark-note version.
+const socialIconFile = (icon: string) => (icon === 'tiktok' ? 'tiktok-dark' : icon);
 ---
 
 <section id="consultation-form" class="consultation" aria-labelledby="consultation-title">
@@ -49,8 +34,29 @@ const trustBadges = [
         </p>
       </header>
 
-      <ul class="trust-row" data-reveal style="--reveal-delay: 40ms">
-        {trustBadges.map((badge) => <li>{badge}</li>)}
+      <ul
+        class="social"
+        aria-label="Follow PROJECT: automate"
+        data-reveal
+        style="--reveal-delay: 40ms"
+      >
+        {
+          siteInfo.social.map((s) => (
+            <li>
+              <a href={s.href} target="_blank" rel="noopener noreferrer" title={s.label}>
+                <img
+                  src={`/images/social/${socialIconFile(s.icon)}.svg`}
+                  alt=""
+                  width={socialLogos[s.icon].width}
+                  height={socialLogos[s.icon].height}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="visually-hidden">{s.label} (opens in a new tab)</span>
+              </a>
+            </li>
+          ))
+        }
       </ul>
 
       <div class="contact-list">
@@ -59,8 +65,6 @@ const trustBadges = [
             <a
               class="contact-item"
               href={item.href}
-              target={item.icon === 'location' ? '_blank' : undefined}
-              rel={item.icon === 'location' ? 'noopener noreferrer' : undefined}
               data-reveal
               style={`--reveal-delay: ${index * 70}ms`}
             >
@@ -74,18 +78,6 @@ const trustBadges = [
                   <svg viewBox="0 0 24 24">
                     <rect x="3" y="5" width="18" height="14" rx="2" />
                     <path d="m4 7 8 6 8-6" />
-                  </svg>
-                )}
-                {item.icon === 'location' && (
-                  <svg viewBox="0 0 24 24">
-                    <path d="M20 10c0 5.2-8 11-8 11S4 15.2 4 10a8 8 0 1 1 16 0Z" />
-                    <circle cx="12" cy="10" r="2.4" />
-                  </svg>
-                )}
-                {item.icon === 'calendar' && (
-                  <svg viewBox="0 0 24 24">
-                    <rect x="3" y="5" width="18" height="16" rx="2" />
-                    <path d="M7 3v4M17 3v4M3 10h18" />
                   </svg>
                 )}
               </span>
@@ -141,9 +133,11 @@ const trustBadges = [
     grid-template-columns: minmax(300px, 0.78fr) minmax(520px, 1.22fr);
   }
 
+  /* The copy stays pinned below the fixed header while the taller form scrolls past it. */
   .consultation-copy {
-    align-self: center;
-    padding-block: 3rem;
+    padding-block: 1.5rem;
+    position: sticky;
+    top: 96px;
   }
 
   .eyebrow {
@@ -178,27 +172,50 @@ const trustBadges = [
     max-width: 460px;
   }
 
-  .trust-row {
+  /* Each link is a 44px tap target around a ~28px mark. */
+  .social {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem 0.9rem;
+    gap: 0.5rem;
+    justify-content: center;
     list-style: none;
-    margin: 1.75rem 0 0;
+    margin: 1.5rem 0 0;
     padding: 0;
   }
 
-  .trust-row li {
-    background: rgb(182 138 94 / 0.1);
-    border: 1px solid rgb(182 138 94 / 0.25);
-    border-radius: 999px;
-    color: #8a6a45;
-    font:
-      600 0.65rem/1 Inter,
-      Arial,
-      sans-serif;
-    letter-spacing: 0.03em;
-    padding: 0.5rem 0.85rem;
-    text-transform: uppercase;
+  .social a {
+    border-radius: 4px;
+    display: grid;
+    height: 44px;
+    place-items: center;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    width: 44px;
+  }
+
+  .social a:hover,
+  .social a:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .social a:focus-visible {
+    outline: 2px solid #b68a5e;
+    outline-offset: 2px;
+  }
+
+  .visually-hidden {
+    clip: rect(0 0 0 0);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .social a:hover,
+    .social a:focus-visible {
+      transform: none;
+    }
   }
 
   .contact-list {
@@ -305,6 +322,7 @@ const trustBadges = [
 
     .consultation-copy {
       padding-block: 0;
+      position: static;
     }
 
     .consultation-copy header {

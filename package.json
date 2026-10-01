@@ -18,6 +18,7 @@
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.3.0",
     "@fontsource/inter": "^5.3.0",
+    "@fontsource/manrope": "^5.3.0",
     "astro": "^7.2.7"
   },
   "devDependencies": {
