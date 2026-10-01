@@ -56,9 +56,8 @@ npm run format:check
 Copy `.env.example` to `.env.local` and configure:
 
 ```env
-# GoHighLevel Form & Booking IDs
+# GoHighLevel form ID
 PUBLIC_GHL_FORM_ID=your_form_id
-PUBLIC_GHL_BOOKING_ID=your_booking_id
 
 # Cloudflare R2 Asset CDN URL
 PUBLIC_R2_ASSET_URL=https://your-r2-url.com
@@ -82,7 +81,6 @@ The Meta Pixel ID is set directly in `src/layouts/Layout.astro` (see `docs/PIXEL
 
 ### ✅ Form Integration
 - **GoHighLevel Forms** - Embedded consultation forms
-- **Calendar Booking** - Integrated scheduling with GHL calendar
 - **Modal & Inline** - Multiple form layout options
 - **Parameterized IDs** - Environment-based form configuration
 
@@ -103,8 +101,7 @@ The Meta Pixel ID is set directly in `src/layouts/Layout.astro` (see `docs/PIXEL
 ```
 src/
 ├── pages/              # Page routes
-│   ├── index.astro     # Homepage
-│   └── schedule.astro  # Booking page
+│   └── index.astro     # Homepage
 ├── components/         # Reusable UI components
 │   ├── header/         # Navigation & header
 │   ├── sections/       # Page sections
@@ -152,8 +149,7 @@ Pixel ID is loaded dynamically from `/public/config.json`:
     "pixelId": "1748478050610981"
   },
   "ghl": {
-    "formId": "ZiepwgoZzuozaOg3NIkl",
-    "bookingId": "UF6HdyNtYwKpZHABOBtL"
+    "formId": "ZiepwgoZzuozaOg3NIkl"
   },
   "environment": "production"
 }
@@ -229,7 +225,7 @@ See [ISSUES_AND_DISCOVERIES.md](./docs/ISSUES_AND_DISCOVERIES.md) for:
 3. Deploy
 
 **Change form IDs:**
-1. Update `.env.local` or `PUBLIC_GHL_FORM_ID`/`PUBLIC_GHL_BOOKING_ID`
+1. Update `PUBLIC_GHL_FORM_ID` in `.env.local`
 2. Or update `src/config/forms.ts`
 3. Deploy
 
