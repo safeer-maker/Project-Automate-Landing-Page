@@ -16,10 +16,14 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/manrope": "^5.3.0",
     "astro": "^7.2.7"
   },
   "devDependencies": {
     "prettier": "^3.9.6",
-    "prettier-plugin-astro": "^0.14.1"
+    "prettier-plugin-astro": "^0.14.1",
+    "wrangler": "^4.144.0"
   }
 }

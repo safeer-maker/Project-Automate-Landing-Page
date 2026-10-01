@@ -1,96 +1,543 @@
-<footer class="footer">
-  <div class="container">
-    <a class="brand" href="https://projectautomate.com/" aria-label="PROJECT:automate home">
-      <strong>PROJECT:</strong><span>automate</span>
-    </a>
-    <p>Architectural landscape lighting and outdoor technology for Los Angeles estates.</p>
-    <div class="footer-links">
-      <a href="tel:+13107405375">(310) 740-5375</a>
-      <a href="https://projectautomate.com/privacy-policy/">Privacy</a>
-      <a href="https://projectautomate.com/terms-and-conditions/">Terms</a>
+---
+// A port of the main website's footer (src/components/layout/Footer.astro), so
+// both sites close the same way. Keep the two in step when either changes.
+import '@fontsource/manrope/400.css';
+import '@fontsource/manrope/600.css';
+import '@fontsource/manrope/800.css';
+import {
+  siteInfo,
+  socialLogos,
+  footerQuickLinks,
+  footerServices,
+  footerMenu,
+  legalLinks,
+  solutionsHub,
+} from '../config/site';
+
+const year = new Date().getFullYear();
+
+// The HTA Design Partner mark is white-on-transparent, so it gets a dark chip;
+// the others need the light one. width/height are each file's own size.
+const badges = [
+  {
+    src: '/images/badges/hta-design-partner.webp',
+    alt: 'HTA Design Partner',
+    width: 280,
+    height: 40,
+    dark: true,
+  },
+  {
+    src: '/images/badges/cedia-certified-sm.webp',
+    alt: 'CEDIA Smart Home CE Provider',
+    width: 150,
+    height: 150,
+  },
+  {
+    src: '/images/badges/cert-level-luxury-sm.webp',
+    alt: 'HTA Certified — Luxury Level',
+    width: 319,
+    height: 150,
+  },
+  {
+    src: '/images/badges/17-years-badge-sm.webp',
+    alt: '17+ Years of Smart Home Expertise',
+    width: 126,
+    height: 150,
+  },
+];
+
+// "Building 7" and "Suite 400" never split across lines.
+const addressLine1 = siteInfo.address.line1.replace(/(Building|Suite) /g, '$1 ');
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href={siteInfo.url} aria-label="PROJECT: automate home">
+        <img
+          src="/images/logo/logo-static.webp"
+          alt="PROJECT: automate logo"
+          width="150"
+          height="97"
+        />
+      </a>
+      <p class="tagline">{siteInfo.tagline}</p>
+
+      <ul class="social" aria-label="Follow PROJECT: automate">
+        {
+          siteInfo.social.map((s) => (
+            <li>
+              <a href={s.href} target="_blank" rel="noopener noreferrer" title={s.label}>
+                <img
+                  src={`/images/social/${s.icon}.svg`}
+                  alt=""
+                  width={socialLogos[s.icon].width}
+                  height={socialLogos[s.icon].height}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="visually-hidden">{s.label} (opens in a new tab)</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Quick Links</h3>
+      <ul>
+        {
+          footerQuickLinks.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Services</h3>
+      <ul>
+        {
+          footerServices.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+        <li>
+          <a class="footer-all" href={solutionsHub}>
+            All services <span aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>More</h3>
+      <ul>
+        {
+          footerMenu.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="footer-col footer-concierge">
+      <h3>Concierge</h3>
+      <ul class="contact-list">
+        <li><a href={`mailto:${siteInfo.email}`}>{siteInfo.email}</a></li>
+        <li>
+          <a href={`tel:${siteInfo.smsPhone.replace(/[^0-9+]/g, '')}`}>{siteInfo.smsPhone}</a>
+        </li>
+        <li>{addressLine1}<br />{siteInfo.address.line2}</li>
+      </ul>
+      {/* The form is on this page, so the CTA scrolls to it rather than opening /schedule/. */}
+      <a class="footer-cta" href="#consultation-form">Book a Consultation</a>
     </div>
   </div>
-  <div class="container legal">
-    <span>© {new Date().getFullYear()} PROJECT:automate. All rights reserved.</span>
+
+  <div class="container badge-row">
+    {
+      badges.map((badge) => (
+        <div class:list={['badge-chip', { 'badge-chip--dark': badge.dark }]}>
+          <img
+            src={badge.src}
+            alt={badge.alt}
+            width={badge.width}
+            height={badge.height}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="container footer-bottom">
+    {/* The DBA line is an A2P 10DLC requirement. */}
+    <p>
+      {`© ${year} ${siteInfo.legalName}, doing business as ${siteInfo.name}. All rights reserved.`}
+    </p>
+    <ul class="legal-links">
+      {
+        legalLinks.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+    <a href={siteInfo.credit.href} target="_blank" rel="noopener noreferrer" class="credit">
+      {siteInfo.credit.label}
+    </a>
   </div>
 </footer>
 
+<script>
+  // Fade the footer's columns + badges up into place the first time it's scrolled into view.
+  const footer = document.querySelector('.site-footer');
+  if (footer && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      ([entry], obs) => {
+        if (entry.isIntersecting) {
+          footer.setAttribute('data-visible', 'true');
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.15 },
+    );
+    observer.observe(footer);
+  }
+</script>
+
 <style>
-  .footer {
-    background: #0b1016;
-    color: #cfc8bd;
-    padding: 2.25rem 0 1.4rem;
+  /* The website's design tokens, scoped to the footer. */
+  .site-footer {
+    --charcoal: #161616;
+    --charcoal-2: #2e2e2e;
+    --accent: #9a7239;
+    --accent-hover: #af8850;
+    --on-dark: #fff;
+    --on-dark-muted: rgb(255 255 255 / 0.7);
+    --border-on-dark: rgb(255 255 255 / 0.14);
+    --gutter: clamp(1.25rem, 5.5vw, 5rem);
+    --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+
+    background: var(--charcoal);
+    border-top: 1px solid var(--border-on-dark);
+    color: var(--on-dark-muted);
+    font-family:
+      Manrope,
+      system-ui,
+      -apple-system,
+      sans-serif;
+    line-height: 1.6;
+    padding-block: 4rem 2rem;
+  }
+
+  .site-footer :is(ul, p, h3) {
+    margin: 0;
+  }
+
+  .site-footer ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .site-footer a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .site-footer img {
+    display: block;
+    max-width: 100%;
   }
 
   .container {
-    align-items: center;
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: auto minmax(220px, 1fr) auto;
     margin-inline: auto;
-    width: min(var(--page-max), calc(100% - var(--page-gutter) - var(--page-gutter)));
+    max-width: 1440px;
+    padding-inline: var(--gutter);
+    width: 100%;
   }
 
-  .brand {
-    color: #fff;
+  .visually-hidden {
+    clip: rect(0 0 0 0);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  .footer-grid {
     display: grid;
-    font:
-      700 0.78rem/0.9 Inter,
-      Arial,
-      sans-serif;
-    text-decoration: none;
+    gap: 2rem;
+    grid-template-columns: 1.8fr 1fr 1fr 1fr 1.3fr;
   }
 
-  .brand span {
-    font-weight: 500;
+  .footer-brand img {
+    margin-bottom: 1rem;
   }
 
-  p,
-  .legal,
-  .footer-links {
-    font:
-      0.7rem/1.55 Inter,
-      Arial,
-      sans-serif;
+  .tagline {
+    font-size: 0.875rem;
+    max-width: 320px;
+    text-wrap: pretty;
   }
 
-  p {
-    margin: 0;
-    max-width: 480px;
-  }
-
-  .footer-links {
+  /* Each link is a 44px tap target around a ~28px mark. The negative margin
+     lines the first logo up with the tagline's left edge. */
+  .social {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8rem 1.25rem;
-    justify-content: flex-end;
-  }
-
-  .footer-links a {
-    color: #fff;
-    text-decoration: none;
-  }
-
-  .footer-links a:hover {
-    color: #d9b384;
-  }
-
-  .legal {
-    border-top: 1px solid rgb(255 255 255 / 0.1);
-    color: #8a8f94;
-    display: block;
+    gap: 0.5rem;
+    margin-left: -8px;
     margin-top: 1.5rem;
-    padding-top: 1.15rem;
   }
 
-  @media (max-width: 680px) {
-    .container {
-      align-items: start;
-      grid-template-columns: 1fr;
+  .social a {
+    border-radius: 4px;
+    display: grid;
+    height: 44px;
+    place-items: center;
+    transition: transform 400ms var(--ease-out-expo);
+    width: 44px;
+  }
+
+  .social img {
+    margin: 0;
+    opacity: 0.92;
+    transition: opacity 200ms ease;
+  }
+
+  .social a:hover,
+  .social a:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .social a:hover img,
+  .social a:focus-visible img {
+    opacity: 1;
+  }
+
+  .social a:focus-visible {
+    outline: 2px solid var(--accent-hover);
+    outline-offset: 2px;
+  }
+
+  .footer-col h3 {
+    color: var(--accent-hover);
+    font-size: 0.875rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .footer-col ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-col a {
+    color: var(--on-dark-muted);
+    font-size: 0.875rem;
+  }
+
+  .footer-col a:hover {
+    color: var(--on-dark);
+  }
+
+  .footer-col .footer-all {
+    color: var(--on-dark);
+    display: inline-block;
+    font-weight: 600;
+    margin-top: 0.5rem;
+  }
+
+  .footer-col .footer-all:hover {
+    color: var(--accent-hover);
+  }
+
+  .contact-list li {
+    color: var(--on-dark-muted);
+    font-size: 0.875rem;
+    text-wrap: pretty;
+  }
+
+  /* The website's outline Button (md). */
+  .footer-col .footer-cta {
+    align-items: center;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    color: var(--on-dark);
+    display: inline-flex;
+    font-size: 0.875rem;
+    font-weight: 600;
+    justify-content: center;
+    letter-spacing: 0.02em;
+    margin-top: 1.5rem;
+    padding: 0.85rem 1.75rem;
+    transition:
+      border-color 0.3s ease,
+      color 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .footer-col .footer-cta:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .badge-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-block: 2rem;
+    position: relative;
+  }
+
+  /* The hairlines are inset by the container's padding, so they line up with the content. */
+  .badge-row::before,
+  .footer-bottom::before {
+    background: var(--border-on-dark);
+    content: '';
+    height: 1px;
+    left: var(--gutter);
+    position: absolute;
+    right: var(--gutter);
+    top: 0;
+  }
+
+  .badge-chip {
+    align-items: center;
+    background: #fff;
+    border-radius: 4px;
+    display: flex;
+    height: 60px;
+    justify-content: center;
+    opacity: 0.85;
+    padding: 0.5rem 1rem;
+    transition:
+      opacity 400ms ease,
+      transform 400ms ease;
+  }
+
+  .badge-chip--dark {
+    background: var(--charcoal-2);
+    border: 1px solid var(--border-on-dark);
+  }
+
+  .badge-chip:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+
+  .badge-chip img {
+    height: 100%;
+    max-width: 140px;
+    object-fit: contain;
+    width: auto;
+  }
+
+  /* Reveal-on-scroll: columns + badges fade up 16px on a stagger, see the script above. */
+  .footer-grid > *,
+  .badge-row {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 700ms var(--ease-out-expo),
+      transform 700ms var(--ease-out-expo);
+  }
+
+  .footer-grid > *:nth-child(2) {
+    transition-delay: 60ms;
+  }
+  .footer-grid > *:nth-child(3) {
+    transition-delay: 120ms;
+  }
+  .footer-grid > *:nth-child(4) {
+    transition-delay: 180ms;
+  }
+  .footer-grid > *:nth-child(5) {
+    transition-delay: 240ms;
+  }
+  .badge-row {
+    transition-delay: 300ms;
+  }
+
+  .site-footer[data-visible='true'] .footer-grid > *,
+  .site-footer[data-visible='true'] .badge-row {
+    opacity: 1;
+    transform: none;
+  }
+
+  .footer-bottom {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.75rem;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    position: relative;
+  }
+
+  .legal-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .legal-links a:hover,
+  .credit:hover {
+    color: var(--accent-hover);
+  }
+
+  .credit {
+    display: inline-block;
+    margin-block: -0.75rem;
+    padding-block: 0.75rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-grid > *,
+    .badge-row {
+      opacity: 1;
+      transform: none;
+      transition: none;
     }
 
-    .footer-links {
-      justify-content: flex-start;
+    .social a:hover,
+    .social a:focus-visible {
+      transform: none;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* The email address is wider than half a 375px screen. */
+    .footer-concierge {
+      grid-column: 1 / -1;
+    }
+
+    /* Taller tap targets; the padding replaces the list gap. */
+    .footer-col ul {
+      gap: 0;
+    }
+
+    .footer-col a,
+    .legal-links a {
+      display: inline-block;
+      padding-block: 0.625rem;
+    }
+
+    .footer-col .footer-all {
+      margin-top: 0;
     }
   }
 </style>

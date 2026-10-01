@@ -9,14 +9,13 @@ import ServicesSection from '../components/ServicesSection.astro';
 import FinalCtaSection from '../components/FinalCtaSection.astro';
 import ConsultationSection from '../components/ConsultationSection.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import { assetUrl } from '../config/assets';
+import { mediaUrl } from '../config/assets';
 ---
 
 <Layout
   title="Architectural Landscape Lighting | PROJECT:automate"
   description="Architectural landscape lighting, outdoor audio, and seamless control for Los Angeles estates."
-  ogImage={assetUrl('heroEstateAtSunset')}
-  preloadVideo="/framer-extracted-assets/hero/estate-at-sunset.webm"
+  ogImage={mediaUrl('heroEstateAtSunset')}
 >
   <SiteHeader />
   <HeroSection />

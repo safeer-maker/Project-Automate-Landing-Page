@@ -1,19 +1,26 @@
 ---
-import { assetUrl, framerAssets } from '../config/assets';
+import { framerAssets, mediaUrl } from '../config/assets';
+// Self-hosted fonts: the exact families and weights the page used to fetch from Google Fonts.
+import '@fontsource/cormorant-garamond/400.css';
+import '@fontsource/cormorant-garamond/500.css';
+import '@fontsource/cormorant-garamond/500-italic.css';
+import '@fontsource/cormorant-garamond/600.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
 import '../styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
-  preloadVideo?: string;
 }
 
 const {
   title = 'Outdoor Lighting & Audio - PROJECT:automate',
   description = 'Your Home Shouldn’t End at the Back Door. Architectural landscape lighting and high-performance outdoor audio designed as one seamless outdoor experience.',
-  ogImage = 'https://pub-b2239f74b04346b88dc3b07d2bd0bad8.r2.dev/hero/estate-at-sunset.webp',
-  preloadVideo,
+  ogImage = mediaUrl('heroEstateAtSunset'),
 } = Astro.props;
 ---
 
@@ -35,13 +42,8 @@ const {
       async
       src="https://link.msgsndr.com/js/external-tracking.js"
       data-tracking-id="tk_9d37ae1b083b4d7f96de4bc2b7f4e6b0"></script>
-    <link rel="icon" type="image/png" href={assetUrl('brandMark')} />
-    <link rel="apple-touch-icon" href={assetUrl('brandMark')} />
-    {
-      preloadVideo && (
-        <link rel="preload" href={preloadVideo} as="video" type="video/webm" fetchpriority="high" />
-      )
-    }
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website" />
@@ -120,10 +122,20 @@ const {
         window.setTimeout(complete, 2200);
       };
 
+      const isInViewport = (item: HTMLElement) => {
+        const bounds = item.getBoundingClientRect();
+        return bounds.bottom > 0 && bounds.top < window.innerHeight;
+      };
+
       if (reducedMotion.matches || !('IntersectionObserver' in window)) {
         revealItems.forEach((item) => item.classList.add('motion-complete'));
       } else {
-        revealItems.forEach((item) => item.classList.add('motion-pending'));
+        // Items already on screen may have been painted before this script ran. Hiding them now
+        // would make them blink, so they stay visible and only off-screen items animate in.
+        const pendingItems = Array.from(revealItems).filter((item) => !isInViewport(item));
+        revealItems.forEach((item) => {
+          item.classList.add(pendingItems.includes(item) ? 'motion-pending' : 'motion-complete');
+        });
 
         const observer = new IntersectionObserver(
           (entries) => {
@@ -136,13 +148,11 @@ const {
           { rootMargin: '0px 0px 12% 0px', threshold: 0.01 },
         );
 
-        revealItems.forEach((item) => observer.observe(item));
+        pendingItems.forEach((item) => observer.observe(item));
 
         const releaseStuckVisibleItems = () => {
           revealItems.forEach((item) => {
-            if (!item.classList.contains('motion-pending')) return;
-            const bounds = item.getBoundingClientRect();
-            if (bounds.bottom <= 0 || bounds.top >= window.innerHeight) return;
+            if (!item.classList.contains('motion-pending') || !isInViewport(item)) return;
 
             item.classList.remove('motion-pending');
             item.classList.add('motion-complete');

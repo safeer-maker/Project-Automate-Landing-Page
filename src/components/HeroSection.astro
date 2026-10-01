@@ -1,5 +1,5 @@
 ---
-import { assetUrl } from '../config/assets';
+import { assetUrl, MEDIA_BASE_URL } from '../config/assets';
 ---
 
 <section class="hero" aria-labelledby="hero-title">
@@ -8,10 +8,11 @@ import { assetUrl } from '../config/assets';
     muted
     loop
     playsinline
-    preload="auto"
+    preload="metadata"
     poster={assetUrl('heroEstateAtSunset')}
     aria-label="Illuminated luxury estate with a pool at sunset"
   >
+    <source src={`${MEDIA_BASE_URL}/hero/estate-at-sunset.webm`} type="video/webm" />
     <source src="/framer-extracted-assets/hero/estate-at-sunset.webm" type="video/webm" />
   </video>
   <div class="overlay"></div>

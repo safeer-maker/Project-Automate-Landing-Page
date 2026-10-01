@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "lp2-meta-ab-testing",
+  "account_id": "ca2428eb627485cb700098e8464b0e0e",
   "compatibility_date": "2026-09-10",
   "assets": {
     "directory": "./dist"
