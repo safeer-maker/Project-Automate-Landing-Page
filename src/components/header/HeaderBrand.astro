@@ -2,7 +2,13 @@
 import { assetUrl } from '../../config/assets';
 ---
 
-<a class="brand" href="https://projectautomate.com/" target="_blank" rel="noopener noreferrer" aria-label="PROJECT:automate home">
+<a
+  class="brand"
+  href="https://projectautomate.com/"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="PROJECT:automate home"
+>
   <img src={assetUrl('brandMark')} width="314" height="184" alt="" /><span>
     <strong>PROJECT:</strong><strong>automate</strong>
   </span>
@@ -13,22 +19,22 @@ import { assetUrl } from '../../config/assets';
     color: #fff;
     display: flex;
     flex-shrink: 0;
-    gap: 0.9rem;
+    gap: 1rem;
     text-decoration: none;
     transform-origin: left center;
   }
   .brand img {
-    height: 48px;
+    height: 54px;
     object-fit: contain;
-    width: 66px;
+    width: 92px;
   }
   .brand span {
-    display: grid;
     font:
-      700 1rem/0.9 Inter,
+      700 1.4rem/1 Inter,
       Arial,
       sans-serif;
     letter-spacing: -0.035em;
+    white-space: nowrap;
   }
   .brand strong:last-child {
     color: #d9b384;
@@ -41,20 +47,32 @@ import { assetUrl } from '../../config/assets';
     }
     @keyframes brand-scale {
       to {
-        transform: scale(0.72);
+        transform: scale(0.84);
       }
     }
   }
   @media (max-width: 900px) {
     .brand {
-      gap: 0.65rem;
+      gap: 0.7rem;
     }
     .brand img {
-      height: 34px;
-      width: 46px;
+      height: 36px;
+      width: 62px;
     }
     .brand span {
-      font-size: 0.77rem;
+      font-size: 1.05rem;
+    }
+  }
+  @media (max-width: 380px) {
+    .brand {
+      gap: 0.6rem;
+    }
+    .brand img {
+      height: 32px;
+      width: 54px;
+    }
+    .brand span {
+      font-size: 0.95rem;
     }
   }
 </style>
