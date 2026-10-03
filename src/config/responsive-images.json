@@ -1,0 +1,85 @@
+{
+  "$comment": "Responsive WebP siblings written by scripts/optimize-images.mjs as <path minus .webp>-<width>.webp (or -<name>-<width>.webp for named crops). Keys are asset ids from assets.config.json. The originals are never touched, so R2 keeps the same files.",
+  "encoders": {
+    "photo": {
+      "quality": 75,
+      "effort": 6,
+      "smartSubsample": true
+    },
+    "grainy": {
+      "quality": 80,
+      "effort": 6,
+      "smartSubsample": true
+    },
+    "logo": {
+      "quality": 82,
+      "alphaQuality": 90,
+      "effort": 6
+    }
+  },
+  "images": {
+    "heroEstateAtSunset": {
+      "encoder": "photo",
+      "widths": [],
+      "crops": {
+        "portrait": {
+          "aspect": 0.75,
+          "x": 0.58,
+          "widths": [823]
+        }
+      }
+    },
+    "improveSafety": {
+      "encoder": "photo",
+      "crop": {
+        "aspect": 1.5,
+        "x": 0.5
+      },
+      "widths": [640, 960, 1280, 1920]
+    },
+    "highlightLandscaping": {
+      "encoder": "photo",
+      "widths": [640, 960, 1366]
+    },
+    "revealArchitecture": {
+      "encoder": "photo",
+      "widths": [640, 1024]
+    },
+    "landscapeLightingService": {
+      "encoder": "photo",
+      "widths": [640, 960, 1280, 1600]
+    },
+    "outdoorAudioService": {
+      "encoder": "photo",
+      "widths": [640, 1024]
+    },
+    "designBuildProcess": {
+      "encoder": "grainy",
+      "widths": [640, 1200]
+    },
+    "projectCaseStudy": {
+      "encoder": "photo",
+      "widths": [480, 640, 960]
+    },
+    "consultationContact": {
+      "encoder": "photo",
+      "widths": [941]
+    },
+    "htaCertification": {
+      "encoder": "logo",
+      "widths": [480]
+    },
+    "cediaMembership": {
+      "encoder": "logo",
+      "widths": [480]
+    },
+    "industryMembership": {
+      "encoder": "logo",
+      "widths": [360]
+    },
+    "warrantyBadge": {
+      "encoder": "logo",
+      "widths": [300]
+    }
+  }
+}

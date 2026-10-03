@@ -1,5 +1,5 @@
 ---
-import { assetUrl } from '../config/assets';
+import { assetSrc } from '../config/assets';
 import GhlInlineForm from './GhlInlineForm.astro';
 import { siteInfo, socialLogos } from '../config/site';
 
@@ -93,7 +93,7 @@ const socialIconFile = (icon: string) => (icon === 'tiktok' ? 'tiktok-dark' : ic
 
     <div class="form-visual" data-reveal data-motion="media" style="--reveal-delay: 100ms">
       <img
-        src={assetUrl('consultationContact')}
+        src={assetSrc('consultationContact')}
         width="941"
         height="1672"
         alt="Architectural outdoor living space overlooking the water at sunset"
@@ -121,6 +121,9 @@ const socialIconFile = (icon: string) => (icon === 'tiktok' ? 'tiktok-dark' : ic
 
   if (formShell) {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    // Move focus along with the scroll, so keyboard and screen-reader users land on the form too.
+    const formHeading = formShell.querySelector<HTMLElement>('#ghl-inline-title');
+    formHeading?.setAttribute('tabindex', '-1');
     let settleTimer: number | undefined;
 
     const glow = () => {
@@ -144,6 +147,7 @@ const socialIconFile = (icon: string) => (icon === 'tiktok' ? 'tiktok-dark' : ic
           behavior: reducedMotion.matches ? 'auto' : 'smooth',
           block: 'start',
         });
+        formHeading?.focus({ preventScroll: true });
         window.addEventListener('scroll', waitForScrollToSettle, { passive: true });
         waitForScrollToSettle();
       }),

@@ -1,5 +1,5 @@
 ---
-import { assetUrl } from '../config/assets';
+import { assetSrc, assetSrcset } from '../config/assets';
 
 const services = [
   {
@@ -21,6 +21,10 @@ const services = [
     icon: 'control',
   },
 ] as const;
+
+// Phones: 320px-tall card, so a 16:9 photo is drawn ~565px wide whatever the screen width.
+const SERVICE_SIZES =
+  '(max-width: 809px) 565px, (max-width: 1199px) calc(50vw - 28px), (max-width: 1440px) calc(51vw - 41px), 694px';
 ---
 
 <section id="services" class="services-section" aria-labelledby="services-title">
@@ -41,7 +45,9 @@ const services = [
           >
             <div class="service-card__media">
               <img
-                src={assetUrl(service.id)}
+                src={assetSrc(service.id)}
+                srcset={assetSrcset(service.id)}
+                sizes={assetSrcset(service.id) && SERVICE_SIZES}
                 alt={`${service.title} installation at a luxury residence`}
                 loading="lazy"
                 decoding="async"

@@ -4,11 +4,13 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   output: 'static',
   build: {
-    inlineStylesheets: 'auto'
+    // Inline the (small, Latin-only-fonts) CSS so the first paint doesn't wait on a separate
+    // stylesheet request competing with the tracking scripts and the GHL form.
+    inlineStylesheets: 'always',
   },
   vite: {
     optimizeDeps: {
-      include: ['astro/assets/services/noop']
-    }
-  }
+      include: ['astro/assets/services/noop'],
+    },
+  },
 });

@@ -1,4 +1,5 @@
 import manifest from '../../assets.config.json';
+import responsive from './responsive-images.json';
 
 export type AssetId = (typeof manifest.assets)[number]['id'];
 
@@ -33,6 +34,28 @@ export function mediaUrl(id: AssetId): string {
 
   const prefix = manifest.r2Prefix ? `${manifest.r2Prefix}/` : '';
   return `${MEDIA_BASE_URL}/${prefix}${asset.path}`;
+}
+
+type Recipe = { widths: number[] };
+const recipes: Partial<Record<AssetId, Recipe>> = responsive.images;
+
+/** URL of a sibling written by scripts/optimize-images.mjs: a width (`-960`) or a named crop (`-portrait-600`). */
+export function assetVariantUrl(id: AssetId, variant: number | string): string {
+  return assetUrl(id).replace(/\.webp$/, `-${variant}.webp`);
+}
+
+/** Best single file for `src`: the largest optimized sibling when there is one, else the original. */
+export function assetSrc(id: AssetId): string {
+  const widths = recipes[id]?.widths ?? [];
+  return widths.length ? assetVariantUrl(id, Math.max(...widths)) : assetUrl(id);
+}
+
+/** `srcset` of the optimized siblings, or undefined when the asset only has one size. */
+export function assetSrcset(id: AssetId): string | undefined {
+  const widths = recipes[id]?.widths ?? [];
+  return widths.length > 1
+    ? widths.map((w) => `${assetVariantUrl(id, w)} ${w}w`).join(', ')
+    : undefined;
 }
 
 export { manifest as framerAssets };
