@@ -13,12 +13,15 @@ import HeaderCtaButton from './header/HeaderCtaButton.astro';
     </div>
     <div class="mobile-actions">
       <HeaderCallButton />
-      <a class="mobile-cta" href="#consultation-form" data-ghl-form>
-        Begin Your Private Consultation
-      </a>
     </div>
   </nav>
 </header>
+
+<div class="cta-bar" data-cta-bar>
+  <a href="#consultation-form" data-ghl-form>
+    Request Your Complimentary Consultation <span aria-hidden="true">→</span>
+  </a>
+</div>
 
 <style>
   .site-header {
@@ -73,20 +76,8 @@ import HeaderCtaButton from './header/HeaderCtaButton.astro';
     margin-left: auto;
   }
 
-  .mobile-cta {
-    background: #b68a5e;
-    border-radius: 999px;
-    color: #fff;
-    font:
-      700 0.57rem/1.15 Inter,
-      Arial,
-      sans-serif;
-    letter-spacing: 0.045em;
-    max-width: 154px;
-    padding: 0.72rem 0.85rem;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
+  .cta-bar {
+    display: none;
   }
 
   @media (max-width: 900px) {
@@ -105,11 +96,72 @@ import HeaderCtaButton from './header/HeaderCtaButton.astro';
     .mobile-actions {
       display: flex;
     }
+
+    /* On phones the header holds the brand, and the consultation button sits in a bar at the
+       bottom of the screen, within thumb reach. */
+    .cta-bar {
+      bottom: 0;
+      display: block;
+      left: 0;
+      padding: 0 var(--page-gutter) calc(0.75rem + env(safe-area-inset-bottom));
+      pointer-events: none;
+      position: fixed;
+      right: 0;
+      transform: translateY(calc(100% + 1rem));
+      transition:
+        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0s linear 0.5s;
+      visibility: hidden;
+      z-index: 100;
+    }
+
+    .cta-bar[data-visible='true'] {
+      transform: none;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      visibility: visible;
+    }
+
+    .cta-bar a {
+      align-items: center;
+      background: linear-gradient(110deg, #a9784d, #c99b6e 52%, #aa794e);
+      border: 1px solid rgb(255 235 204 / 0.3);
+      border-radius: 999px;
+      box-shadow: 0 14px 34px rgb(8 16 20 / 0.35);
+      color: #fff;
+      display: flex;
+      font:
+        700 0.7rem/1.2 Inter,
+        Arial,
+        sans-serif;
+      gap: 1rem;
+      justify-content: space-between;
+      letter-spacing: 0.08em;
+      margin-inline: auto;
+      max-width: 520px;
+      padding: 0.6rem 0.6rem 0.6rem 1.35rem;
+      pointer-events: auto;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .cta-bar span {
+      align-items: center;
+      background: #fff;
+      border-radius: 50%;
+      color: #9d7049;
+      display: inline-flex;
+      flex: none;
+      font-size: 1.1rem;
+      height: 36px;
+      justify-content: center;
+      width: 36px;
+    }
   }
 
-  @media (max-width: 380px) {
-    .navigation :global(.brand span) {
-      display: none;
+  @media (max-width: 900px) and (prefers-reduced-motion: reduce) {
+    .cta-bar,
+    .cta-bar[data-visible='true'] {
+      transition: none;
     }
   }
 </style>
@@ -122,4 +174,30 @@ import HeaderCtaButton from './header/HeaderCtaButton.astro';
 
   updateHeader();
   window.addEventListener('scroll', updateHeader, { passive: true });
+
+  // The bottom bar (phones) only shows while no other consultation button, the form or the footer
+  // is on screen, so there's never a second button competing with the one in view.
+  const ctaBar = document.querySelector<HTMLElement>('[data-cta-bar]');
+
+  if (ctaBar) {
+    if ('IntersectionObserver' in window) {
+      const targets = [
+        ...Array.from(document.querySelectorAll('a[data-ghl-form]')).filter(
+          (link) => !link.closest('.site-header, [data-cta-bar]'),
+        ),
+        ...Array.from(document.querySelectorAll('.form-shell, footer')),
+      ];
+      const onScreen = new Set<Element>();
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) =>
+          entry.isIntersecting ? onScreen.add(entry.target) : onScreen.delete(entry.target),
+        );
+        ctaBar.dataset.visible = String(onScreen.size === 0);
+      });
+
+      targets.forEach((target) => observer.observe(target));
+    } else {
+      ctaBar.dataset.visible = 'true';
+    }
+  }
 </script>

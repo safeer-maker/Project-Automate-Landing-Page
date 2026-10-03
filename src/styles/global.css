@@ -51,52 +51,150 @@ button {
   cursor: pointer;
 }
 
-/* A restrained light sweep keeps conversion actions visible without feeling promotional. */
-a[data-ghl-form] {
-  animation: cta-glow 5s ease-in-out infinite;
-  isolation: isolate;
-  overflow: hidden;
-  position: relative;
+/* Consultation buttons: a champagne light travels the edge, a sheen crosses the face, then a halo
+   and an arrow nudge invite the click. Slow and quiet, so it reads as craftsmanship, not a promo. */
+@property --cta-trace-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
 }
 
+a[data-ghl-form] {
+  --cta-cycle: 6s;
+  animation: cta-halo var(--cta-cycle) cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  isolation: isolate;
+  outline: 1px solid rgb(226 190 140 / 0);
+  outline-offset: 0;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Sits under the label (z-index -1 inside the isolated button), so the text stays crisp. */
 a[data-ghl-form]::before {
-  animation: cta-light-sweep 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  background: linear-gradient(
-    105deg,
-    transparent 20%,
-    rgb(255 255 255 / 0.08) 38%,
-    rgb(255 248 225 / 0.72) 50%,
-    rgb(255 255 255 / 0.1) 62%,
-    transparent 80%
-  );
+  animation: cta-sheen var(--cta-cycle) ease-in-out infinite;
+  background: linear-gradient(105deg, transparent 40%, rgb(255 246 226 / 0.55) 50%, transparent 60%)
+    120% 0 / 250% 100% no-repeat;
+  border-radius: inherit;
   content: '';
-  inset: -35% auto -35% -75%;
+  inset: 0;
   pointer-events: none;
   position: absolute;
-  transform: translateX(-160%) skewX(-16deg);
-  width: 65%;
-  z-index: 2;
+  z-index: -1;
 }
 
-@keyframes cta-light-sweep {
-  0%,
-  58% {
-    transform: translateX(-160%) skewX(-16deg);
-  }
-  82%,
-  100% {
-    transform: translateX(430%) skewX(-16deg);
+/* A hairline edge with one brighter point of light circling it. Without @property support the
+   light simply stays put. */
+a[data-ghl-form]::after {
+  animation: cta-trace 5s linear infinite;
+  background: conic-gradient(
+    from var(--cta-trace-angle),
+    rgb(255 238 208 / 0.3) 0 62%,
+    rgb(255 248 232 / 0.95) 80%,
+    rgb(255 238 208 / 0.3) 96%
+  );
+  border-radius: inherit;
+  content: '';
+  inset: -1px;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1.5px;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+:where(a[data-ghl-form] > [aria-hidden='true']) {
+  display: inline-block;
+}
+
+a[data-ghl-form] > [aria-hidden='true'] {
+  animation: cta-nudge var(--cta-cycle) ease-in-out infinite;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  a[data-ghl-form]:hover > [aria-hidden='true'] {
+    animation: none;
+    transform: translateX(4px);
   }
 }
 
-@keyframes cta-glow {
-  0%,
-  55%,
-  100% {
-    filter: drop-shadow(0 0 0 rgb(214 169 111 / 0));
+a[data-ghl-form]:active {
+  scale: 0.98;
+}
+
+a[data-ghl-form]:focus-visible {
+  animation: none;
+  outline: 2px solid #e2be8c;
+  outline-offset: 4px;
+}
+
+/* The header button never leaves the screen, so it keeps its light but not the halo. */
+.site-header a[data-ghl-form] {
+  animation: none;
+}
+
+/* Once the form is on screen the buttons have done their job (set in ConsultationSection). */
+[data-form-in-view] a[data-ghl-form],
+[data-form-in-view] a[data-ghl-form]::before,
+[data-form-in-view] a[data-ghl-form] > [aria-hidden='true'] {
+  animation: none;
+}
+
+[data-form-in-view] a[data-ghl-form]::after {
+  animation-play-state: paused;
+}
+
+@keyframes cta-trace {
+  to {
+    --cta-trace-angle: 360deg;
   }
-  72% {
-    filter: drop-shadow(0 0 9px rgb(214 169 111 / 0.32));
+}
+
+@keyframes cta-sheen {
+  0%,
+  40% {
+    background-position: 120% 0;
+  }
+  64%,
+  100% {
+    background-position: -20% 0;
+  }
+}
+
+@keyframes cta-halo {
+  0%,
+  60% {
+    outline-color: rgb(226 190 140 / 0);
+    outline-offset: 0;
+  }
+  64% {
+    outline-color: rgb(226 190 140 / 0.75);
+    outline-offset: 1px;
+  }
+  88%,
+  100% {
+    outline-color: rgb(226 190 140 / 0);
+    outline-offset: 12px;
+  }
+}
+
+@keyframes cta-nudge {
+  0%,
+  64%,
+  74%,
+  80%,
+  100% {
+    transform: translateX(0);
+  }
+  69% {
+    transform: translateX(5px);
+  }
+  77% {
+    transform: translateX(3px);
   }
 }
 
@@ -212,7 +310,9 @@ a[data-ghl-form]::before {
   }
 
   a[data-ghl-form],
-  a[data-ghl-form]::before {
+  a[data-ghl-form]::before,
+  a[data-ghl-form]::after,
+  a[data-ghl-form] > [aria-hidden='true'] {
     animation: none;
   }
 

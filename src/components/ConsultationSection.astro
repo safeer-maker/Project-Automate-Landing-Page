@@ -113,6 +113,55 @@ const socialIconFile = (icon: string) => (icon === 'tiktok' ? 'tiktok-dark' : ic
   </div>
 </section>
 
+<script>
+  // The buttons link to this section, but on phones its intro and contact links fill the first
+  // screen. Take visitors straight to the form, and once scrolling settles give it a brief glow so
+  // it's clear where to start.
+  const formShell = document.querySelector<HTMLElement>('.form-shell');
+
+  if (formShell) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let settleTimer: number | undefined;
+
+    const glow = () => {
+      formShell.classList.remove('is-arriving');
+      void formShell.offsetWidth; // restart the animation on repeat clicks
+      formShell.classList.add('is-arriving');
+    };
+
+    const waitForScrollToSettle = () => {
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(() => {
+        window.removeEventListener('scroll', waitForScrollToSettle);
+        glow();
+      }, 140);
+    };
+
+    document.querySelectorAll<HTMLAnchorElement>('a[data-ghl-form]').forEach((link) =>
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        formShell.scrollIntoView({
+          behavior: reducedMotion.matches ? 'auto' : 'smooth',
+          block: 'start',
+        });
+        window.addEventListener('scroll', waitForScrollToSettle, { passive: true });
+        waitForScrollToSettle();
+      }),
+    );
+
+    formShell.addEventListener('animationend', () => formShell.classList.remove('is-arriving'));
+
+    // Lets the buttons stop animating while the form is on screen (see global.css).
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(
+        ([entry]) =>
+          document.documentElement.toggleAttribute('data-form-in-view', entry.isIntersecting),
+        { threshold: 0.2 },
+      ).observe(formShell);
+    }
+  }
+</script>
+
 <style>
   .consultation {
     background: #f7f4ed;
@@ -326,8 +375,37 @@ const socialIconFile = (icon: string) => (icon === 'tiktok' ? 'tiktok-dark' : ic
   }
 
   .form-shell {
+    border-radius: 20px;
     position: relative;
     z-index: 1;
+  }
+
+  .form-shell.is-arriving {
+    animation: form-arrive 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @keyframes form-arrive {
+    0% {
+      box-shadow:
+        0 0 0 0 rgb(214 169 111 / 0),
+        0 0 0 0 rgb(214 169 111 / 0);
+    }
+    30% {
+      box-shadow:
+        0 0 0 3px rgb(214 169 111 / 0.85),
+        0 0 40px 6px rgb(214 169 111 / 0.4);
+    }
+    100% {
+      box-shadow:
+        0 0 0 14px rgb(214 169 111 / 0),
+        0 0 40px 6px rgb(214 169 111 / 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .form-shell.is-arriving {
+      animation: none;
+    }
   }
 
   @media (max-width: 1199px) {
