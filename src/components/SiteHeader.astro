@@ -19,7 +19,7 @@ import HeaderCtaButton from './header/HeaderCtaButton.astro';
 
 <div class="cta-bar" data-cta-bar>
   <a href="#consultation-form" data-ghl-form>
-    Request Your Complimentary Consultation <span aria-hidden="true">→</span>
+    Request a Private Consultation <span aria-hidden="true">→</span>
   </a>
 </div>
 
@@ -130,15 +130,16 @@ import HeaderCtaButton from './header/HeaderCtaButton.astro';
       color: #fff;
       display: flex;
       font:
-        700 0.7rem/1.2 Inter,
+        700 clamp(10.5px, 3.1vw, 11.5px) / 1.2 Inter,
         Arial,
         sans-serif;
-      gap: 1rem;
+      gap: 10px;
       justify-content: space-between;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       margin-inline: auto;
       max-width: 520px;
-      padding: 0.6rem 0.6rem 0.6rem 1.35rem;
+      min-height: 52px;
+      padding: 7px 7px 7px 18px;
       pointer-events: auto;
       text-decoration: none;
       text-transform: uppercase;
@@ -188,14 +189,30 @@ import HeaderCtaButton from './header/HeaderCtaButton.astro';
         ...Array.from(document.querySelectorAll('.form-shell, footer')),
       ];
       const onScreen = new Set<Element>();
+      let showTimer: number | undefined;
+
+      // Hide at once, but only show after a short pause with nothing else on screen, so quick
+      // scrolls through the gaps between sections don't flash the bar. Never before the first
+      // scroll, so it can't cover the headline when the hero button starts below the fold
+      // (phones in landscape).
+      const update = () => {
+        window.clearTimeout(showTimer);
+        if (onScreen.size) ctaBar.dataset.visible = 'false';
+        else
+          showTimer = window.setTimeout(() => {
+            if (!onScreen.size && window.scrollY > 0) ctaBar.dataset.visible = 'true';
+          }, 450);
+      };
+
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) =>
           entry.isIntersecting ? onScreen.add(entry.target) : onScreen.delete(entry.target),
         );
-        ctaBar.dataset.visible = String(onScreen.size === 0);
+        update();
       });
 
       targets.forEach((target) => observer.observe(target));
+      window.addEventListener('scroll', update, { once: true, passive: true });
     } else {
       ctaBar.dataset.visible = 'true';
     }

@@ -1,0 +1,8 @@
+# Cloudflare Workers static assets read this file (it isn't served). HTML keeps the default
+# max-age=0 so deploys show up at once.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+/framer-extracted-assets/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/images/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800

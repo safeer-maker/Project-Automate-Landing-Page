@@ -7,6 +7,8 @@
     "assets:download:force": "node scripts/download-assets.mjs --force",
     "assets:check": "node scripts/download-assets.mjs --dry-run",
     "assets:validate": "node scripts/download-assets.mjs --validate",
+    "images:optimize": "node scripts/optimize-images.mjs",
+    "images:check": "node scripts/optimize-images.mjs --check",
     "dev": "astro dev",
     "format": "prettier --write src",
     "format:check": "prettier --check src",

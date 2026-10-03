@@ -1,9 +1,9 @@
 ---
 // A port of the main website's footer (src/components/layout/Footer.astro), so
 // both sites close the same way. Keep the two in step when either changes.
-import '@fontsource/manrope/400.css';
-import '@fontsource/manrope/600.css';
-import '@fontsource/manrope/800.css';
+import '@fontsource/manrope/latin-400.css';
+import '@fontsource/manrope/latin-600.css';
+import '@fontsource/manrope/latin-800.css';
 import {
   siteInfo,
   socialLogos,
@@ -59,6 +59,8 @@ const addressLine1 = siteInfo.address.line1.replace(/(Building|Suite) /g, '$1 '
           alt="PROJECT: automate logo"
           width="150"
           height="97"
+          loading="lazy"
+          decoding="async"
         />
       </a>
       <p class="tagline">{siteInfo.tagline}</p>

@@ -1,5 +1,8 @@
 ---
-import { assetUrl, MEDIA_BASE_URL } from '../config/assets';
+import { assetUrl, assetVariantUrl, MEDIA_BASE_URL } from '../config/assets';
+
+const phonePortrait = '(max-width: 767px) and (orientation: portrait)';
+const wideOrLandscape = '(min-width: 768px), (orientation: landscape)';
 ---
 
 <section class="hero" aria-labelledby="hero-title">
@@ -9,18 +12,55 @@ import { assetUrl, MEDIA_BASE_URL } from '../config/assets';
     loop
     playsinline
     preload="metadata"
-    poster={assetUrl('heroEstateAtSunset')}
+    data-poster={assetUrl('heroEstateAtSunset')}
+    data-poster-portrait={assetVariantUrl('heroEstateAtSunset', 'portrait-823')}
     aria-label="Illuminated luxury estate with a pool at sunset"
     data-hero-video
   >
     {
-      /* H.264 MP4 first: WebKit can claim VP9 WebM support and then stall on the first frame, so
-         iPhones need the MP4 ahead of the WebM. */
+      /* Sources are picked once, at load. Portrait phones get an 810x1080 crop of exactly the
+         window they see (object-position 58%: crop x = (1920 - 810) * 0.58 = 644, so regenerate
+         the crop if that changes); everything else gets the 1080p file. Every MP4 comes ahead of
+         every WebM: WebKit can claim VP9 WebM support and then stall on the first frame, so
+         iPhones need the MP4 first. A browser that ignores media= takes the first MP4. The
+         original MP4 stays as a last resort in case a new file is missing. */
     }
+    <source
+      src={`${MEDIA_BASE_URL}/hero/estate-at-sunset-1080.mp4`}
+      type="video/mp4"
+      media={wideOrLandscape}
+    />
+    <source
+      src={`${MEDIA_BASE_URL}/hero/estate-at-sunset-portrait.mp4`}
+      type="video/mp4"
+      media={phonePortrait}
+    />
     <source src={`${MEDIA_BASE_URL}/hero/estate-at-sunset.mp4`} type="video/mp4" />
-    <source src={`${MEDIA_BASE_URL}/hero/estate-at-sunset.webm`} type="video/webm" />
-    <source src="/framer-extracted-assets/hero/estate-at-sunset.webm" type="video/webm" />
+    <source
+      src={`${MEDIA_BASE_URL}/hero/estate-at-sunset.webm`}
+      type="video/webm"
+      media={wideOrLandscape}
+    />
+    <source
+      src={`${MEDIA_BASE_URL}/hero/estate-at-sunset-portrait.webm`}
+      type="video/webm"
+      media={phonePortrait}
+    />
   </video>
+  <script is:inline define:vars={{ phonePortrait }}>
+    // poster can't take a srcset, so pick it before the browser requests one: portrait phones get
+    // the same 823px-wide slice the portrait video shows (72 KB instead of the 190 KB frame).
+    {
+      const video = document.querySelector('[data-hero-video]');
+      const portrait = matchMedia(phonePortrait);
+      const setPoster = () => {
+        video.poster = portrait.matches ? video.dataset.posterPortrait : video.dataset.poster;
+        video.parentElement.style.setProperty('--hero-still', `url(${video.poster})`);
+      };
+      setPoster();
+      portrait.addEventListener?.('change', setPoster);
+    }
+  </script>
   <div class="overlay"></div>
   <div class="container copy">
     <a
@@ -50,7 +90,7 @@ import { assetUrl, MEDIA_BASE_URL } from '../config/assets';
     <span class="rule" data-motion="rule" style="--reveal-delay: 350ms"></span>
     <div class="cta-primary" data-motion style="--reveal-delay: 440ms">
       <a class="button" href="#consultation-form" data-ghl-form>
-        <span class="button-copy">Request Your Complimentary Consultation</span><span
+        <span class="button-copy">Request a Private Consultation</span><span
           class="arrow"
           aria-hidden="true"
         >
@@ -65,28 +105,70 @@ import { assetUrl, MEDIA_BASE_URL } from '../config/assets';
   </div>
 </section>
 <script>
-  // Phones can refuse autoplay (iOS Low Power Mode, Android data saver), which leaves the poster
-  // up. Retry when the video can play and on every tap until playback starts (iOS may not count
-  // the touchend that ends a scroll as a gesture), and pause it while the hero is off screen so
-  // it isn't decoding in the background.
+  // Phones can refuse autoplay (iOS Low Power Mode or a hot phone, in-app browsers that want a
+  // tap), which leaves the poster up, and iOS then draws its own play button over an autoplay
+  // video. So when play() is refused the hero shows the poster as a still (.hero--still hides the
+  // video) until a tap starts playback. Pause while the hero or the tab is hidden, resume on
+  // return (including a back/forward-cache restore), and stay on the still for reduced motion or
+  // Save-Data.
   const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+  const hero = video?.closest<HTMLElement>('.hero');
 
-  if (video) {
+  if (video && hero) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const saveData =
+      (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData ===
+      true;
+    const gestures = ['touchend', 'click'] as const;
     let onScreen = true;
-    const play = () => {
-      if (onScreen && video.paused) video.play().catch(() => {});
+    let disabled = false;
+
+    const still = (on: boolean) => hero.classList.toggle('hero--still', on);
+    const stopGestures = () => gestures.forEach((type) => window.removeEventListener(type, play));
+
+    function play() {
+      if (disabled || !onScreen || document.hidden || !video!.paused) return;
+      video!.play().catch((error: DOMException) => {
+        if (error.name !== 'NotAllowedError' || disabled) return;
+        still(true);
+        gestures.forEach((type) => window.addEventListener(type, play, { passive: true }));
+      });
+    }
+
+    const stop = () => {
+      disabled = true;
+      stopGestures();
+      video.pause();
+      still(true);
     };
 
-    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) play();
-    else video.addEventListener('canplay', play, { once: true });
+    video.addEventListener('playing', () => {
+      still(false);
+      stopGestures();
+    });
+    // A web view without inline playback would open the video full screen on that tap.
+    video.addEventListener('webkitbeginfullscreen', () => {
+      (video as HTMLVideoElement & { webkitExitFullscreen?: () => void }).webkitExitFullscreen?.();
+      stop();
+    });
 
-    const gestures = ['touchend', 'click'] as const;
-    gestures.forEach((type) => window.addEventListener(type, play, { passive: true }));
-    video.addEventListener(
-      'playing',
-      () => gestures.forEach((type) => window.removeEventListener(type, play)),
-      { once: true },
-    );
+    if (saveData) {
+      stop();
+      // Drop the sources so the download stops; the poster stays.
+      video.querySelectorAll('source').forEach((source) => source.remove());
+      video.load();
+    } else if (reducedMotion.matches) {
+      stop();
+    } else {
+      play();
+    }
+    reducedMotion.addEventListener('change', () => {
+      if (reducedMotion.matches) stop();
+      else if (!saveData) {
+        disabled = false;
+        play();
+      }
+    });
 
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(([entry]) => {
@@ -95,6 +177,8 @@ import { assetUrl, MEDIA_BASE_URL } from '../config/assets';
         else video.pause();
       }).observe(video);
     }
+    document.addEventListener('visibilitychange', () => (document.hidden ? video.pause() : play()));
+    window.addEventListener('pageshow', (event) => event.persisted && play());
   }
 </script>
 <style>
@@ -103,6 +187,11 @@ import { assetUrl, MEDIA_BASE_URL } from '../config/assets';
     width: min(1200px, calc(100% - var(--page-gutter) - var(--page-gutter)));
   }
   .hero {
+    /* Dark base plus a 200-byte blurred poster, so the white headline never sits on the cream page
+       background while the poster and video are still downloading. */
+    background: #0d1418
+      url('data:image/webp;base64,UklGRsAAAABXRUJQVlA4ILQAAABwBQCdASogABIAPu1krE+ppSQiMBgIATAdiUAToGYRTx2omgWXUxtzHZgGi/ztGuXJlwFAAP7y1Fvz4hXtFF3e0EZJbnyygBxjYHRlpS1TKjo28MMZ1gaqZ2AAss4K5Ax+8bZ1yySDGUENXXx39ftPlWKlBAFrdfwsZVsTJ934KbQ+wNm3yz7sge3OQms6+NMZRAJgSCx4BDVifGUhiR3XRzTsW2RE5ouCihDtpCQOaG3AAAA=')
+      58% center / cover no-repeat;
     color: #fff;
     display: grid;
     min-height: max(720px, 100svh);
@@ -119,6 +208,12 @@ import { assetUrl, MEDIA_BASE_URL } from '../config/assets';
   }
   .hero > video {
     object-position: 58% center;
+  }
+  .hero--still {
+    background: #081014 var(--hero-still) 58% center / cover no-repeat;
+  }
+  .hero--still > video {
+    visibility: hidden;
   }
   .overlay {
     background:
@@ -144,7 +239,8 @@ import { assetUrl, MEDIA_BASE_URL } from '../config/assets';
     margin: 0 0 1.25rem;
     text-decoration: none;
     text-transform: uppercase;
-    width: max-content;
+    max-width: 100%;
+    width: fit-content;
   }
   .eyebrow svg {
     fill: none;
@@ -153,8 +249,10 @@ import { assetUrl, MEDIA_BASE_URL } from '../config/assets';
     stroke-width: 1.8;
     width: 15px;
   }
-  .eyebrow:hover {
-    color: #fff;
+  @media (hover: hover) {
+    .eyebrow:hover {
+      color: #fff;
+    }
   }
   .hero h1 {
     font:
@@ -204,10 +302,12 @@ import { assetUrl, MEDIA_BASE_URL } from '../config/assets';
       transform 0.25s ease,
       box-shadow 0.25s ease;
   }
-  .button:hover {
-    background-position: 100% 0;
-    box-shadow: 0 16px 36px rgb(0 0 0 / 0.32);
-    transform: translateY(-2px);
+  @media (hover: hover) {
+    .button:hover {
+      background-position: 100% 0;
+      box-shadow: 0 16px 36px rgb(0 0 0 / 0.32);
+      transform: translateY(-2px);
+    }
   }
   .button-copy {
     display: grid;
@@ -265,9 +365,23 @@ import { assetUrl, MEDIA_BASE_URL } from '../config/assets';
       align-self: end;
       padding: 8rem 0 3.5rem;
     }
+    /* A slim one-line pill on phones: 52px tall with a round arrow. */
     .button {
+      gap: 10px;
       justify-content: space-between;
+      min-height: 52px;
+      padding: 7px 7px 7px 18px;
       width: 100%;
+    }
+    .button-copy {
+      font-size: clamp(10.5px, 3.1vw, 11.5px);
+      letter-spacing: 0.06em;
+      line-height: 1.2;
+    }
+    .arrow {
+      font-size: 1.1rem;
+      height: 36px;
+      width: 36px;
     }
     .eyebrow {
       font-size: 0.6rem;

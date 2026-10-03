@@ -1,8 +1,8 @@
 ---
-const { compact = false, label = 'Request Your Complimentary Consultation' } = Astro.props;
+const { label = 'Request a Private Consultation' } = Astro.props;
 ---
 
-<a class:list={['button', compact && 'compact']} href="#consultation-form" data-ghl-form>
+<a class="button" href="#consultation-form" data-ghl-form>
   {label}
   <span aria-hidden="true">→</span>
 </a>
@@ -27,15 +27,20 @@ const { compact = false, label = 'Request Your Complimentary Consultation' } = A
       background 0.2s ease,
       transform 0.2s ease;
   }
-  .button:hover {
-    background: #d0a16f;
-    transform: translateY(-1px);
+  @media (hover: hover) {
+    .button:hover {
+      background: #d0a16f;
+      transform: translateY(-1px);
+    }
+  }
+  /* Touch screens wide enough for the desktop header (big phones in landscape). */
+  @media (pointer: coarse) {
+    .button {
+      min-height: 44px;
+    }
   }
   .button:focus-visible {
     outline: 2px solid #fff;
     outline-offset: 4px;
-  }
-  .compact {
-    width: 100%;
   }
 </style>

@@ -1,24 +1,24 @@
 ---
-import { assetUrl } from '../config/assets';
+import { assetSrc } from '../config/assets';
 
 const credentials = [
   {
     type: 'image',
-    src: assetUrl('htaCertification'),
+    src: assetSrc('htaCertification'),
     alt: 'HTA Certified',
     title: 'HTA Certified',
     detail: 'Home Technology Association',
   },
   {
     type: 'image',
-    src: assetUrl('cediaMembership'),
+    src: assetSrc('cediaMembership'),
     alt: 'CEDIA member',
     title: 'CEDIA Member',
     detail: 'Industry-recognized expertise',
   },
   {
     type: 'image',
-    src: assetUrl('industryMembership'),
+    src: assetSrc('industryMembership'),
     alt: 'Smart home industry member',
     title: 'Since 2009',
     detail: 'Trusted smart home expertise',
@@ -30,7 +30,7 @@ const credentials = [
   },
   {
     type: 'image',
-    src: assetUrl('warrantyBadge'),
+    src: assetSrc('warrantyBadge'),
     alt: 'Lifetime warranty badge',
     title: 'Hardware Warranty',
     detail: 'Quality components, built to last',
@@ -52,6 +52,7 @@ const credentials = [
                     alt={isDuplicate ? '' : credential.alt}
                     width="200"
                     height="120"
+                    loading="lazy"
                     decoding="async"
                   />
                 ) : (

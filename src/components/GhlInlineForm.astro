@@ -47,6 +47,10 @@ const {
 <script is:inline defer src="https://links.projectautomate.com/js/form_embed.js"></script>
 
 <style>
+  /* Focused by script when a consultation button scrolls here; the heading needs no ring. */
+  .ghl-inline__heading [tabindex='-1']:focus {
+    outline: none;
+  }
   .ghl-inline {
     background: #f7f4ed;
     border-radius: 20px;

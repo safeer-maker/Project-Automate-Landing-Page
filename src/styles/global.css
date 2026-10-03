@@ -61,17 +61,18 @@ button {
 
 a[data-ghl-form] {
   --cta-cycle: 6s;
-  animation: cta-halo var(--cta-cycle) cubic-bezier(0.22, 1, 0.36, 1) infinite;
   isolation: isolate;
-  outline: 1px solid rgb(226 190 140 / 0);
-  outline-offset: 0;
   position: relative;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Sits under the label (z-index -1 inside the isolated button), so the text stays crisp. */
+/* Sits under the label (z-index -1 inside the isolated button), so the text stays crisp. It also
+   carries the halo as a box-shadow ring, which follows the pill's radius in every browser (an
+   outline draws a rectangle on iOS before 16.4). */
 a[data-ghl-form]::before {
-  animation: cta-sheen var(--cta-cycle) ease-in-out infinite;
+  animation:
+    cta-sheen var(--cta-cycle) ease-in-out infinite,
+    cta-halo var(--cta-cycle) cubic-bezier(0.22, 1, 0.36, 1) infinite;
   background: linear-gradient(105deg, transparent 40%, rgb(255 246 226 / 0.55) 50%, transparent 60%)
     120% 0 / 250% 100% no-repeat;
   border-radius: inherit;
@@ -127,14 +128,19 @@ a[data-ghl-form]:active {
 }
 
 a[data-ghl-form]:focus-visible {
-  animation: none;
   outline: 2px solid #e2be8c;
   outline-offset: 4px;
 }
 
+/* The light gold ring disappears on the cream sections. */
+.benefits a[data-ghl-form]:focus-visible,
+.process-section a[data-ghl-form]:focus-visible {
+  outline-color: #121820;
+}
+
 /* The header button never leaves the screen, so it keeps its light but not the halo. */
-.site-header a[data-ghl-form] {
-  animation: none;
+.site-header a[data-ghl-form]::before {
+  animation-name: cta-sheen;
 }
 
 /* Once the form is on screen the buttons have done their job (set in ConsultationSection). */
@@ -168,17 +174,14 @@ a[data-ghl-form]:focus-visible {
 @keyframes cta-halo {
   0%,
   60% {
-    outline-color: rgb(226 190 140 / 0);
-    outline-offset: 0;
+    box-shadow: 0 0 0 1px rgb(226 190 140 / 0);
   }
   64% {
-    outline-color: rgb(226 190 140 / 0.75);
-    outline-offset: 1px;
+    box-shadow: 0 0 0 2px rgb(226 190 140 / 0.75);
   }
   88%,
   100% {
-    outline-color: rgb(226 190 140 / 0);
-    outline-offset: 12px;
+    box-shadow: 0 0 0 13px rgb(226 190 140 / 0);
   }
 }
 

@@ -1,5 +1,5 @@
 ---
-import { assetUrl } from '../config/assets';
+import { assetSrc, assetSrcset, assetUrl } from '../config/assets';
 
 const steps = [
   {
@@ -36,7 +36,9 @@ const steps = [
       <div class="project-collage" data-reveal data-motion="media" style="--reveal-delay: 100ms">
         <img
           class="project-main"
-          src={assetUrl('designBuildProcess')}
+          src={assetSrc('designBuildProcess')}
+          srcset={assetSrcset('designBuildProcess')}
+          sizes="(max-width: 809px) 580px, (max-width: 1199px) calc(59vw - 33px), 560px"
           width="1200"
           height="1000"
           alt="Architectural step lighting at a completed residence"
@@ -45,7 +47,9 @@ const steps = [
         />
         <div class="project-details" aria-hidden="true">
           <img
-            src={assetUrl('projectCaseStudy')}
+            src={assetSrc('projectCaseStudy')}
+            srcset={assetSrcset('projectCaseStudy')}
+            sizes="(max-width: 1199px) calc(41vw - 23px), 270px"
             width="1280"
             height="1280"
             alt=""
@@ -284,13 +288,16 @@ const steps = [
       background-position 0.3s ease,
       box-shadow 0.25s ease,
       transform 0.25s ease;
-    width: max-content;
+    max-width: 100%;
+    width: fit-content;
   }
 
-  .process-cta:hover {
-    background-position: 100% 0;
-    box-shadow: 0 14px 30px rgb(31 36 40 / 0.2);
-    transform: translateY(-2px);
+  @media (hover: hover) {
+    .process-cta:hover {
+      background-position: 100% 0;
+      box-shadow: 0 14px 30px rgb(31 36 40 / 0.2);
+      transform: translateY(-2px);
+    }
   }
 
   .process-cta span {
@@ -299,6 +306,7 @@ const steps = [
     border-radius: 50%;
     color: #9d7049;
     display: inline-flex;
+    flex: none;
     font-size: 1.05rem;
     height: 34px;
     justify-content: center;
@@ -423,6 +431,22 @@ const steps = [
 
     .process-list h3 {
       font-size: 1.3rem;
+    }
+
+    /* Slim pill on phones, matching the hero button. */
+    .process-cta {
+      font-size: clamp(10.5px, 3.1vw, 11.5px);
+      gap: 10px;
+      letter-spacing: 0.06em;
+      line-height: 1.2;
+      min-height: 52px;
+      padding: 7px 7px 7px 18px;
+    }
+
+    .process-cta span {
+      font-size: 1.1rem;
+      height: 36px;
+      width: 36px;
     }
   }
 </style>
