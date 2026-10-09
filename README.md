@@ -9,7 +9,7 @@ Modern, high-performance landing page for PROJECT:automate outdoor lighting and 
 - npm or yarn
 
 ### Installation & Development
-
+ 
 ```bash
 # Install dependencies
 npm install
