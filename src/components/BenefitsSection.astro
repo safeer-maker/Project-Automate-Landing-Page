@@ -299,6 +299,25 @@ const benefits = [
     gap: 0.55rem;
   }
 
+  /* The dots are 4px bars and the arrows 36px circles; an invisible ::before makes each one a
+     44px-tall touch target without changing how it looks. (It sits inside the arrows' 1px border,
+     hence the 5px.) */
+  .dot,
+  .arrows button {
+    position: relative;
+  }
+
+  .dot::before,
+  .arrows button::before {
+    content: '';
+    inset: -5px;
+    position: absolute;
+  }
+
+  .dot::before {
+    inset: -20px -4px;
+  }
+
   .dot {
     background: #12182036;
     border: 0;

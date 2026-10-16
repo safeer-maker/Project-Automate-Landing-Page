@@ -1,6 +1,9 @@
 :root {
   --accent-gold: #b68a5e;
-  --page-gutter: 40px;
+  /* The viewport meta sets viewport-fit=cover, so an iPhone in landscape lays the page out under its
+     notch or Dynamic Island. Gutters never go below that inset, which keeps content clear of it. */
+  --safe-x: max(env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+  --page-gutter: max(40px, var(--safe-x));
   --page-max: 1360px;
   --text-primary: #fff;
   --text-secondary: #dcd4c8;
@@ -15,14 +18,14 @@
 
 @media (max-width: 1199px) {
   :root {
-    --page-gutter: 28px;
+    --page-gutter: max(28px, var(--safe-x));
     --form-overlap: clamp(140px, 20svh, 200px);
   }
 }
 
 @media (max-width: 809px) {
   :root {
-    --page-gutter: 16px;
+    --page-gutter: max(16px, var(--safe-x));
   }
 }
 * {
