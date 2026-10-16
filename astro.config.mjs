@@ -9,6 +9,12 @@ export default defineConfig({
     inlineStylesheets: 'always',
   },
   vite: {
+    build: {
+      // Astro builds for esnext, so the CSS minifier would write breakpoints as `@media
+      // (width<=809px)` and drop -webkit-backdrop-filter. iPhones before iOS 16.4 ignore that range
+      // syntax (every phone layout rule) and only blur with the prefix, so target iOS 15.
+      cssTarget: ['ios15', 'safari15', 'chrome100', 'edge100', 'firefox100'],
+    },
     optimizeDeps: {
       include: ['astro/assets/services/noop'],
     },

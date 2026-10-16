@@ -4,6 +4,9 @@
   --page-max: 1360px;
   --text-primary: #fff;
   --text-secondary: #dcd4c8;
+  /* How far the consultation form rises into the bottom of the hero. ConsultationSection pulls the
+     form up by this much; on single-column layouts HeroSection keeps it clear below the copy. */
+  --form-overlap: clamp(260px, 38svh, 420px);
   font-family: Inter, Arial, sans-serif;
   color: #121820;
   background: #f7f4ed;
@@ -13,6 +16,7 @@
 @media (max-width: 1199px) {
   :root {
     --page-gutter: 28px;
+    --form-overlap: clamp(140px, 20svh, 200px);
   }
 }
 

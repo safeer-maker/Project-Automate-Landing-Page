@@ -1,5 +1,4 @@
 ---
-import { assetSrc } from '../config/assets';
 import GhlInlineForm from './GhlInlineForm.astro';
 import { siteInfo, socialLogos } from '../config/site';
 
@@ -22,11 +21,24 @@ const contactItems = [
 const socialIconFile = (icon: string) => (icon === 'tiktok' ? 'tiktok-dark' : icon);
 ---
 
-<section id="consultation-form" class="consultation" aria-labelledby="consultation-title">
+<section class="consultation" aria-labelledby="consultation-title">
   <div class="container consultation-layout">
+    {
+      /* The form comes first: it rises into the bottom of the hero, so it's on the first screen.
+         The page's consultation links point at it (#consultation-form). */
+    }
+    <div id="consultation-form" class="form-column" data-reveal style="--reveal-delay: 100ms">
+      <div class="form-shell">
+        <GhlInlineForm
+          title="Request Your Free Consultation"
+          description="Share a few details below and our design team will follow up within one business day."
+          variant="glass"
+        />
+      </div>
+    </div>
+
     <div class="consultation-copy">
       <header data-reveal>
-        <p class="eyebrow">Free, no-obligation consultation</p>
         <h2 id="consultation-title">Request a Private Lighting Consultation</h2>
         <p class="subhead">
           Tell us about your property and goals — our design team reviews every request and
@@ -90,33 +102,12 @@ const socialIconFile = (icon: string) => (icon === 'tiktok' ? 'tiktok-dark' : ic
         }
       </div>
     </div>
-
-    <div class="form-visual" data-reveal data-motion="media" style="--reveal-delay: 100ms">
-      <img
-        src={assetSrc('consultationContact')}
-        width="941"
-        height="1672"
-        alt="Architectural outdoor living space overlooking the water at sunset"
-        loading="lazy"
-        decoding="async"
-      />
-      <div class="form-visual__wash"></div>
-      <div class="form-shell">
-        <GhlInlineForm
-          title="Request Your Free Consultation"
-          eyebrow="No obligation"
-          description="Share a few details below and our design team will follow up within one business day."
-          variant="glass"
-        />
-      </div>
-    </div>
   </div>
 </section>
 
 <script>
-  // The buttons link to this section, but on phones its intro and contact links fill the first
-  // screen. Take visitors straight to the form, and once scrolling settles give it a brief glow so
-  // it's clear where to start.
+  // The buttons link to the form. Scroll it in under the header, and once scrolling settles give it
+  // a brief glow so it's clear where to start.
   const formShell = document.querySelector<HTMLElement>('.form-shell');
 
   if (formShell) {
@@ -167,11 +158,14 @@ const socialIconFile = (icon: string) => (icon === 'tiktok' ? 'tiktok-dark' : ic
 </script>
 
 <style>
+  /* Stacks above the hero, so the form can rise into it (by --form-overlap, set in global.css). */
   .consultation {
+    --consultation-pad: clamp(4.25rem, 5vw, 5.5rem);
     background: #f7f4ed;
     color: #121820;
-    padding: clamp(4.25rem, 5vw, 5.5rem) 0;
-    scroll-margin-top: 90px;
+    padding: var(--consultation-pad) 0;
+    position: relative;
+    z-index: 2;
   }
 
   .container {
@@ -183,25 +177,16 @@ const socialIconFile = (icon: string) => (icon === 'tiktok' ? 'tiktok-dark' : ic
     align-items: start;
     display: grid;
     gap: clamp(2.25rem, 3.5vw, 4rem);
-    grid-template-columns: minmax(300px, 0.78fr) minmax(520px, 1.22fr);
+    grid-template-columns: minmax(300px, 1fr) clamp(480px, 38vw, 560px);
   }
 
   /* The copy stays pinned below the fixed header while the taller form scrolls past it. */
   .consultation-copy {
+    grid-column: 1;
+    grid-row: 1;
     padding-block: 1.5rem;
     position: sticky;
     top: 96px;
-  }
-
-  .eyebrow {
-    color: #b68a5e;
-    font:
-      700 0.7rem/1 Inter,
-      Arial,
-      sans-serif;
-    letter-spacing: 0.14em;
-    margin: 0 0 1.1rem;
-    text-transform: uppercase;
   }
 
   h2 {
@@ -353,29 +338,11 @@ const socialIconFile = (icon: string) => (icon === 'tiktok' ? 'tiktok-dark' : ic
       sans-serif;
   }
 
-  .form-visual {
-    border-radius: 20px;
-    min-height: 850px;
-    overflow: hidden;
-    padding: 3rem;
-    position: relative;
-  }
-
-  .form-visual > img,
-  .form-visual__wash {
-    inset: 0;
-    position: absolute;
-  }
-
-  .form-visual > img {
-    height: 100%;
-    object-fit: cover;
-    object-position: center 58%;
-    width: 100%;
-  }
-
-  .form-visual__wash {
-    background: linear-gradient(135deg, rgb(247 244 237 / 0.42), rgb(247 244 237 / 0.72));
+  /* No photo behind the form, so the hero video shows around it. */
+  .form-column {
+    grid-column: 2;
+    grid-row: 1;
+    margin-top: calc(-1 * (var(--form-overlap) + var(--consultation-pad)));
   }
 
   .form-shell {
@@ -413,8 +380,22 @@ const socialIconFile = (icon: string) => (icon === 'tiktok' ? 'tiktok-dark' : ic
   }
 
   @media (max-width: 1199px) {
+    .consultation {
+      padding-top: 0;
+    }
+
     .consultation-layout {
       grid-template-columns: 1fr;
+    }
+
+    .form-column,
+    .consultation-copy {
+      grid-column: auto;
+      grid-row: auto;
+    }
+
+    .form-column {
+      margin-top: calc(-1 * var(--form-overlap));
     }
 
     .consultation-copy {
@@ -434,15 +415,11 @@ const socialIconFile = (icon: string) => (icon === 'tiktok' ? 'tiktok-dark' : ic
       gap: 1.5rem 2rem;
       margin-top: 2.5rem;
     }
-
-    .form-visual {
-      min-height: 820px;
-    }
   }
 
   @media (max-width: 809px) {
     .consultation {
-      padding: 3.75rem 0;
+      padding-bottom: 3.75rem;
     }
 
     h2 {
@@ -451,13 +428,6 @@ const socialIconFile = (icon: string) => (icon === 'tiktok' ? 'tiktok-dark' : ic
 
     .contact-list {
       grid-template-columns: 1fr;
-    }
-
-    .form-visual {
-      border-radius: 18px;
-      margin-inline: -10px;
-      min-height: 800px;
-      padding: 1.25rem;
     }
   }
 </style>
